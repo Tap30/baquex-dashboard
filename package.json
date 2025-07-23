@@ -1,8 +1,10 @@
 {
-  "name": "cerberus-dashboard",
+  "name": "baquex-dashboard",
+  "description": "A modern boilerplate for dashboard web-apps.",
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "license": "MIT",
   "scripts": {
     "test": "vitest",
     "format:check": "prettier . --check --cache",
