@@ -1,5 +1,5 @@
 import type { MergeElementProps } from "@/types";
-import { cn, useControllableProp } from "@/utils";
+import { cn } from "@/utils";
 import { useEffect, useId, useState } from "react";
 import { Text, type TextProps } from "../Text/index.ts";
 import classes from "./styles.module.css";
@@ -118,10 +118,6 @@ export const TextInput: React.FC<TextInputProps> = props => {
     description,
     errorText,
     feedback,
-    value: valueProp,
-    defaultValue,
-    onChange,
-    onInput,
     type = "text",
     size = "md",
     autoFocus = false,
@@ -133,12 +129,6 @@ export const TextInput: React.FC<TextInputProps> = props => {
   } = props;
 
   const nodeId = useId();
-
-  const [value, setValue] = useControllableProp({
-    controlledPropValue: valueProp,
-    uncontrolledDefaultValueProp: defaultValue,
-    fallbackValue: "",
-  });
 
   const [refreshErrorAlert, setRefreshErrorAlert] = useState(false);
 
