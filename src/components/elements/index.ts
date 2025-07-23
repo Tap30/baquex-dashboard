@@ -5,4 +5,5 @@ export * from "./Icon.tsx";
 export * from "./IconButton/index.ts";
 export * from "./Spinner/index.ts";
 export * from "./Text/index.ts";
+export * from "./TextArea/index.ts";
 export * from "./TextInput/index.ts";
