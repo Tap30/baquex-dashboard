@@ -1,0 +1,30 @@
+.root {
+  --clickable-area-background: transparent;
+
+  all: unset;
+  cursor: pointer;
+
+  border-radius: var(--radius-lg);
+  background-color: var(--clickable-area-background);
+}
+
+.root:focus-visible {
+  outline-style: solid;
+  outline-width: var(--token-focus-ring-stroke);
+  outline-color: var(--token-focus-ring-color);
+  outline-offset: var(--token-focus-ring-offset);
+}
+
+.root.disabled {
+  pointer-events: none;
+}
+
+@media (hover: hover) {
+  .root:not(.disabled):hover {
+    --clickable-area-background: rgba(255, 255, 255, 0.12);
+  }
+}
+
+.root:not(.disabled):active {
+  --clickable-area-background: rgba(255, 255, 255, 0.06);
+}

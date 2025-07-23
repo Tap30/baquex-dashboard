@@ -1,0 +1,37 @@
+@import "tailwindcss";
+@import "./theme.css";
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  *:focus-visible,
+  :focus-visible {
+    outline-style: solid;
+    outline-width: var(--color-focus-ring-stroke);
+    outline-color: var(--color-focus-ring-color);
+    outline-offset: var(--token-focus-ring-offset);
+  }
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+
+  font-optical-sizing: auto;
+  font-style: normal;
+  font-size: var(--text-body1);
+  font-weight: var(--font-weight-body1);
+  line-height: var(--leading-body1);
+}
+
+[dir="rtl"] {
+  font-family: var(--font-rtl);
+}
+
+[dir="ltr"] {
+  font-family: var(--font-ltr);
+}

@@ -1,0 +1,378 @@
+.wrapper {
+  --button-color: transparent;
+  --button-background: transparent;
+  --button-border-color: transparent;
+  --button-height: 2rem;
+  --button-horizontal-padding: var(--spacing-sm);
+  --button-font-size: var(--text-body2);
+  --button-font-weight: 500;
+  --button-leading: var(--leading-body2);
+  --button-icon-size: 0.875rem;
+
+  position: relative;
+
+  display: inline-flex;
+  align-items: center;
+
+  border-radius: var(--radius-sm);
+}
+
+.focus-anchor {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+}
+
+.root {
+  position: relative;
+  overflow: hidden;
+
+  display: inline-flex;
+  align-items: center;
+
+  width: 100%;
+  height: var(--button-height);
+  box-shadow: 0 0 0 0.0625rem var(--button-border-color);
+  background-color: var(--button-background);
+
+  padding-inline: var(--button-horizontal-padding);
+  border-radius: inherit;
+
+  cursor: pointer;
+
+  color: var(--button-color);
+}
+
+:is(.root, .focus-anchor):focus-visible {
+  outline-style: solid;
+  outline-width: var(--token-focus-ring-stroke);
+  outline-color: var(--token-focus-ring-color);
+  outline-offset: var(--token-focus-ring-offset);
+}
+
+.root.disabled {
+  pointer-events: none;
+}
+
+.root.lg {
+  --button-height: 2.5rem;
+  --button-horizontal-padding: var(--spacing-sm);
+  --button-font-size: var(--text-body1);
+  --button-leading: var(--leading-body1);
+  --button-icon-size: 1.25rem;
+}
+
+.root.md {
+  --button-height: 2rem;
+  --button-horizontal-padding: var(--spacing-sm);
+  --button-font-size: var(--text-body2);
+  --button-leading: var(--leading-body2);
+  --button-icon-size: 1rem;
+}
+
+.root.sm {
+  --button-height: 1.5rem;
+  --button-horizontal-padding: var(--spacing-sm);
+  --button-font-size: var(--text-body2);
+  --button-leading: var(--leading-body2);
+  --button-icon-size: 0.875rem;
+}
+
+@media (hover: hover) {
+  .root.neutral.filled:not(.disabled):hover {
+    --button-background: var(--color-neutral-hover);
+  }
+
+  .root.brand.filled:not(.disabled):hover {
+    --button-background: var(--color-brand-hover);
+  }
+
+  .root.positive.filled:not(.disabled):hover {
+    --button-background: var(--color-positive-hover);
+  }
+
+  .root.negative.filled:not(.disabled):hover {
+    --button-background: var(--color-negative-hover);
+  }
+
+  .root.warn.filled:not(.disabled):hover {
+    --button-background: var(--color-warn-hover);
+  }
+
+  .root.info.filled:not(.disabled):hover {
+    --button-background: var(--color-info-hover);
+  }
+
+  .root.neutral.outlined:not(.disabled):hover {
+    --button-color: var(--color-neutral-text-secondary);
+    --button-border-color: var(--color-neutral-text-secondary);
+  }
+
+  .root.brand.outlined:not(.disabled):hover {
+    --button-color: var(--color-brand-text-secondary);
+    --button-border-color: var(--color-brand-text-secondary);
+  }
+
+  .root.positive.outlined:not(.disabled):hover {
+    --button-color: var(--color-positive-text-secondary);
+    --button-border-color: var(--color-positive-text-secondary);
+  }
+
+  .root.negative.outlined:not(.disabled):hover {
+    --button-color: var(--color-negative-text-secondary);
+    --button-border-color: var(--color-negative-text-secondary);
+  }
+
+  .root.warn.outlined:not(.disabled):hover {
+    --button-color: var(--color-warn-text-secondary);
+    --button-border-color: var(--color-warn-text-secondary);
+  }
+
+  .root.info.outlined:not(.disabled):hover {
+    --button-color: var(--color-info-text-secondary);
+    --button-border-color: var(--color-info-text-secondary);
+  }
+
+  .root.neutral.ghost:not(.disabled):hover {
+    --button-background: color-mix(
+      in oklab,
+      var(--color-neutral-500) 12.5%,
+      transparent
+    );
+  }
+
+  .root.brand.ghost:not(.disabled):hover {
+    --button-background: color-mix(
+      in oklab,
+      var(--color-brand-500) 12.5%,
+      transparent
+    );
+  }
+
+  .root.positive.ghost:not(.disabled):hover {
+    --button-background: color-mix(
+      in oklab,
+      var(--color-positive-500) 12.5%,
+      transparent
+    );
+  }
+
+  .root.negative.ghost:not(.disabled):hover {
+    --button-background: color-mix(
+      in oklab,
+      var(--color-negative-500) 12.5%,
+      transparent
+    );
+  }
+
+  .root.warn.ghost:not(.disabled):hover {
+    --button-background: color-mix(
+      in oklab,
+      var(--color-warn-500) 12.5%,
+      transparent
+    );
+  }
+
+  .root.info.ghost:not(.disabled):hover {
+    --button-background: color-mix(
+      in oklab,
+      var(--color-info-500) 12.5%,
+      transparent
+    );
+  }
+}
+
+.root.neutral.filled {
+  --button-color: var(--color-on-neutral);
+  --button-background: var(--color-neutral);
+}
+
+.root.neutral.filled:not(.disabled):active {
+  --button-background: var(--color-neutral-active);
+}
+
+.root.filled.disabled:is(.neutral, .brand, .positive, .negative, .warn, .info) {
+  opacity: 0.5;
+
+  --button-color: var(--color-neutral-text-tertiary);
+  --button-background: var(--color-neutral-muted);
+}
+
+.root.brand.filled {
+  --button-color: var(--color-on-brand);
+  --button-background: var(--color-brand);
+}
+
+.root.brand.filled:not(.disabled):active {
+  --button-background: var(--color-brand-active);
+}
+
+.root.brand.filled.disabled {
+  --button-color: var(--color-neutral-text-tertiary);
+  --button-background: var(--color-neutral-muted);
+}
+
+.root.positive.filled {
+  --button-color: var(--color-on-positive);
+  --button-background: var(--color-positive);
+}
+
+.root.positive.filled:not(.disabled):active {
+  --button-background: var(--color-positive-active);
+}
+
+.root.negative.filled {
+  --button-color: var(--color-on-negative);
+  --button-background: var(--color-negative);
+}
+
+.root.negative.filled:not(.disabled):active {
+  --button-background: var(--color-negative-active);
+}
+
+.root.warn.filled {
+  --button-color: var(--color-on-warn);
+  --button-background: var(--color-warn);
+}
+
+.root.warn.filled:not(.disabled):active {
+  --button-background: var(--color-warn-active);
+}
+
+.root.info.filled {
+  --button-color: var(--color-on-info);
+  --button-background: var(--color-info);
+}
+
+.root.info.filled:not(.disabled):active {
+  --button-background: var(--color-info-active);
+}
+
+.root.neutral.outlined {
+  --button-color: var(--color-neutral-text);
+  --button-border-color: var(--color-neutral-text);
+}
+
+.root.neutral.outlined:not(.disabled):active {
+  --button-color: var(--color-neutral-text-tertiary);
+  --button-border-color: var(--color-neutral-text-tertiary);
+}
+
+.root.outlined.disabled:is(
+    .neutral,
+    .brand,
+    .positive,
+    .negative,
+    .warn,
+    .info
+  ) {
+  opacity: 0.5;
+
+  --button-color: var(--color-neutral-text-tertiary);
+  --button-border-color: var(--color-neutral-text-tertiary);
+}
+
+.root.brand.outlined {
+  --button-color: var(--color-brand-text);
+  --button-border-color: var(--color-brand-text);
+}
+
+.root.brand.outlined:not(.disabled):active {
+  --button-color: var(--color-brand-text-tertiary);
+  --button-border-color: var(--color-brand-text-tertiary);
+}
+
+.root.positive.outlined {
+  --button-color: var(--color-positive-text);
+  --button-border-color: var(--color-positive-text);
+}
+
+.root.positive.outlined:not(.disabled):active {
+  --button-color: var(--color-positive-text-tertiary);
+  --button-border-color: var(--color-positive-text-tertiary);
+}
+
+.root.negative.outlined {
+  --button-color: var(--color-negative-text);
+  --button-border-color: var(--color-negative-text);
+}
+
+.root.negative.outlined:not(.disabled):active {
+  --button-color: var(--color-negative-text-tertiary);
+  --button-border-color: var(--color-negative-text-tertiary);
+}
+
+.root.warn.outlined {
+  --button-color: var(--color-warn-text);
+  --button-border-color: var(--color-warn-text);
+}
+
+.root.warn.outlined:not(.disabled):active {
+  --button-color: var(--color-warn-text-tertiary);
+  --button-border-color: var(--color-warn-text-tertiary);
+}
+
+.root.info.outlined {
+  --button-color: var(--color-info-text);
+  --button-border-color: var(--color-info-text);
+}
+
+.root.info.outlined:not(.disabled):active {
+  --button-color: var(--color-info-text-tertiary);
+  --button-border-color: var(--color-info-text-tertiary);
+}
+
+.root.neutral.ghost {
+  --button-color: var(--color-neutral-text);
+}
+
+.root.neutral.ghost:not(.disabled):active {
+  --button-color: var(--color-neutral-text-tertiary);
+}
+
+.root.ghost.disabled:is(.neutral, .brand, .positive, .negative, .warn, .info) {
+  opacity: 0.5;
+
+  --button-color: var(--color-neutral-text-tertiary);
+}
+
+.root.brand.ghost {
+  --button-color: var(--color-brand-text);
+}
+
+.root.brand.ghost:not(.disabled):active {
+  --button-color: var(--color-brand-text-tertiary);
+}
+
+.root.positive.ghost {
+  --button-color: var(--color-positive-text);
+}
+
+.root.positive.ghost:not(.disabled):active {
+  --button-color: var(--color-positive-text-tertiary);
+}
+
+.root.negative.ghost {
+  --button-color: var(--color-negative-text);
+}
+
+.root.negative.ghost:not(.disabled):active {
+  --button-color: var(--color-negative-text-tertiary);
+}
+
+.root.warn.ghost {
+  --button-color: var(--color-warn-text);
+}
+
+.root.warn.ghost:not(.disabled):active {
+  --button-color: var(--color-warn-text-tertiary);
+}
+
+.root.info.ghost {
+  --button-color: var(--color-info-text);
+}
+
+.root.info.ghost:not(.disabled):active {
+  --button-color: var(--color-info-text-tertiary);
+}

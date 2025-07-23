@@ -1,0 +1,183 @@
+.root {
+  display: inline-block;
+}
+
+.root.determinate {
+  transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.root.indeterminate {
+  animation: circular-rotate-animation 1.4s linear infinite;
+}
+
+.svg {
+  display: block;
+}
+
+.circle {
+  stroke: currentColor;
+}
+
+.root.determinate .circle {
+  transition: stroke-dashoffset 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.root.indeterminate .circle {
+  stroke-dasharray: 80px, 200px;
+  stroke-dashoffset: 0px;
+}
+
+.root.indeterminate.shrinkable .circle {
+  animation: circular-dash-animation 1.4s ease-in-out infinite;
+}
+
+.root.currentcolor {
+  color: currentColor;
+}
+
+.root.normal {
+  color: var(--color-neutral-text);
+}
+
+.root.secondary {
+  color: var(--color-neutral-text-secondary);
+}
+
+.root.tertiary {
+  color: var(--color-neutral-text-tertiary);
+}
+
+.root.muted {
+  color: var(--color-neutral-text-muted);
+}
+
+.root.brand {
+  color: var(--color-brand-text);
+}
+
+.root.brand-secondary {
+  color: var(--color-brand-text-secondary);
+}
+
+.root.brand-tertiary {
+  color: var(--color-brand-text-tertiary);
+}
+
+.root.brand-muted {
+  color: var(--color-brand-text-muted);
+}
+
+.root.positive {
+  color: var(--color-positive-text);
+}
+
+.root.positive-secondary {
+  color: var(--color-positive-text-secondary);
+}
+
+.root.positive-tertiary {
+  color: var(--color-positive-text-tertiary);
+}
+
+.root.positive-muted {
+  color: var(--color-positive-text-muted);
+}
+
+.root.negative {
+  color: var(--color-negative-text);
+}
+
+.root.negative-secondary {
+  color: var(--color-negative-text-secondary);
+}
+
+.root.negative-tertiary {
+  color: var(--color-negative-text-tertiary);
+}
+
+.root.negative-muted {
+  color: var(--color-negative-text-muted);
+}
+
+.root.warn {
+  color: var(--color-warn-text);
+}
+
+.root.warn-secondary {
+  color: var(--color-warn-text-secondary);
+}
+
+.root.warn-tertiary {
+  color: var(--color-warn-text-tertiary);
+}
+
+.root.warn-muted {
+  color: var(--color-warn-text-muted);
+}
+
+.root.info {
+  color: var(--color-info-text);
+}
+
+.root.info-secondary {
+  color: var(--color-info-text-secondary);
+}
+
+.root.info-tertiary {
+  color: var(--color-info-text-tertiary);
+}
+
+.root.info-muted {
+  color: var(--color-info-text-muted);
+}
+
+.root.on-neutral {
+  color: var(--color-neutral-text-on-neutral);
+}
+
+.root.on-brand {
+  color: var(--color-neutral-text-on-brand);
+}
+
+.root.on-positive {
+  color: var(--color-neutral-text-on-positive);
+}
+
+.root.on-negative {
+  color: var(--color-neutral-text-on-negative);
+}
+
+.root.on-warn {
+  color: var(--color-neutral-text-on-warn);
+}
+
+.root.on-info {
+  color: var(--color-neutral-text-on-info);
+}
+
+@keyframes circular-rotate-animation {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes circular-dash-animation {
+  0% {
+    stroke-dasharray: 1px, 200px;
+    stroke-dashoffset: 0;
+  }
+
+  50% {
+    stroke-dasharray: 100px, 200px;
+    stroke-dashoffset: -15px;
+  }
+
+  100% {
+    stroke-dasharray: 1px, 200px;
+    stroke-dashoffset: -126px;
+  }
+}

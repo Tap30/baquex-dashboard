@@ -1,0 +1,23 @@
+.root {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  width: var(--button-height);
+  padding: 0;
+
+  border-radius: var(--radius-full);
+}
+
+.icon {
+  width: var(--button-icon-size);
+  height: var(--button-icon-size);
+  max-width: var(--button-icon-size);
+  max-height: var(--button-icon-size);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}

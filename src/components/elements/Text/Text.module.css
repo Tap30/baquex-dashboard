@@ -1,0 +1,292 @@
+.root {
+  overflow: hidden;
+}
+
+a:where(.root) {
+  text-decoration: none;
+}
+
+p:where(.root),
+h1:where(.root),
+h2:where(.root),
+h3:where(.root),
+h4:where(.root),
+h5:where(.root),
+h6:where(.root) {
+  margin: unset;
+}
+
+.root.clip {
+  text-overflow: clip;
+}
+
+.root.ellipsis {
+  text-overflow: ellipsis;
+}
+
+.root.no-wrap {
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.root.left {
+  text-align: left;
+}
+
+.root.right {
+  text-align: right;
+}
+
+.root.center {
+  text-align: center;
+}
+
+.root.justify {
+  text-align: justify;
+}
+
+.root.start {
+  text-align: start;
+}
+
+.root.end {
+  text-align: end;
+}
+
+.root.weight-100 {
+  font-weight: 100;
+}
+
+.root.weight-200 {
+  font-weight: 200;
+}
+
+.root.weight-300 {
+  font-weight: 300;
+}
+
+.root.weight-400 {
+  font-weight: 400;
+}
+
+.root.weight-500 {
+  font-weight: 500;
+}
+
+.root.weight-600 {
+  font-weight: 600;
+}
+
+.root.weight-700 {
+  font-weight: 700;
+}
+
+.root.weight-800 {
+  font-weight: 800;
+}
+
+.root.weight-900 {
+  font-weight: 900;
+}
+
+.root.inline {
+  display: inline;
+}
+
+.root.block {
+  display: block;
+}
+
+.root.inline-block {
+  display: inline-block;
+}
+
+.root.h1 {
+  font-size: var(--text-h1);
+  font-weight: var(--font-weight-h1);
+  line-height: var(--leading-h1);
+}
+
+.root.h2 {
+  font-size: var(--text-h2);
+  font-weight: var(--font-weight-h2);
+  line-height: var(--leading-h2);
+}
+
+.root.h3 {
+  font-size: var(--text-h3);
+  font-weight: var(--font-weight-h3);
+  line-height: var(--leading-h3);
+}
+
+.root.h4 {
+  font-size: var(--text-h4);
+  font-weight: var(--font-weight-h4);
+  line-height: var(--leading-h4);
+}
+
+.root.h5 {
+  font-size: var(--text-h5);
+  font-weight: var(--font-weight-h5);
+  line-height: var(--leading-h5);
+}
+
+.root.h6 {
+  font-size: var(--text-h6);
+  font-weight: var(--font-weight-h6);
+  line-height: var(--leading-h6);
+}
+
+.root.subheading1 {
+  font-size: var(--text-subheading1);
+  font-weight: var(--font-weight-subheading1);
+  line-height: var(--leading-subheading1);
+}
+
+.root.subheading2 {
+  font-size: var(--text-subheading2);
+  font-weight: var(--font-weight-subheading2);
+  line-height: var(--leading-subheading2);
+}
+
+.root.body1 {
+  font-size: var(--text-body1);
+  font-weight: var(--font-weight-body1);
+  line-height: var(--leading-body1);
+}
+
+.root.body2 {
+  font-size: var(--text-body2);
+  font-weight: var(--font-weight-body2);
+  line-height: var(--leading-body2);
+}
+
+.root.caption {
+  font-size: var(--text-caption);
+  font-weight: var(--font-weight-caption);
+  line-height: var(--leading-caption);
+}
+
+.root.currentcolor {
+  color: currentColor;
+}
+
+.root.normal {
+  color: var(--color-neutral-text);
+}
+
+.root.secondary {
+  color: var(--color-neutral-text-secondary);
+}
+
+.root.tertiary {
+  color: var(--color-neutral-text-tertiary);
+}
+
+.root.muted {
+  color: var(--color-neutral-text-muted);
+}
+
+.root.brand {
+  color: var(--color-brand-text);
+}
+
+.root.brand-secondary {
+  color: var(--color-brand-text-secondary);
+}
+
+.root.brand-tertiary {
+  color: var(--color-brand-text-tertiary);
+}
+
+.root.brand-muted {
+  color: var(--color-brand-text-muted);
+}
+
+.root.positive {
+  color: var(--color-positive-text);
+}
+
+.root.positive-secondary {
+  color: var(--color-positive-text-secondary);
+}
+
+.root.positive-tertiary {
+  color: var(--color-positive-text-tertiary);
+}
+
+.root.positive-muted {
+  color: var(--color-positive-text-muted);
+}
+
+.root.negative {
+  color: var(--color-negative-text);
+}
+
+.root.negative-secondary {
+  color: var(--color-negative-text-secondary);
+}
+
+.root.negative-tertiary {
+  color: var(--color-negative-text-tertiary);
+}
+
+.root.negative-muted {
+  color: var(--color-negative-text-muted);
+}
+
+.root.warn {
+  color: var(--color-warn-text);
+}
+
+.root.warn-secondary {
+  color: var(--color-warn-text-secondary);
+}
+
+.root.warn-tertiary {
+  color: var(--color-warn-text-tertiary);
+}
+
+.root.warn-muted {
+  color: var(--color-warn-text-muted);
+}
+
+.root.info {
+  color: var(--color-info-text);
+}
+
+.root.info-secondary {
+  color: var(--color-info-text-secondary);
+}
+
+.root.info-tertiary {
+  color: var(--color-info-text-tertiary);
+}
+
+.root.info-muted {
+  color: var(--color-info-text-muted);
+}
+
+.root.on-neutral {
+  color: var(--color-neutral-text-on-neutral);
+}
+
+.root.on-brand {
+  color: var(--color-neutral-text-on-brand);
+}
+
+.root.on-positive {
+  color: var(--color-neutral-text-on-positive);
+}
+
+.root.on-negative {
+  color: var(--color-neutral-text-on-negative);
+}
+
+.root.on-warn {
+  color: var(--color-neutral-text-on-warn);
+}
+
+.root.on-info {
+  color: var(--color-neutral-text-on-info);
+}

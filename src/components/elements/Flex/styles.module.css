@@ -1,0 +1,10 @@
+.root {
+}
+
+.root.block {
+  display: flex;
+}
+
+.root.inline {
+  display: inline-flex;
+}

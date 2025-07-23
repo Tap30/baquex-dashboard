@@ -1,0 +1,135 @@
+.root {
+  user-select: none;
+  display: inline-block;
+  vertical-align: middle;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  text-decoration: none;
+}
+
+.root.currentcolor {
+  fill: currentColor;
+}
+
+.root.normal {
+  fill: var(--color-neutral-text);
+}
+
+.root.secondary {
+  fill: var(--color-neutral-text-secondary);
+}
+
+.root.tertiary {
+  fill: var(--color-neutral-text-tertiary);
+}
+
+.root.muted {
+  fill: var(--color-neutral-text-muted);
+}
+
+.root.brand {
+  fill: var(--color-brand-text);
+}
+
+.root.brand-secondary {
+  fill: var(--color-brand-text-secondary);
+}
+
+.root.brand-tertiary {
+  fill: var(--color-brand-text-tertiary);
+}
+
+.root.brand-muted {
+  fill: var(--color-brand-text-muted);
+}
+
+.root.positive {
+  fill: var(--color-positive-text);
+}
+
+.root.positive-secondary {
+  fill: var(--color-positive-text-secondary);
+}
+
+.root.positive-tertiary {
+  fill: var(--color-positive-text-tertiary);
+}
+
+.root.positive-muted {
+  fill: var(--color-positive-text-muted);
+}
+
+.root.negative {
+  fill: var(--color-negative-text);
+}
+
+.root.negative-secondary {
+  fill: var(--color-negative-text-secondary);
+}
+
+.root.negative-tertiary {
+  fill: var(--color-negative-text-tertiary);
+}
+
+.root.negative-muted {
+  fill: var(--color-negative-text-muted);
+}
+
+.root.warn {
+  fill: var(--color-warn-text);
+}
+
+.root.warn-secondary {
+  fill: var(--color-warn-text-secondary);
+}
+
+.root.warn-tertiary {
+  fill: var(--color-warn-text-tertiary);
+}
+
+.root.warn-muted {
+  fill: var(--color-warn-text-muted);
+}
+
+.root.info {
+  fill: var(--color-info-text);
+}
+
+.root.info-secondary {
+  fill: var(--color-info-text-secondary);
+}
+
+.root.info-tertiary {
+  fill: var(--color-info-text-tertiary);
+}
+
+.root.info-muted {
+  fill: var(--color-info-text-muted);
+}
+
+.root.on-neutral {
+  fill: var(--color-neutral-text-on-neutral);
+}
+
+.root.on-brand {
+  fill: var(--color-neutral-text-on-brand);
+}
+
+.root.on-positive {
+  fill: var(--color-neutral-text-on-positive);
+}
+
+.root.on-negative {
+  fill: var(--color-neutral-text-on-negative);
+}
+
+.root.on-warn {
+  fill: var(--color-neutral-text-on-warn);
+}
+
+.root.on-info {
+  fill: var(--color-neutral-text-on-info);
+}
