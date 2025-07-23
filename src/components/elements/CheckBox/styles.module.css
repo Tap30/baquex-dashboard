@@ -1,0 +1,95 @@
+.root {
+  --checkbox-color: transparent;
+  --checkbox-background: transparent;
+  --checkbox-border-color: transparent;
+  --checkbox-size: 0;
+
+  position: relative;
+  vertical-align: middle;
+  display: inline-flex;
+  flex-direction: column;
+}
+
+.root:not(.disabled) .input[data-state="unchecked"] {
+  --checkbox-border-color: var(--color-border-primary);
+}
+
+.root:not(.disabled) .input:not([data-state="unchecked"]) {
+  --checkbox-color: var(--color-on-neutral);
+  --checkbox-border-color: transparent;
+  --checkbox-background: var(--color-neutral);
+}
+
+.root.disabled .input {
+  --checkbox-color: var(--color-neutral-text-muted);
+  --checkbox-border-color: var(--color-border-secondary);
+  --checkbox-background: var(--color-surface-secondary);
+}
+
+.root:not(.disabled).has-error .input[data-state="unchecked"] {
+  --checkbox-border-color: var(--color-negative-text);
+}
+
+.root:not(.disabled).has-error .input:not([data-state="unchecked"]) {
+  --checkbox-color: var(--color-on-negative);
+  --checkbox-background: var(--color-negative);
+}
+
+.root.disabled .input {
+  opacity: 0.5;
+}
+
+.root.lg {
+  --checkbox-size: 1.25rem;
+}
+
+.root.md {
+  --checkbox-size: 1rem;
+}
+
+.root.sm {
+  --checkbox-size: 0.875rem;
+}
+
+.feedback {
+  margin-top: var(--spacing-sm);
+}
+
+.label + * {
+  margin-top: var(--spacing-md);
+}
+
+.description + * {
+  margin-top: var(--spacing-sm);
+}
+
+button.input:focus-visible {
+  outline-style: solid;
+  outline-width: var(--token-focus-ring-stroke);
+  outline-color: var(--token-focus-ring-color);
+  outline-offset: var(--token-focus-ring-offset);
+}
+
+.control {
+  vertical-align: middle;
+  display: inline-flex;
+  align-items: center;
+
+  gap: var(--spacing-md);
+}
+
+.input {
+  border-radius: var(--radius-sm);
+  box-shadow: 0 0 0 0.0625rem var(--checkbox-border-color);
+  background-color: var(--checkbox-background);
+  color: var(--checkbox-color);
+
+  width: var(--checkbox-size);
+  height: var(--checkbox-size);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+}
