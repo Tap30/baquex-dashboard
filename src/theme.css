@@ -208,8 +208,9 @@
   --color-foreground: var(--token-color-neutral-50);
   --color-background: var(--token-color-neutral-900);
 
-  --color-border-primary: var(--token-color-neutral-700);
-  --color-border-secondary: var(--token-color-neutral-800);
+  --color-border-primary: var(--token-color-neutral-600);
+  --color-border-secondary: var(--token-color-neutral-700);
+  --color-border-tertiary: var(--token-color-neutral-800);
 
   --color-neutral-text: var(--token-color-neutral-50);
   --color-neutral-text-secondary: var(--token-color-neutral-300);
