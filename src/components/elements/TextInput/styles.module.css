@@ -77,7 +77,7 @@
   outline-offset: var(--token-focus-ring-offset);
 }
 
-.control.disabled {
+.root.disabled .control {
   opacity: 0.5;
 }
 
