@@ -108,10 +108,10 @@ export const TextArea: React.FC<TextAreaProps> = props => {
 
   const [refreshErrorAlert, setRefreshErrorAlert] = useState(false);
 
-  const rootId = `TextInput:Root_${nodeId}`;
-  const labelId = `TextInput:Label_${nodeId}`;
-  const descId = `TextInput:Description_${nodeId}`;
-  const inputId = idProp ?? `TextInput:Input_${nodeId}`;
+  const rootId = `TextArea:Root_${nodeId}`;
+  const labelId = `TextArea:Label_${nodeId}`;
+  const descId = `TextArea:Description_${nodeId}`;
+  const inputId = idProp ?? `TextArea:Input_${nodeId}`;
 
   const feedbackOrErrorText = hasError && errorText ? errorText : feedback;
 
