@@ -48,7 +48,7 @@ export const SIDEBAR_ITEMS = [
     type: SidebarItemTypes.LEAF_NODE,
     title: str.dashboard,
     iconData: mdiGauge,
-    href: "",
+    href: "/",
   },
   {
     type: SidebarItemTypes.LEAF_NODE,
