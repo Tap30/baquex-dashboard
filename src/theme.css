@@ -286,7 +286,6 @@
   /* START: TYPOGRAPHY */
   --font-rtl: var(--token-typography-typeface-rtl);
   --font-ltr: var(--token-typography-typeface-ltr);
-  --font-mono: var(--token-typography-typeface-mono);
 
   --text-h1: var(--token-typography-h1-size);
   --font-weight-h1: var(--token-typography-h1-weight);
