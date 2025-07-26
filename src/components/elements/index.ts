@@ -1,3 +1,4 @@
+export * from "./Avatar/index.ts";
 export * from "./Breadcrumb/index.ts";
 export * from "./Button/index.ts";
 export * from "./CheckBox/index.ts";

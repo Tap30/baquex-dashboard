@@ -1,0 +1,54 @@
+.root {
+  --avatar-size: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: var(--avatar-size);
+  height: var(--avatar-size);
+
+  border-radius: var(--radius-full);
+}
+
+.root.lg {
+  --avatar-size: 2.5rem;
+}
+
+.root.md {
+  --avatar-size: 2rem;
+}
+
+.root.sm {
+  --avatar-size: 1.5rem;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+
+  border-radius: inherit;
+
+  vertical-align: middle;
+
+  aspect-ratio: 1;
+}
+
+.fallback {
+  width: 100%;
+  height: 100%;
+
+  border-radius: inherit;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  vertical-align: middle;
+  text-align: center;
+  font-size: var(--text-body2);
+  font-weight: var(--font-weight-body2);
+  line-height: var(--leading-body2);
+
+  background-color: var(--color-neutral-500);
+}
