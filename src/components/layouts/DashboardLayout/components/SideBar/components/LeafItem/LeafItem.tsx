@@ -24,6 +24,7 @@ export const LeafItem: React.FC<Props> = props => {
       variant="inline"
       alignItems="center"
       gap="sm"
+      data-item="leaf"
       className={cn(classes["root"], {
         [classes["active"]!]: isActive,
       })}

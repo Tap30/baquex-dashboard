@@ -32,6 +32,7 @@ export const ParentItem: React.FC<Props> = props => {
 
   return (
     <CollapsiblePrimitive.Root
+      data-item="parent"
       defaultOpen={isExpanded}
       className={classes["root"]}
     >

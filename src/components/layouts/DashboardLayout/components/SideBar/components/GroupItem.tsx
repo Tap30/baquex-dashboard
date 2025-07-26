@@ -43,6 +43,7 @@ export const GroupItem: React.FC<Props> = props => {
     <Flex
       role="group"
       direction="column"
+      data-item="group"
       aria-labelledby={labelId}
       gap="sm"
     >
