@@ -10,8 +10,6 @@ type Props = {
   className?: string;
 };
 
-console.log("here");
-
 export const Footer: React.FC<Props> = props => {
   const { className } = props;
 
