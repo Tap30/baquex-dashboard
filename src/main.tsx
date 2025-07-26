@@ -1,3 +1,4 @@
+import { DirectionProvider } from "@/contexts";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { App } from "./App.tsx";
@@ -11,6 +12,8 @@ if (!root) throw new Error("No root element found.");
 
 createRoot(root).render(
   <StrictMode>
-    <App />
+    <DirectionProvider>
+      <App />
+    </DirectionProvider>
   </StrictMode>,
 );
