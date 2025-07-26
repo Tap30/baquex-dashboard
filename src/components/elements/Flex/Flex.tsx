@@ -1,5 +1,5 @@
 import type {
-  MergeElementProps,
+  PolymorphicProps,
   PropValueWithBreakpoints,
   WithBaseProps,
 } from "@/types";
@@ -7,8 +7,8 @@ import { cn, generateTailwindClassesWithBreakpoints } from "@/utils";
 import * as React from "react";
 import classes from "./styles.module.css";
 
-export type FlexProps = MergeElementProps<
-  "div",
+export type FlexProps<E extends React.ElementType = "div"> = PolymorphicProps<
+  E,
   WithBaseProps<{
     /**
      * The variant of the flex-box.
@@ -63,8 +63,11 @@ export type FlexProps = MergeElementProps<
   }>
 >;
 
-export const Flex: React.FC<FlexProps> = props => {
+export const Flex = <E extends React.ElementType = "div">(
+  props: FlexProps<E>,
+) => {
   const {
+    as: Root = "div",
     className,
     children,
     wrapMode,
@@ -165,7 +168,7 @@ export const Flex: React.FC<FlexProps> = props => {
   );
 
   return (
-    <div
+    <Root
       {...otherProps}
       className={cn(
         className,
@@ -180,6 +183,6 @@ export const Flex: React.FC<FlexProps> = props => {
       )}
     >
       {children}
-    </div>
+    </Root>
   );
 };
