@@ -74,9 +74,9 @@
   --token-color-on-warn: var(--token-color-neutral-900);
   --token-color-on-info: var(--token-color-neutral-900);
 
-  --token-color-surface-base: var(--token-color-neutral-900);
-  --token-color-surface-secondary: var(--token-color-neutral-800);
-  --token-color-surface-tertiary: var(--token-color-neutral-700);
+  --token-color-surface-base: #0a0a0a;
+  --token-color-surface-secondary: #171717;
+  --token-color-surface-tertiary: #262626;
   /* END: COLORS */
   /* START: TYPOGRAPHY */
   --token-typography-typeface-rtl: "Vazirmatn";
