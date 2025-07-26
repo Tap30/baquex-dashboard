@@ -3,7 +3,7 @@ import {
   type SidebarItem as SidebarItemType,
 } from "@/constants";
 import { GroupItem } from "./GroupItem.tsx";
-import { LeafItem } from "./LeafItem/LeafItem.tsx";
+import { LeafItem } from "./LeafItem/index.ts";
 import { ParentItem } from "./ParentItem/index.ts";
 
 type Props = {

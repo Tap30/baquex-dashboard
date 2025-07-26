@@ -1,8 +1,8 @@
+import { Flex, Text } from "@/components";
 import { SidebarItemTypes, type SidebarGroupItem } from "@/constants";
 import { useId } from "react";
-import { Flex, Text } from "../../../../../elements/index.ts";
-import { LeafItem } from "./LeafItem/LeafItem.tsx";
-import { ParentItem } from "./ParentItem/ParentItem.tsx";
+import { LeafItem } from "./LeafItem/index.ts";
+import { ParentItem } from "./ParentItem/index.ts";
 
 type Props = {
   item: SidebarGroupItem;
