@@ -1,0 +1,8 @@
+.root {
+  --sidebar-active-item-background: var(--color-brand);
+  --sidebar-active-item-background-hover: var(--color-brand-hover);
+  --sidebar-active-item-color: var(--color-on-brand);
+  --sidebar-item-background: transparent;
+  --sidebar-item-background-hover: var(--color-neutral-muted);
+  --sidebar-item-color: var(--color-neutral-text);
+}
