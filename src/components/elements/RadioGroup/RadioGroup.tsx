@@ -36,6 +36,12 @@ export type RadioGroupProps = Omit<
       defaultValue?: string;
 
       /**
+       * When `true`, indicates that the user must check a radio item before the
+       * owning form can be submitted.
+       */
+      required?: boolean;
+
+      /**
        * The orientation of the component.
        *
        * @default "vertical"

@@ -24,6 +24,12 @@ export type CheckBoxProps = Omit<
       defaultChecked?: CheckboxPrimitive.CheckedState;
 
       /**
+       * When `true`, indicates that the user must check the checkbox before the
+       * owning form can be submitted.
+       */
+      required?: boolean;
+
+      /**
        * The value given as data when submitted with a `name`.
        */
       value?: string;
