@@ -2,17 +2,17 @@
   overflow: hidden;
 }
 
-a:where(.root) {
+a.root {
   text-decoration: none;
 }
 
-p:where(.root),
-h1:where(.root),
-h2:where(.root),
-h3:where(.root),
-h4:where(.root),
-h5:where(.root),
-h6:where(.root) {
+p.root,
+h1.root,
+h2.root,
+h3.root,
+h4.root,
+h5.root,
+h6.root {
   margin: unset;
 }
 
