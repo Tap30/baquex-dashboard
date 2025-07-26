@@ -2,12 +2,18 @@ import { DEFAULT_LANGUAGE, Languages } from "@/constants";
 import Localization from "react-localization";
 
 type GlobalStrings = {
+  logoutButton: string;
   login: {
     title: string;
   };
   components: {
     button: {
       pending: string;
+    };
+  };
+  pages: {
+    settings: {
+      title: string;
     };
   };
   sidebar: {
@@ -36,6 +42,7 @@ type GlobalStrings = {
 
 export const strings = new Localization<GlobalStrings>({
   [Languages.EN]: {
+    logoutButton: "Logout",
     breadcrumb: "Breadcrumb",
     navButton: {
       close: "Close navigation menu",
@@ -47,6 +54,11 @@ export const strings = new Localization<GlobalStrings>({
     components: {
       button: {
         pending: "Pending",
+      },
+    },
+    pages: {
+      settings: {
+        title: "Settings",
       },
     },
     sidebar: {
@@ -68,6 +80,7 @@ export const strings = new Localization<GlobalStrings>({
     },
   },
   [Languages.FA]: {
+    logoutButton: "خروج",
     breadcrumb: "نقشه صفحات",
     navButton: {
       close: "بستن نقشه اصلی",
@@ -79,6 +92,11 @@ export const strings = new Localization<GlobalStrings>({
     components: {
       button: {
         pending: "در حال بررسی",
+      },
+    },
+    pages: {
+      settings: {
+        title: "تنظیمات",
       },
     },
     sidebar: {
