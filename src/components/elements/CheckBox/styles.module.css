@@ -93,3 +93,9 @@ button.input:focus-visible {
 
   cursor: pointer;
 }
+
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
