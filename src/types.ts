@@ -31,6 +31,10 @@ export type WithBaseProps<P extends object> = P & {
   className?: string;
 };
 
+export type WithRef<P extends object, E extends React.ElementType> = P & {
+  ref?: React.ComponentPropsWithRef<E>["ref"];
+};
+
 export type BreakpointStops = "xs" | "sm" | "md" | "lg" | "xl" | "fallback";
 
 export type ExcludeUndefined<T> = Exclude<T, undefined>;
