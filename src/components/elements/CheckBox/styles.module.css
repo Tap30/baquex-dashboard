@@ -55,14 +55,6 @@
   margin-top: var(--spacing-sm);
 }
 
-.label + * {
-  margin-top: var(--spacing-md);
-}
-
-.description + * {
-  margin-top: var(--spacing-sm);
-}
-
 button.input:focus-visible {
   outline-style: solid;
   outline-width: var(--token-focus-ring-stroke);
