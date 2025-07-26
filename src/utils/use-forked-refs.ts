@@ -1,11 +1,5 @@
 import { useCallback } from "react";
-
-const setRef = <T>(ref: React.Ref<T>, instance: T | null) => {
-  if (typeof ref === "function") ref(instance);
-  else if (ref && typeof ref === "object" && "current" in ref) {
-    ref.current = instance;
-  }
-};
+import { handleRef } from "./handle-ref.ts";
 
 export const useForkedRefs = <T>(
   ...refs: (React.Ref<T> | undefined)[]
@@ -15,7 +9,7 @@ export const useForkedRefs = <T>(
       refs.forEach(ref => {
         if (!ref) return;
 
-        setRef(ref, instance);
+        handleRef(ref, instance);
       });
     },
     [refs],
