@@ -4,7 +4,7 @@ import { SIDEBAR_ITEMS } from "@/constants";
 import { strings } from "@/static-content";
 import { cn } from "@/utils";
 import { memo } from "react";
-import { Item } from "./components/index.ts";
+import { Footer, Item } from "./components/index.ts";
 import classes from "./styles.module.css";
 
 type Props = {
@@ -40,7 +40,12 @@ const SidebarBase: React.FC<Props> = props => {
           src={logoSvg}
           alt="Logo"
         />
-        <Text variant="h6">baquex</Text>
+        <Text
+          variant="h6"
+          weight={700}
+        >
+          baquex
+        </Text>
       </Flex>
       <nav
         className={classes["nav"]}
@@ -54,6 +59,7 @@ const SidebarBase: React.FC<Props> = props => {
           {renderItems()}
         </Flex>
       </nav>
+      <Footer className={classes["footer"]} />
     </aside>
   );
 };
