@@ -1,0 +1,11 @@
+.root {
+  padding: var(--spacing-md);
+  border-radius: var(--radius-lg);
+  background-color: var(--color-surface-secondary);
+  box-shadow: 0 0 0 1px var(--color-border-tertiary);
+}
+
+.heading {
+  display: flex;
+  align-items: center;
+}
