@@ -21,7 +21,6 @@ export const LeafItem: React.FC<Props> = props => {
       as={Link}
       to={href}
       aria-current={isActive ? "page" : undefined}
-      variant="inline"
       alignItems="center"
       gap="sm"
       data-item="leaf"

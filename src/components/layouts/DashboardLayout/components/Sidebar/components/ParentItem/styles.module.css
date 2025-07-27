@@ -3,7 +3,6 @@
 
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
 
   gap: var(--spacing-sm);
 }
@@ -22,7 +21,7 @@
   background-color: var(--sidebar-item-background);
   color: var(--sidebar-item-color);
 
-  display: inline-flex;
+  display: flex;
   align-items: center;
 
   cursor: pointer;
@@ -58,13 +57,14 @@ button.trigger:focus-visible {
 }
 
 .title + svg {
+  margin-inline-start: auto;
+
   transform: rotate(var(--sidebar-item-chevron-rotate));
   transition: transform 160ms ease;
 }
 
 .content {
   display: flex;
-  align-items: flex-start;
   flex-direction: column;
 
   padding-inline-start: var(--spacing-md);

@@ -56,7 +56,6 @@ export const GroupItem: React.FC<Props> = props => {
       </Text>
       <Flex
         direction="column"
-        alignItems="start"
         gap="sm"
       >
         {renderItems()}

@@ -54,7 +54,6 @@ const SidebarBase: React.FC<Props> = props => {
         <Flex
           direction="column"
           gap="sm"
-          alignItems="start"
         >
           {renderItems()}
         </Flex>
