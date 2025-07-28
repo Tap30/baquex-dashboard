@@ -4,6 +4,7 @@ import Localization from "react-localization";
 type GlobalStrings = {
   logoutButton: string;
   clearValue: string;
+  close: string;
   sorting: {
     ascending: string;
     descending: string;
@@ -62,6 +63,7 @@ type GlobalStrings = {
 export const strings = new Localization<GlobalStrings>({
   [Languages.EN]: {
     logoutButton: "Logout",
+    close: "Close",
     clearValue: "Clear value",
     breadcrumb: "Breadcrumb",
     sorting: {
@@ -120,6 +122,7 @@ export const strings = new Localization<GlobalStrings>({
   [Languages.FA]: {
     logoutButton: "خروج",
     clearValue: "حذف مقدار",
+    close: "بستن",
     breadcrumb: "نقشه صفحات",
     sorting: {
       ascending: "مرتب‌سازی صعودی",
