@@ -1,3 +1,4 @@
+import { PortalConfigProvider, Toaster } from "@/components";
 import { DirectionProvider } from "@/contexts";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
@@ -13,7 +14,10 @@ if (!root) throw new Error("No root element found.");
 createRoot(root).render(
   <StrictMode>
     <DirectionProvider>
-      <App />
+      <PortalConfigProvider>
+        <App />
+        <Toaster />
+      </PortalConfigProvider>
     </DirectionProvider>
   </StrictMode>,
 );
