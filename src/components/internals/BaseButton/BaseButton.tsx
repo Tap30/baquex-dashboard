@@ -76,7 +76,7 @@ export const BaseButton: React.FC<BaseButtonProps> = (
     children,
     className,
     style,
-    color = "brand",
+    color = "neutral",
     disabled = false,
     pending = false,
     size = "md",
