@@ -1,0 +1,19 @@
+.icon-container {
+    display: flex;
+    cursor: default;
+    align-items: center;
+    justify-content: center;
+    width: var(1rem) !important;
+    height: var(1rem) !important;
+}
+
+
+.icon {
+    width: var(1rem) !important;
+    height: var(1rem) !important;
+    background: blue;
+}
+
+.content {
+    background: red;
+}

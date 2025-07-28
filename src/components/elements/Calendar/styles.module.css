@@ -1,0 +1,103 @@
+.root {
+  width: fit-content;
+  background: var(--color-background);
+  border-radius: var(--radius-md);
+}
+
+.months {
+  /* background: red; */
+}
+
+.month {
+  /* background: blue; */
+}
+.nav {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.month-caption {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.today {
+  color: var(--color-brand-text-secondary);
+}
+.day {
+  flex: 1;
+}
+
+.weekdays {
+  display: flex;
+  color: var(--color-gray-400);
+  gap: var(--spacing-xxs);
+}
+.weekday {
+  flex: 1;
+  user-select: none;
+}
+.week {
+  display: flex;
+  width: 100%;
+  margin-top: var(--spacing-xxs);
+  gap: var(--spacing-xxs);
+}
+.week-number-header {
+  user-select: none;
+  flex: 1;
+}
+.week-number {
+  color: var(--color-gray-400);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: var(--cell-size);
+  height: var(--cell-size);
+}
+
+.selected {
+  background: var(--color-foreground);
+  color: var(--color-background);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.range-start {
+  background: var(--color-white);
+  color: var(--color-black);
+  /* border-radius: 0  var(--radius-sm) var(--radius-sm) 0; */
+  border-radius: var(--radius-sm);
+}
+.range-middle {
+  background: var(--color-surface-secondary);
+  border-radius: var(--radius-sm);
+}
+.range-end {
+  background: var(--color-white);
+  color: var(--color-black);
+  border-radius: var(--radius-sm);
+  /* border-radius:  var(--radius-sm) 0 0 var(--radius-sm); */
+}
+
+.outside {
+  color: var(--color-gray-600);
+}
+
+.day-button {
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  width: var(--rdp-day_button-width);
+  height: var(--rdp-day_button-height);
+}

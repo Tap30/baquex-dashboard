@@ -9,6 +9,10 @@ type GlobalStrings = {
     button: {
       pending: string;
     };
+    calendar: {
+      nextMonth: string;
+      previousMonth: string;
+    };
   };
 };
 
@@ -21,6 +25,10 @@ export const strings = new Localization<GlobalStrings>({
       button: {
         pending: "Pending",
       },
+      calendar: {
+        nextMonth: "Next Month",
+        previousMonth: "Previous Month",
+      },
     },
   },
   [Languages.FA]: {
@@ -30,6 +38,10 @@ export const strings = new Localization<GlobalStrings>({
     components: {
       button: {
         pending: "در حال بررسی",
+      },
+      calendar: {
+        nextMonth: "ماه بعد",
+        previousMonth: "ماه قبل",
       },
     },
   },
