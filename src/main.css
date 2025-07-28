@@ -28,9 +28,9 @@ body {
 }
 
 [dir="rtl"] {
-  font-family: var(--font-rtl);
+  font-family: var(--font-rtl) !important;
 }
 
 [dir="ltr"] {
-  font-family: var(--font-ltr);
+  font-family: var(--font-ltr) !important;
 }
