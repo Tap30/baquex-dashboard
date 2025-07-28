@@ -1,9 +1,8 @@
 import { useIsomorphicValue } from "@/utils";
 import { createPortal } from "react-dom";
-import { PORTAL_DESTINATION_ID } from "./constants.ts";
 import { usePortalConfig } from "./context/index.ts";
 
-export type Props = {
+export type PortalProps = {
   /**
    * A function that will resolve the container element for the portal.
    * If not provided will opt-in `PortalConfigProvider` configuration as default behavior.
@@ -25,15 +24,12 @@ export type Props = {
   disabled?: boolean;
 };
 
-const Portal = (props: Props) => {
+const Portal: React.FC<PortalProps> = props => {
   const { resolveContainer, children, disabled = false } = props;
 
   const portalConfig = usePortalConfig();
 
-  const containerResolver =
-    resolveContainer ??
-    portalConfig?.resolveContainer ??
-    (() => document.getElementById(PORTAL_DESTINATION_ID) ?? document.body);
+  const containerResolver = resolveContainer ?? portalConfig.resolveContainer;
 
   const container = useIsomorphicValue(containerResolver, null);
 

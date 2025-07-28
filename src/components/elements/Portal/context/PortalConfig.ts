@@ -6,7 +6,7 @@ export type PortalConfigValue = {
    *
    * Please note that this function is only called on the client-side.
    */
-  resolveContainer?: () => HTMLElement | null;
+  resolveContainer: () => HTMLElement | null;
 };
 
 export const PortalConfig = React.createContext<PortalConfigValue | null>(null);
