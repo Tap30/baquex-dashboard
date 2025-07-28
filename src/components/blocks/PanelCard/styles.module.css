@@ -8,4 +8,6 @@
 .heading {
   display: flex;
   align-items: center;
+
+  margin-bottom: var(--spacing-md);
 }

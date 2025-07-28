@@ -5,8 +5,19 @@ import { useId } from "react";
 import classes from "./styles.module.css";
 
 export type PanelCardProps = WithBaseProps<{
+  /**
+   * The title of the panel.
+   */
   title: string;
-  subtitle: string;
+
+  /**
+   * The subtitle of the panel.
+   */
+  subtitle?: string;
+
+  /**
+   * The slot to extend heading part.
+   */
   headingSlot?: React.ReactNode;
 }>;
 
