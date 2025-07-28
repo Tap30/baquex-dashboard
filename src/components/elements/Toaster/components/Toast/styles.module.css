@@ -1,8 +1,84 @@
 .root {
+  --toast-background: transparent;
+  --toast-border-color: transparent;
+  --toast-title-color: transparent;
+  --toast-description-color: transparent;
+
+  background-color: var(--toast-background);
+  box-shadow: 0 0 0 1px var(--toast-border-color);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-sm);
+  padding-inline-start: var(--spacing-md);
+  width: 20rem;
+  gap: var(--spacing-sm);
+
   display: flex;
-  align-items: center;
+  flex-direction: column;
 }
 
-.button {
+.root.neutral {
+  --toast-background: var(--color-surface-tertiary);
+  --toast-border-color: var(--color-border-secondary);
+  --toast-title-color: var(--color-neutral-text);
+  --toast-description-color: var(--color-neutral-text-secondary);
+}
+
+.root.brand {
+  --toast-background: color-mix(
+    in oklab,
+    var(--color-brand) 12.5%,
+    transparent
+  );
+  --toast-border-color: var(--color-brand);
+  --toast-title-color: var(--color-neutral-text);
+  --toast-description-color: var(--color-neutral-text-secondary);
+}
+
+.root.positive {
+  --toast-background: color-mix(
+    in oklab,
+    var(--color-positive) 12.5%,
+    transparent
+  );
+  --toast-border-color: var(--color-positive);
+  --toast-title-color: var(--color-neutral-text);
+  --toast-description-color: var(--color-neutral-text-secondary);
+}
+
+.root.negative {
+  --toast-background: color-mix(
+    in oklab,
+    var(--color-negative) 12.5%,
+    transparent
+  );
+  --toast-border-color: var(--color-negative);
+  --toast-title-color: var(--color-neutral-text);
+  --toast-description-color: var(--color-neutral-text-secondary);
+}
+
+.root.info {
+  --toast-background: color-mix(in oklab, var(--color-info) 12.5%, transparent);
+  --toast-border-color: var(--color-info);
+  --toast-title-color: var(--color-neutral-text);
+  --toast-description-color: var(--color-neutral-text-secondary);
+}
+
+.root.warn {
+  --toast-background: color-mix(in oklab, var(--color-warn) 12.5%, transparent);
+  --toast-border-color: var(--color-warn);
+  --toast-title-color: var(--color-neutral-text);
+  --toast-description-color: var(--color-neutral-text-secondary);
+}
+
+strong.title.title {
+  color: var(--toast-title-color);
+}
+
+p.description.description {
+  color: var(--toast-description-color);
+}
+
+.actions {
   margin-inline-start: auto;
+  flex-shrink: 0;
 }

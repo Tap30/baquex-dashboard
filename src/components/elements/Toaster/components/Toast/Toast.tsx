@@ -1,4 +1,8 @@
-import { Button, Flex, Text } from "@/components";
+import { Button, Flex, Icon, IconButton, Text } from "@/components";
+import { strings } from "@/static-content";
+import { cn } from "@/utils";
+import { mdiClose } from "@mdi/js";
+import { useCallback } from "react";
 import { toast as sonnerToast } from "sonner";
 import classes from "./styles.module.css";
 
@@ -23,18 +27,28 @@ export type ToastProps = {
    */
   button?: {
     label: string;
-    onClick: React.MouseEventHandler;
+    onClick: (ctx: { id: string | number; dismiss: () => void }) => void;
   };
+
+  /**
+   * The color scheme of the toast.
+   *
+   * @default "neutral"
+   */
+  color?: "neutral" | "brand" | "positive" | "negative" | "warn" | "info";
 };
 
 export const Toast: React.FC<ToastProps> = props => {
-  const { id, title, description, button } = props;
+  const { id, title, description, button, color = "neutral" } = props;
 
-  const handleClick: React.MouseEventHandler = event => {
+  const dismiss = useCallback(() => {
+    sonnerToast.dismiss(id);
+  }, [id]);
+
+  const handleActionClick = () => {
     if (!button) return;
 
-    button.onClick(event);
-    sonnerToast.dismiss(id);
+    button.onClick({ id, dismiss });
   };
 
   const renderButton = () => {
@@ -42,10 +56,10 @@ export const Toast: React.FC<ToastProps> = props => {
 
     return (
       <Button
-        className={classes["button"]}
         text={button.label}
-        onClick={handleClick}
+        onClick={handleActionClick}
         variant="ghost"
+        size="sm"
       />
     );
   };
@@ -57,6 +71,7 @@ export const Toast: React.FC<ToastProps> = props => {
       <Text
         variant="body2"
         as="p"
+        className={classes["description"]}
       >
         {description}
       </Text>
@@ -64,21 +79,33 @@ export const Toast: React.FC<ToastProps> = props => {
   };
 
   return (
-    <div className={classes["root"]}>
-      <Flex
-        alignItems="start"
-        direction="column"
-        gap="sm"
-      >
+    <div className={cn(classes["root"], classes[color])}>
+      <Flex alignItems="start">
         <Text
           variant="subheading2"
           as="strong"
+          className={classes["title"]}
         >
           {title}
         </Text>
-        {renderDescription()}
+        <Flex
+          alignItems="center"
+          gap="xs"
+          className={classes["actions"]}
+        >
+          {renderButton()}
+          {
+            <IconButton
+              aria-label={strings.close}
+              icon={<Icon data={mdiClose} />}
+              variant="ghost"
+              size="sm"
+              onClick={dismiss}
+            />
+          }
+        </Flex>
       </Flex>
-      {renderButton()}
+      {renderDescription()}
     </div>
   );
 };
