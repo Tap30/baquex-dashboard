@@ -18,7 +18,7 @@
 }
 
 .root.disabled {
-  --textarea-color: var(--color-neutral-text-muted);
+  --textarea-color: var(--color-neutral);
   --textarea-border-color: var(--color-border-secondary);
   --textarea-background: var(--color-surface-secondary);
 }
@@ -70,6 +70,7 @@
 
 .input {
   font-size: var(--textarea-font-size);
+  color: var(--textarea-color);
 
   border-radius: var(--radius-sm);
   box-shadow: 0 0 0 0.0625rem var(--textarea-border-color);
