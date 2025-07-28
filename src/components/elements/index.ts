@@ -11,6 +11,7 @@ export * from "./Icon.tsx";
 export * from "./IconButton/index.ts";
 export * from "./Paginator/index.ts";
 export * from "./RadioGroup/index.ts";
+export * from "./Skeleton/index.ts";
 export * from "./Spinner/index.ts";
 export * from "./Switch/index.ts";
 export * from "./Text/index.ts";
