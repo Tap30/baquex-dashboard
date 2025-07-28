@@ -116,6 +116,7 @@ export const FileInput: React.FC<FileInputProps> = props => {
     feedback,
     placeholder,
     size = "md",
+    multiple = false,
     autoFocus = false,
     hasError = false,
     hideLabel = false,
@@ -172,11 +173,8 @@ export const FileInput: React.FC<FileInputProps> = props => {
       input.value = "";
       input.files = null;
 
-      input.dispatchEvent(
-        new Event("change", {
-          bubbles: true,
-        }),
-      );
+      input.dispatchEvent(new Event("change", { bubbles: true }));
+      input.dispatchEvent(new Event("input", { bubbles: true }));
     }
 
     setSelectedFiles([]);
@@ -194,6 +192,32 @@ export const FileInput: React.FC<FileInputProps> = props => {
     if (disabled || readOnly) return;
 
     inputRef.current?.click();
+  };
+
+  const preventDragInteraction: React.DragEventHandler = event => {
+    event.preventDefault();
+    event.stopPropagation();
+  };
+
+  const handleDrop: React.DragEventHandler = event => {
+    event.preventDefault();
+    event.stopPropagation();
+
+    if (!event.dataTransfer) return;
+
+    const files = event.dataTransfer.files;
+
+    if (!files || files.length === 0) return;
+    if (!multiple && files.length > 1) return;
+
+    const input = inputRef.current;
+
+    if (!input) return;
+
+    input.files = files;
+
+    input.dispatchEvent(new Event("change", { bubbles: true }));
+    input.dispatchEvent(new Event("input", { bubbles: true }));
   };
 
   const renderLabel = () => {
@@ -325,6 +349,9 @@ export const FileInput: React.FC<FileInputProps> = props => {
         tabIndex={-1}
         onClick={handleClick}
         inert={disabled}
+        onDragOver={preventDragInteraction}
+        onDragEnd={preventDragInteraction}
+        onDrop={handleDrop}
       >
         {renderStartSlot()}
         <div
@@ -337,10 +364,10 @@ export const FileInput: React.FC<FileInputProps> = props => {
         <input
           {...otherProps}
           ref={handleRef}
-          multiple
           type="file"
           autoFocus={autoFocus}
           id={inputId}
+          multiple={multiple}
           readOnly={readOnly}
           disabled={disabled}
           inert={disabled}
