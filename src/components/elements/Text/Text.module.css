@@ -54,39 +54,39 @@ h6.root {
 }
 
 .root.weight-100 {
-  font-weight: 100;
+  font-weight: 100 !important;
 }
 
 .root.weight-200 {
-  font-weight: 200;
+  font-weight: 200 !important;
 }
 
 .root.weight-300 {
-  font-weight: 300;
+  font-weight: 300 !important;
 }
 
 .root.weight-400 {
-  font-weight: 400;
+  font-weight: 400 !important;
 }
 
 .root.weight-500 {
-  font-weight: 500;
+  font-weight: 500 !important;
 }
 
 .root.weight-600 {
-  font-weight: 600;
+  font-weight: 600 !important;
 }
 
 .root.weight-700 {
-  font-weight: 700;
+  font-weight: 700 !important;
 }
 
 .root.weight-800 {
-  font-weight: 800;
+  font-weight: 800 !important;
 }
 
 .root.weight-900 {
-  font-weight: 900;
+  font-weight: 900 !important;
 }
 
 .root.inline {
