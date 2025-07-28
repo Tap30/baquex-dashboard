@@ -1,5 +1,6 @@
 import { Avatar, Flex, FlexItem, Icon, IconButton, Text } from "@/components";
 import { SETTINGS_PATH } from "@/constants";
+import { useAuth } from "@/contexts";
 import { strings } from "@/static-content";
 import { cn } from "@/utils";
 import { mdiCogs, mdiLogout } from "@mdi/js";
@@ -14,6 +15,7 @@ export const Footer: React.FC<Props> = props => {
   const { className } = props;
 
   const { pathname } = useLocation();
+  const { logout } = useAuth();
 
   const username = "mostafa.shamsitabar";
   const displayName = "مصطفی شمسی‌تبار";
@@ -26,7 +28,6 @@ export const Footer: React.FC<Props> = props => {
   return (
     <footer className={cn(classes["root"], className)}>
       <Flex
-        variant="inline"
         as={Link}
         gap="sm"
         to={"/"}
@@ -71,6 +72,7 @@ export const Footer: React.FC<Props> = props => {
             icon={<Icon data={mdiLogout} />}
             color="neutral"
             variant="ghost"
+            onClick={() => void logout()}
           />
         </FlexItem>
       </Flex>
