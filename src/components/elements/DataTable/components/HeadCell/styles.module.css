@@ -1,0 +1,33 @@
+.root {
+  padding: var(--spacing-sm);
+  text-align: start;
+}
+
+.button:focus-visible .content[data-state="unsorted"] > svg {
+  visibility: visible;
+  opacity: 0.5;
+}
+
+@media (hover: hover) {
+  .button:hover .content[data-state="unsorted"] > svg {
+    visibility: visible;
+    opacity: 0.5;
+  }
+}
+
+.content {
+  padding-top: var(--spacing-xs);
+  padding-bottom: var(--spacing-xs);
+  padding-inline-start: var(--spacing-sm);
+  padding-inline-end: var(--spacing-xs);
+}
+
+.content[data-state="unsorted"] > svg {
+  visibility: hidden;
+  opacity: 0;
+}
+
+.content[data-state="sorted"] > svg {
+  visibility: visible;
+  opacity: 1;
+}

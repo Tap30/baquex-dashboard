@@ -3,12 +3,27 @@ import Localization from "react-localization";
 
 type GlobalStrings = {
   logoutButton: string;
+  sorting: {
+    ascending: string;
+    descending: string;
+    clear: string;
+  };
+  emptyStatement: {
+    table: string;
+  };
   login: {
     title: string;
   };
   components: {
     button: {
       pending: string;
+    };
+    paginator: {
+      nextPage: string;
+      prevPage: string;
+      next5Pages: string;
+      prev5Pages: string;
+      goToPage: string;
     };
   };
   pages: {
@@ -44,6 +59,14 @@ export const strings = new Localization<GlobalStrings>({
   [Languages.EN]: {
     logoutButton: "Logout",
     breadcrumb: "Breadcrumb",
+    sorting: {
+      ascending: "Sort ascending",
+      descending: "Sort descending",
+      clear: "Clear sort",
+    },
+    emptyStatement: {
+      table: "No data found.",
+    },
     navButton: {
       close: "Close navigation menu",
       open: "Open navigation menu",
@@ -54,6 +77,13 @@ export const strings = new Localization<GlobalStrings>({
     components: {
       button: {
         pending: "Pending",
+      },
+      paginator: {
+        nextPage: "Go to the next page",
+        prevPage: "Go to the previous page",
+        next5Pages: "Go to the next 5 pages",
+        prev5Pages: "Go to the previous 5 pages",
+        goToPage: "Go to the page {0}",
       },
     },
     pages: {
@@ -82,6 +112,14 @@ export const strings = new Localization<GlobalStrings>({
   [Languages.FA]: {
     logoutButton: "خروج",
     breadcrumb: "نقشه صفحات",
+    sorting: {
+      ascending: "مرتب‌سازی صعودی",
+      descending: "مرتب‌سازی نزولی",
+      clear: "حذف مرتب‌سازی",
+    },
+    emptyStatement: {
+      table: "هیچ داده‌ای یافت نشد.",
+    },
     navButton: {
       close: "بستن نقشه اصلی",
       open: "باز کردن نقشه اصلی",
@@ -92,6 +130,13 @@ export const strings = new Localization<GlobalStrings>({
     components: {
       button: {
         pending: "در حال بررسی",
+      },
+      paginator: {
+        nextPage: "صفحه بعدی",
+        prevPage: "صفحه قبلی",
+        next5Pages: "برو به پنج صفحه بعدی",
+        prev5Pages: "برو به پنج صفحه قبلی",
+        goToPage: "برو به صفحه {0}",
       },
     },
     pages: {
