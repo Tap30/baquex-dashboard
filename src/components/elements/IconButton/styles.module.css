@@ -1,16 +1,24 @@
 .root {
-  display: flex;
-  align-items: center;
   justify-content: center;
   text-align: center;
 
-  width: var(--button-height);
   padding: 0;
 
   border-radius: var(--radius-full);
+
+  flex-shrink: 0;
+}
+
+.root > :is(button, a) {
+  width: var(--button-height);
+  height: var(--button-height);
+
+  justify-content: center;
 }
 
 .icon {
+  flex-shrink: 0;
+
   width: var(--button-icon-size);
   height: var(--button-icon-size);
   max-width: var(--button-icon-size);
