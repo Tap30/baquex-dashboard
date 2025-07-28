@@ -4,6 +4,7 @@ export * from "./Button/index.ts";
 export * from "./CheckBox/index.ts";
 export * from "./ClickableArea/index.ts";
 export * from "./DataTable/index.ts";
+export * from "./FileInput/index.ts";
 export * from "./Flex/index.ts";
 export * from "./Icon.tsx";
 export * from "./IconButton/index.ts";
