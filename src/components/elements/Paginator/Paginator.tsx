@@ -1,9 +1,8 @@
 import { Button, Icon, IconButton } from "@/components";
-import { Languages } from "@/constants";
 import { useDirection } from "@/contexts";
 import { strings } from "@/static-content";
 import type { WithRef } from "@/types";
-import { clamp, cn, useControllableProp } from "@/utils";
+import { clamp, cn, formatNumber, useControllableProp } from "@/utils";
 import { mdiChevronLeft, mdiChevronRight } from "@mdi/js";
 import { PaginatorActionTypes } from "./constants.ts";
 import classes from "./styles.module.css";
@@ -182,14 +181,7 @@ export const Paginator: React.FC<PaginatorProps> = props => {
       }
 
       const isSelected = isPageSelected(pageNumber);
-
-      const lang = strings.getLanguage();
-
-      const formatter = new Intl.NumberFormat(
-        lang === Languages.FA ? "fa-IR" : "en-US",
-      );
-
-      const pageNumberDisplay = formatter.format(pageNumber);
+      const pageNumberDisplay = formatNumber(pageNumber);
 
       const pageLabel =
         overridePageLabel?.(pageNumber, isSelected) ??
