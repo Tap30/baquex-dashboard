@@ -3,6 +3,7 @@ import Localization from "react-localization";
 
 type GlobalStrings = {
   logoutButton: string;
+  clearValue: string;
   sorting: {
     ascending: string;
     descending: string;
@@ -24,6 +25,9 @@ type GlobalStrings = {
       next5Pages: string;
       prev5Pages: string;
       goToPage: string;
+    };
+    fileInput: {
+      multipleSelected: string;
     };
   };
   pages: {
@@ -58,6 +62,7 @@ type GlobalStrings = {
 export const strings = new Localization<GlobalStrings>({
   [Languages.EN]: {
     logoutButton: "Logout",
+    clearValue: "Clear value",
     breadcrumb: "Breadcrumb",
     sorting: {
       ascending: "Sort ascending",
@@ -85,6 +90,9 @@ export const strings = new Localization<GlobalStrings>({
         prev5Pages: "Go to the previous 5 pages",
         goToPage: "Go to the page {0}",
       },
+      fileInput: {
+        multipleSelected: "{0} files selected.",
+      },
     },
     pages: {
       settings: {
@@ -111,6 +119,7 @@ export const strings = new Localization<GlobalStrings>({
   },
   [Languages.FA]: {
     logoutButton: "خروج",
+    clearValue: "حذف مقدار",
     breadcrumb: "نقشه صفحات",
     sorting: {
       ascending: "مرتب‌سازی صعودی",
@@ -137,6 +146,9 @@ export const strings = new Localization<GlobalStrings>({
         next5Pages: "برو به پنج صفحه بعدی",
         prev5Pages: "برو به پنج صفحه قبلی",
         goToPage: "برو به صفحه {0}",
+      },
+      fileInput: {
+        multipleSelected: "{0} فایل انتخاب شد.",
       },
     },
     pages: {
