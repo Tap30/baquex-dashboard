@@ -1,3 +1,4 @@
+import { strings } from "@/static-content";
 import type { MergeElementProps, WithBaseProps } from "@/types";
 import { cn, useForkedRefs, useIsomorphicLayoutEffect } from "@/utils";
 import { useRef } from "react";
@@ -136,7 +137,7 @@ export const BaseButton: React.FC<BaseButtonProps> = (
       <div
         ref={focusAnchorRef}
         role="button"
-        aria-label="Pending"
+        aria-label={strings.components.button.pending}
         aria-disabled="true"
         tabIndex={focusAnchorTabIndex}
         className={classes["focus-anchor"]}
