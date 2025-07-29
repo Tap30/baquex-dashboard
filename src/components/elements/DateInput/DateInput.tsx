@@ -1,11 +1,15 @@
 import {
   Calendar,
+  Icon,
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components";
 import type { MergeElementProps } from "@/types";
-import { cn } from "@/utils";
+import { cn, formatDate } from "@/utils";
+import { mdiCalendar } from "@mdi/js";
+
+import { strings } from "@/static-content";
 import { useEffect, useId, useState } from "react";
 import "react-day-picker/style.css";
 import { Text, type TextProps } from "../Text/index.ts";
@@ -15,17 +19,6 @@ export type DateInputProps = Omit<
   MergeElementProps<
     "input",
     {
-      /**
-       * The `<input>` type to use. The type greatly changes how
-       * the text field behaves.
-       *
-       * @default "text"
-       */
-      type?: Extract<
-        React.ComponentProps<"input">["type"],
-        "text" | "password" | "email" | "number" | "search" | "tel" | "url"
-      >;
-
       /**
        * The label of the input.
        */
@@ -104,6 +97,13 @@ export type DateInputProps = Omit<
        * The slot used for element placed at the end.
        */
       endSlot?: React.ReactNode;
+
+      /**
+       * Calendar properties.
+       *
+       * @see https://daypicker.dev/
+       */
+      calendarProps?: React.ComponentProps<typeof Calendar>;
     }
   >,
   | "children"
@@ -120,22 +120,27 @@ export const DateInput: React.FC<DateInputProps> = props => {
     className,
     id: idProp,
     startSlot,
-    endSlot,
+    endSlot = <Icon data={mdiCalendar} />,
     label,
     description,
     errorText,
     feedback,
-    type = "text",
     size = "md",
     autoFocus = false,
     hasError = false,
     hideLabel = false,
     disabled = false,
     readOnly = false,
+    calendarProps = {},
     ...otherProps
   } = props;
 
   const nodeId = useId();
+
+  // TODO: fix type
+  const [selectedDate, setSelectedDate] = useState<
+    Date | Date[] | { from: Date; to: Date } | undefined
+  >();
 
   const [refreshErrorAlert, setRefreshErrorAlert] = useState(false);
 
@@ -257,6 +262,30 @@ export const DateInput: React.FC<DateInputProps> = props => {
   const ariaDescribedBy = description ? descId : undefined;
   const ariaInvalid = hasError;
 
+  const getFormattedString = () => {
+    if (!selectedDate) {
+      return strings.components.dateInput.selectDate;
+    }
+
+    if (calendarProps?.mode === "multiple") {
+      return (selectedDate as Date[]).map(formatDate).join(`${strings.comma} `);
+    }
+
+    if (calendarProps?.mode === "range") {
+      const { from, to } = selectedDate as { from: Date; to: Date };
+
+      if (from === to) {
+        return formatDate(from);
+      }
+
+      return [strings.from, formatDate(from), strings.to, formatDate(to)].join(
+        " ",
+      );
+    }
+
+    return formatDate(selectedDate as Date);
+  };
+
   return (
     <div
       id={rootId}
@@ -268,26 +297,34 @@ export const DateInput: React.FC<DateInputProps> = props => {
     >
       {renderLabel()}
       {renderDescription()}
-      <Popover open>
-        <PopoverTrigger>
-          <div className={classes["control"]}>
+      <Popover>
+        <PopoverTrigger asChild>
+          <div
+            role="combobox"
+            tabIndex={0}
+            className={classes["control"]}
+            aria-describedby={ariaDescribedBy}
+            aria-label={ariaLabel}
+            aria-invalid={ariaInvalid}
+            aria-haspopup="dialog"
+          >
             {renderStartSlot()}
-            value
+            <div
+              className={cn(classes["value"], classes["value-display"], {
+                [classes["placeholder"]!]: !selectedDate,
+              })}
+            >
+              {getFormattedString()}
+            </div>
             {renderEndSlot()}
           </div>
         </PopoverTrigger>
-        <PopoverContent>
+        <PopoverContent className={classes["dropdown"]}>
           <Calendar
-            // showWeekNumber
-            // captionLayout="label"
-            // locale={CalendarLocale.GREGORIAN}
-            mode="range"
-          />
-          <Calendar
-            // showWeekNumber
-            // captionLayout="label"
-            // locale={CalendarLocale.GREGORIAN}
-            mode="multiple"
+            disabled={disabled}
+            selected={selectedDate}
+            onSelect={setSelectedDate}
+            {...calendarProps}
           />
         </PopoverContent>
       </Popover>

@@ -70,7 +70,7 @@
   background-color: var(--text-input-control-background);
 }
 
-.control:has(.input:focus-visible) {
+.control:has(.value-display:focus-visible) {
   outline-style: solid;
   outline-width: var(--token-focus-ring-stroke);
   outline-color: var(--token-focus-ring-color);
@@ -81,11 +81,11 @@
   opacity: 0.5;
 }
 
-.input:focus-visible {
+.value-display:focus-visible {
   outline: none;
 }
 
-.input {
+.value-display {
   font-size: inherit;
 
   width: 100%;
@@ -114,4 +114,12 @@
   height: var(--text-input-control-icon-size);
   max-width: var(--text-input-control-icon-size);
   max-height: var(--text-input-control-icon-size);
+}
+
+.value-display.placeholder {
+  color: color-mix(in oklab, var(--file-input-control-color), transparent);
+}
+
+.dropdown.dropdown {
+  padding: 0;
 }
