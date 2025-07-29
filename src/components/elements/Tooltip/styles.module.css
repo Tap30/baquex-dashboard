@@ -1,0 +1,21 @@
+.root {
+  background-color: var(--color-neutral);
+  color: var(--color-on-neutral);
+
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-lg);
+
+  max-width: 12rem;
+
+  z-index: var(--z-5);
+}
+
+.text {
+  font-size: var(--text-caption);
+  line-height: var(--leading-caption);
+  font-weight: 400;
+}
+
+.arrow {
+  fill: var(--color-neutral);
+}

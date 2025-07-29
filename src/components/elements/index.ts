@@ -20,3 +20,4 @@ export * from "./Text/index.ts";
 export * from "./TextArea/index.ts";
 export * from "./TextInput/index.ts";
 export * from "./Toaster/index.ts";
+export * from "./Tooltip/index.ts";
