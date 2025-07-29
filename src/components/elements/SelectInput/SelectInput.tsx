@@ -8,6 +8,9 @@ import { Text, type TextProps } from "../Text/index.ts";
 import { SelectContent, SelectItem, SelectValue } from "./components/index.ts";
 import classes from "./styles.module.css";
 
+type Item = { label: string; value: string; disabled?: boolean };
+
+// TODO:  improve styles
 export type SelectInputProps = Omit<
   MergeElementProps<
     "select",
@@ -98,7 +101,7 @@ export type SelectInputProps = Omit<
       /**
        * The items of the select component.
        */
-      items: Array<{ label: string; value: string }>;
+      items: Item[];
     }
   >,
   | "children"
@@ -275,13 +278,14 @@ export const SelectInput: React.FC<SelectInputProps> = props => {
             aria-describedby={ariaDescribedBy}
             className={classes["control"]}
           >
-            {renderStartSlot()}
-            <SelectValue
-              className={classes["input"]}
-              placeholder={placeholder}
-            />
-            {renderEndSlot()}
-
+            <div>
+              {renderStartSlot()}
+              <SelectValue
+                className={classes["input"]}
+                placeholder={placeholder}
+              />
+              {renderEndSlot()}
+            </div>
             <SelectPrimitive.Icon className={classes["select-icon"]}>
               <Icon data={mdiChevronDown} />
             </SelectPrimitive.Icon>
@@ -292,6 +296,7 @@ export const SelectInput: React.FC<SelectInputProps> = props => {
                 size={size}
                 key={item.value}
                 value={item.value}
+                disabled={item.disabled}
               >
                 {item.label}
               </SelectItem>
