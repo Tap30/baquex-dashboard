@@ -94,15 +94,13 @@ export const Toast: React.FC<ToastProps> = props => {
           className={classes["actions"]}
         >
           {renderButton()}
-          {
-            <IconButton
-              aria-label={strings.close}
-              icon={<Icon data={mdiClose} />}
-              variant="ghost"
-              size="sm"
-              onClick={dismiss}
-            />
-          }
+          <IconButton
+            aria-label={strings.close}
+            icon={<Icon data={mdiClose} />}
+            variant="ghost"
+            size="sm"
+            onClick={dismiss}
+          />
         </Flex>
       </Flex>
       {renderDescription()}
