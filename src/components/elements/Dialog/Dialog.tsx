@@ -168,13 +168,13 @@ export const Dialog: React.FC<DialogProps> = props => {
       <DialogPrimitive.Portal container={container}>
         <div
           role="presentation"
+          ref={ref}
           tabIndex={-1}
           aria-hidden={!open}
           className={cn(classes["root"], className)}
         >
           <DialogPrimitive.Overlay className={classes["overlay"]} />
           <DialogPrimitive.Content
-            ref={ref}
             {...(hasTextDescription ? {} : { "aria-describedby": undefined })}
             className={classes["content"]}
             onCloseAutoFocus={handleCloseAutoFocus}
