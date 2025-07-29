@@ -69,6 +69,7 @@ export const Tooltip: React.FC<TooltipProps> = props => {
         <TooltipPrimitive.Trigger asChild>{children}</TooltipPrimitive.Trigger>
         <TooltipPrimitive.Portal container={container}>
           <TooltipPrimitive.Content
+            ref={ref}
             className={cn(classes["root"], className)}
             onEscapeKeyDown={onEscapeKeyDown}
             onPointerDownOutside={onPointerDownOutside}
