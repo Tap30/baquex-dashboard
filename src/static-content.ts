@@ -3,6 +3,9 @@ import Localization from "react-localization";
 
 type GlobalStrings = {
   logoutButton: string;
+  from: string;
+  comma: string;
+  to: string;
   clearValue: string;
   sorting: {
     ascending: string;
@@ -16,6 +19,16 @@ type GlobalStrings = {
     title: string;
   };
   components: {
+    calendar: {
+      day: string;
+      month: string;
+      year: string;
+      nextMonth: string;
+      previousMonth: string;
+    };
+    dateInput: {
+      selectDate: string;
+    };
     button: {
       pending: string;
     };
@@ -56,15 +69,14 @@ type GlobalStrings = {
   navButton: {
     close: string;
     open: string;
-    calendar: {
-      nextMonth: string;
-      previousMonth: string;
-    };
   };
 };
 
 export const strings = new Localization<GlobalStrings>({
   [Languages.EN]: {
+    from: "from",
+    to: "to",
+    comma: ",",
     logoutButton: "Logout",
     clearValue: "Clear value",
     breadcrumb: "Breadcrumb",
@@ -86,6 +98,16 @@ export const strings = new Localization<GlobalStrings>({
     components: {
       button: {
         pending: "Pending",
+      },
+      calendar: {
+        day: "day",
+        month: "month",
+        year: "year",
+        nextMonth: "Next Month",
+        previousMonth: "Previous Month",
+      },
+      dateInput: {
+        selectDate: "Select date",
       },
       paginator: {
         nextPage: "Go to the next page",
@@ -119,13 +141,12 @@ export const strings = new Localization<GlobalStrings>({
           reports: "Reports",
         },
       },
-      calendar: {
-        nextMonth: "Next Month",
-        previousMonth: "Previous Month",
-      },
     },
   },
   [Languages.FA]: {
+    from: "از",
+    comma: "،",
+    to: "تا",
     logoutButton: "خروج",
     clearValue: "حذف مقدار",
     breadcrumb: "نقشه صفحات",
@@ -147,6 +168,16 @@ export const strings = new Localization<GlobalStrings>({
     components: {
       button: {
         pending: "در حال بررسی",
+      },
+      calendar: {
+        day: "روز",
+        month: "ماه",
+        year: "سال",
+        nextMonth: "ماه بعد",
+        previousMonth: "ماه قبل",
+      },
+      dateInput: {
+        selectDate: "یک تاریخ انتخاب کنید",
       },
       paginator: {
         nextPage: "صفحه بعدی",
@@ -179,10 +210,6 @@ export const strings = new Localization<GlobalStrings>({
           dataLib: "داده‌ها",
           reports: "گزارشات",
         },
-      },
-      calendar: {
-        nextMonth: "ماه بعد",
-        previousMonth: "ماه قبل",
       },
     },
   },
