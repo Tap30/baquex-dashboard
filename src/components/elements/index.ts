@@ -22,4 +22,5 @@ export * from "./Switch/index.ts";
 export * from "./Text/index.ts";
 export * from "./TextArea/index.ts";
 export * from "./TextInput/index.ts";
+export * from "./TimeInput/index.ts";
 export * from "./Toaster/index.ts";
