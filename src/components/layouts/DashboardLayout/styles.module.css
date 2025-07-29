@@ -1,0 +1,31 @@
+.root {
+  display: flex;
+  background-color: var(--color-surface-secondary);
+}
+
+.sidebar {
+  width: 17rem;
+  height: 100dvh;
+
+  position: sticky;
+  top: 0;
+  flex-shrink: 0;
+}
+
+.content {
+  background-color: var(--color-surface-base);
+
+  margin-inline-end: var(--spacing-md);
+  margin-block: var(--spacing-md);
+  padding: var(--spacing-md);
+  border-radius: var(--radius-lg);
+
+  flex-grow: 1;
+  flex-shrink: 1;
+}
+
+.header {
+  margin-top: calc(-1 * var(--spacing-md));
+  margin-right: calc(-1 * var(--spacing-md));
+  margin-left: calc(-1 * var(--spacing-md));
+}

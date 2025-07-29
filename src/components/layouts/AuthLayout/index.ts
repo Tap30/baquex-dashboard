@@ -1,1 +1,1 @@
-export { AuthLayout } from "./Component.tsx";
+export { AuthLayout } from "./AuthLayout.tsx";

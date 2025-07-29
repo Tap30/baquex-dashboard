@@ -18,7 +18,7 @@
 }
 
 .root.disabled {
-  --text-input-control-color: var(--color-neutral-text-muted);
+  --text-input-control-color: var(--color-neutral);
   --text-input-control-border-color: var(--color-border-secondary);
   --text-input-control-background: var(--color-surface-secondary);
 }
@@ -63,6 +63,7 @@
 
   font-size: var(--text-input-control-font-size);
   height: var(--text-input-control-height);
+  color: var(--text-input-control-color);
 
   padding: var(--spacing-xs);
   border-radius: var(--radius-sm);

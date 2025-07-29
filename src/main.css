@@ -5,14 +5,13 @@
   *,
   *::before,
   *::after {
-    box-sizing: border-box;
+    box-sizing: border-box !important;
   }
 
-  *:focus-visible,
-  :focus-visible {
+  :is(*, a):focus-visible {
     outline-style: solid;
-    outline-width: var(--color-focus-ring-stroke);
-    outline-color: var(--color-focus-ring-color);
+    outline-width: var(--token-focus-ring-stroke);
+    outline-color: var(--token-focus-ring-color);
     outline-offset: var(--token-focus-ring-offset);
   }
 }

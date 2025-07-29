@@ -10,7 +10,7 @@ export const QueryClientProvider: React.FC<Props> = props => {
   return (
     <QCP client={queryClient}>
       {children}
-      <ReactQueryDevtools />
+      <ReactQueryDevtools buttonPosition="bottom-left" />
     </QCP>
   );
 };

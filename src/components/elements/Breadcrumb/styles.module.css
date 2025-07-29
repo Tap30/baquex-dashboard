@@ -1,0 +1,29 @@
+.root {
+  display: inline-flex;
+  align-items: center;
+}
+
+.list {
+  all: unset;
+  list-style: none;
+
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.item:hover .item-title {
+  color: var(--color-neutral-text-secondary);
+}
+
+.item-title {
+  color: var(--color-neutral-text-tertiary);
+}
+
+.item-title[aria-current] {
+  color: var(--color-neutral-text);
+}
+
+.separator {
+  color: var(--color-border-primary);
+}
