@@ -8,7 +8,7 @@ export * from "./numbers.ts";
 export * from "./use-controllable-prop.ts";
 export * from "./use-forked-refs.ts";
 export * from "./use-get-latest.ts";
-export * from "./use-is-server-handoff-complete.ts";
+export * from "./use-is-server-handoff-completed.ts";
 export * from "./use-isomorphic-layout-effect.ts";
 export * from "./use-isomorphic-value.ts";
 export * from "./use-lazy-initialized-value.ts";
