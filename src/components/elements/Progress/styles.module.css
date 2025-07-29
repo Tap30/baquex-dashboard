@@ -1,0 +1,73 @@
+.root {
+  --progress-indicator-background: transparent;
+  --progress-indicator-glow: transparent;
+  --progress-indicator-indeterminate-animation: none;
+
+  width: 100%;
+  height: 1rem;
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  direction: ltr;
+
+  overflow: hidden;
+  padding: var(--spacing-xs);
+  border-radius: var(--radius-full);
+
+  background-color: var(--color-surface-tertiary);
+}
+
+.root[data-state="indeterminate"] {
+  --progress-indicator-background: var(--color-neutral);
+  --progress-indicator-indeterminate-animation: 1.8s
+    cubic-bezier(0.165, 0.84, 0.44, 1) 0s infinite indeterminate-loading;
+}
+
+.root[data-state="loading"] {
+  --progress-indicator-background: var(--color-neutral);
+}
+
+.root[data-state="complete"] {
+  --progress-indicator-background: var(--color-positive);
+  --progress-indicator-glow: var(--color-positive);
+}
+
+.indicator {
+  border-radius: inherit;
+
+  height: 100%;
+
+  background-color: var(--progress-indicator-background);
+  box-shadow: 0 0 4px 0 var(--progress-indicator-glow);
+
+  animation: var(--progress-indicator-indeterminate-animation);
+
+  will-change: background-color, width, box-shadow;
+  transition:
+    background-color 160ms ease-in-out,
+    width 160ms linear,
+    box-shadow 160ms ease-in-out;
+}
+
+@keyframes indeterminate-loading {
+  0% {
+    width: 0;
+    margin-inline-start: 0;
+  }
+
+  40% {
+    width: 100%;
+    margin-inline-start: 0;
+  }
+
+  60% {
+    width: 100%;
+    margin-inline-start: auto;
+  }
+
+  100% {
+    width: 0%;
+    margin-inline-start: auto;
+  }
+}

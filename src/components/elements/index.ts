@@ -12,6 +12,7 @@ export * from "./Icon.tsx";
 export * from "./IconButton/index.ts";
 export * from "./Paginator/index.ts";
 export * from "./Portal/index.ts";
+export * from "./Progress/index.ts";
 export * from "./RadioGroup/index.ts";
 export * from "./Skeleton/index.ts";
 export * from "./Spinner/index.ts";
