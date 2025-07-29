@@ -77,6 +77,7 @@
   --token-color-surface-base: #0a0a0a;
   --token-color-surface-secondary: #171717;
   --token-color-surface-tertiary: #262626;
+  --token-color-backdrop-overlay: rgba(0, 0, 0, 0.45);
   /* END: COLORS */
   /* START: TYPOGRAPHY */
   --token-typography-typeface-rtl: "Vazirmatn";
@@ -282,6 +283,7 @@
   --color-surface-base: var(--token-color-surface-base);
   --color-surface-secondary: var(--token-color-surface-secondary);
   --color-surface-tertiary: var(--token-color-surface-tertiary);
+  --color-backdrop-overlay: var(--token-color-backdrop-overlay);
   /* END: COLORS */
   /* START: TYPOGRAPHY */
   --font-rtl: var(--token-typography-typeface-rtl);
@@ -347,7 +349,13 @@
   --spacing-xl: calc(var(--spacing) * 6);
   --spacing-xxl: calc(var(--spacing) * 8);
   /* END:SPACING */
-  /* START:RADIUS */
+  /* START:MISC */
   --radius-full: 9999px;
+  --z-0: 1000;
+  --z-1: 1010;
+  --z-2: 1020;
+  --z-3: 1030;
+  --z-4: 1040;
+  --z-5: 1050;
   /* END:RADIUS */
 }

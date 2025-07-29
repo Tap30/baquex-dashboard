@@ -3,16 +3,16 @@
   height: var(--button-height);
 }
 
-.root.lg {
-  min-width: 4.5rem;
-}
-
-.root.md {
+.root[data-size="lg"] {
   min-width: 4rem;
 }
 
-.root.sm {
+.root[data-size="md"] {
   min-width: 3.5rem;
+}
+
+.root[data-size="sm"] {
+  min-width: 3rem;
 }
 
 .text {
