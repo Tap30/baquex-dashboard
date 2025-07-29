@@ -2,10 +2,11 @@
   --alert-background: transparent;
   --alert-border-color: transparent;
   --alert-title-color: transparent;
+  --alert-icon-color: transparent;
   --alert-description-color: transparent;
 
   display: flex;
-  align-items: self-start;
+  align-items: flex-start;
 
   background-color: var(--alert-background);
   box-shadow: 0 0 0 1px var(--alert-border-color);
@@ -19,6 +20,7 @@
   --alert-background: var(--color-surface-tertiary);
   --alert-border-color: var(--color-border-secondary);
   --alert-title-color: var(--color-neutral-text);
+  --alert-icon-color: var(--color-neutral-text);
   --alert-description-color: var(--color-neutral-text-secondary);
 }
 
@@ -30,6 +32,7 @@
   );
   --alert-border-color: var(--color-brand);
   --alert-title-color: var(--color-neutral-text);
+  --alert-icon-color: var(--color-brand-text);
   --alert-description-color: var(--color-neutral-text-secondary);
 }
 
@@ -41,6 +44,7 @@
   );
   --alert-border-color: var(--color-positive);
   --alert-title-color: var(--color-neutral-text);
+  --alert-icon-color: var(--color-positive-text);
   --alert-description-color: var(--color-neutral-text-secondary);
 }
 
@@ -52,6 +56,7 @@
   );
   --alert-border-color: var(--color-negative);
   --alert-title-color: var(--color-neutral-text);
+  --alert-icon-color: var(--color-negative-text);
   --alert-description-color: var(--color-neutral-text-secondary);
 }
 
@@ -59,6 +64,7 @@
   --alert-background: color-mix(in oklab, var(--color-info) 12.5%, transparent);
   --alert-border-color: var(--color-info);
   --alert-title-color: var(--color-neutral-text);
+  --alert-icon-color: var(--color-info-text);
   --alert-description-color: var(--color-neutral-text-secondary);
 }
 
@@ -66,6 +72,7 @@
   --alert-background: color-mix(in oklab, var(--color-warn) 12.5%, transparent);
   --alert-border-color: var(--color-warn);
   --alert-title-color: var(--color-neutral-text);
+  --alert-icon-color: var(--color-warn-text);
   --alert-description-color: var(--color-neutral-text-secondary);
 }
 
@@ -80,7 +87,11 @@ p.description.description {
 }
 
 .icon {
-  color: var(--alert-title-color);
+  color: var(--alert-icon-color);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   width: 1.25rem;
   height: 1.25rem;
