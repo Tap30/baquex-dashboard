@@ -1,5 +1,18 @@
-.root {
-  min-width: 5rem;
+.root > :is(button, a) {
+  width: 100%;
+  height: var(--button-height);
+}
+
+.root[data-size="lg"] {
+  min-width: 4rem;
+}
+
+.root[data-size="md"] {
+  min-width: 3.5rem;
+}
+
+.root[data-size="sm"] {
+  min-width: 3rem;
 }
 
 .text {

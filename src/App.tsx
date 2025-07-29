@@ -12,7 +12,6 @@ import {
   LoginPage,
   NotFoundPage,
 } from "@/pages";
-import { QueryClientProvider } from "@/services";
 import { createBrowserRouter, RouterProvider } from "react-router";
 
 const router = createBrowserRouter([
@@ -53,10 +52,8 @@ const router = createBrowserRouter([
 
 export const App: React.FC = () => {
   return (
-    <QueryClientProvider>
-      <AuthProvider>
-        <RouterProvider router={router} />
-      </AuthProvider>
-    </QueryClientProvider>
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
   );
 };

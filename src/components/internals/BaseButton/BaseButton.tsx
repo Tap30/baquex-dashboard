@@ -133,6 +133,7 @@ export const BaseButton: React.FC<BaseButtonProps> = (
     <div
       style={style}
       className={cn(classes["wrapper"], className)}
+      data-size={size}
     >
       <div
         ref={focusAnchorRef}

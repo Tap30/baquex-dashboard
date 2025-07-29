@@ -1,4 +1,4 @@
-import { useIsServerHandoffComplete } from "./use-is-server-handoff-complete.ts";
+import { useIsServerHandoffCompleted } from "./use-is-server-handoff-completed.ts";
 
 const getValue = <T>(valueOrFn: T | (() => T)) => {
   if (valueOrFn instanceof Function) return valueOrFn();
@@ -10,9 +10,9 @@ export const useIsomorphicValue = <T>(
   clientValue: T | (() => T),
   serverValue: T | (() => T),
 ) => {
-  const isServerHandoffComplete = useIsServerHandoffComplete();
+  const isServerHandoffCompleted = useIsServerHandoffCompleted();
 
-  if (isServerHandoffComplete) return getValue(clientValue);
+  if (isServerHandoffCompleted) return getValue(clientValue);
 
   return getValue(serverValue);
 };

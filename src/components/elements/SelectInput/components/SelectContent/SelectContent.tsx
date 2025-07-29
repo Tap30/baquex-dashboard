@@ -1,4 +1,4 @@
-import { PORTALS_SECTION_ID } from "@/constants";
+import { PORTAL_DESTINATION_ID } from "@/constants";
 import { cn } from "@/utils";
 import * as SelectPrimitive from "@radix-ui/react-select";
 import classes from "./styles.module.css";
@@ -9,7 +9,7 @@ export const SelectContent = ({
   position = "popper",
   ...props
 }: React.ComponentProps<typeof SelectPrimitive.Content>) => {
-  const container = document.getElementById(PORTALS_SECTION_ID);
+  const container = document.getElementById(PORTAL_DESTINATION_ID);
 
   return (
     <SelectPrimitive.Portal container={container}>

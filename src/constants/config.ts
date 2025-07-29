@@ -1,1 +1,1 @@
-export const PORTALS_SECTION_ID = "portals-section";
+export const PORTAL_DESTINATION_ID = "global-portal-destination";
