@@ -1,7 +1,15 @@
 import * as PopoverPrimitive from "@radix-ui/react-popover";
 
-export const PopoverTrigger = ({
-  ...props
-}: React.ComponentProps<typeof PopoverPrimitive.Trigger>) => {
-  return <PopoverPrimitive.Trigger {...props} />;
+export type PopoverTriggerProps = Omit<
+  PopoverPrimitive.PopoverTriggerProps,
+  "asChild"
+>;
+
+export const PopoverTrigger: React.FC<PopoverTriggerProps> = props => {
+  return (
+    <PopoverPrimitive.Trigger
+      {...props}
+      asChild
+    />
+  );
 };
