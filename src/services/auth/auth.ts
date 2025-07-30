@@ -1,4 +1,4 @@
-import { http } from "../http/index.ts";
+import { http } from "@/services";
 import { LOGIN_ENDPOINT_PATH, LOGOUT_ENDPOINT_PATH } from "./constants.ts";
 import { tokenStorage } from "./token-storage.ts";
 import type { LoginCredentials } from "./types.ts";

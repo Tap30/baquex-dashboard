@@ -4,7 +4,7 @@ import { useLazyInitializedValue } from "@/utils";
 import { mdiChevronDown } from "@mdi/js";
 import * as CollapsiblePrimitive from "@radix-ui/react-collapsible";
 import { useLocation } from "react-router";
-import { LeafItem } from "../LeafItem/LeafItem.tsx";
+import { LeafItem } from "../LeafItem/index.ts";
 import classes from "./styles.module.css";
 
 type Props = {

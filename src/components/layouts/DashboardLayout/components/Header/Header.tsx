@@ -1,8 +1,7 @@
-import { Breadcrumb, Icon, IconButton } from "@/components";
+import { Breadcrumb, Icon, IconButton, useBreadcrumb } from "@/components";
 import { strings } from "@/static-content";
 import { cn } from "@/utils";
 import { mdiMenuClose, mdiMenuOpen } from "@mdi/js";
-import { useBreadcrumb } from "../../BreadcrumbContext/index.ts";
 import classes from "./styles.module.css";
 
 type Props = {

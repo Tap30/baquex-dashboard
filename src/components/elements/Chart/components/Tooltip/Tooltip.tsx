@@ -2,9 +2,9 @@ import type { MergeElementProps } from "@/types";
 import { cn } from "@/utils";
 import * as RechartsPrimitive from "recharts";
 import { useChart } from "../../context/index.ts";
+import { getPayloadConfigFromPayload } from "../../utils.ts";
 import { TooltipItem } from "./Item.tsx";
 import classes from "./styles.module.css";
-import { getPayloadConfigFromPayload } from "./utils.ts";
 
 export type ChartTooltipContentProps = Omit<
   MergeElementProps<

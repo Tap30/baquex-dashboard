@@ -1,8 +1,8 @@
+import { Text, type TextProps } from "@/components";
 import type { MergeElementProps } from "@/types";
 import { cn, useControllableProp, useUniqueId } from "@/utils";
 import * as SwitchPrimitive from "@radix-ui/react-switch";
 import { useEffect, useState } from "react";
-import { Text, type TextProps } from "../Text/index.ts";
 import classes from "./styles.module.css";
 
 export type SwitchProps = Omit<

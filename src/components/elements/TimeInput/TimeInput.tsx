@@ -1,9 +1,8 @@
+import { Icon, Text, type TextProps } from "@/components";
 import type { MergeElementProps } from "@/types";
 import { cn, useForkedRefs, useUniqueId } from "@/utils";
 import { mdiClock } from "@mdi/js";
 import { useEffect, useRef, useState } from "react";
-import { Icon } from "../Icon.tsx";
-import { Text, type TextProps } from "../Text/index.ts";
 import classes from "./styles.module.css";
 
 export type TimeInputProps = Omit<

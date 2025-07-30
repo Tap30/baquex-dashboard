@@ -1,4 +1,4 @@
-import { persistedStorage } from "../storage/index.ts";
+import { persistedStorage } from "@/services";
 import { AUTH_TOKEN_KEY } from "./constants.ts";
 
 class TokenStorage {

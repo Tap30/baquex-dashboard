@@ -1,10 +1,9 @@
+import { Icon, Text, type TextProps } from "@/components";
 import type { MergeElementProps } from "@/types";
 import { cn, useControllableProp, useUniqueId } from "@/utils";
 import { mdiCircleMedium } from "@mdi/js";
 import * as RadioGroupPrimitive from "@radix-ui/react-radio-group";
 import { useEffect, useState } from "react";
-import { Icon } from "../Icon.tsx";
-import { Text, type TextProps } from "../Text/index.ts";
 import classes from "./styles.module.css";
 
 type Item = {

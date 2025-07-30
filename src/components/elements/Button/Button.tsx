@@ -1,6 +1,6 @@
+import { Spinner } from "@/components";
 import { cn } from "@/utils";
 import { BaseButton, type BaseButtonProps } from "../../internals/index.ts";
-import { Spinner } from "../Spinner/index.ts";
 import classes from "./styles.module.css";
 
 export type ButtonProps = Omit<

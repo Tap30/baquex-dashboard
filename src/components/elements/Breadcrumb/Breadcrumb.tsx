@@ -1,7 +1,7 @@
+import { Text } from "@/components";
 import type { WithRef } from "@/types";
 import { cn } from "@/utils";
 import { Link } from "react-router";
-import { Text } from "../Text/Text.tsx";
 import classes from "./styles.module.css";
 
 export type BreadcrumbItem = {

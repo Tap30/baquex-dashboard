@@ -1,10 +1,9 @@
+import { Icon, Text, type TextProps } from "@/components";
 import type { MergeElementProps } from "@/types";
 import { cn, useControllableProp, useUniqueId } from "@/utils";
 import { mdiCheckBold, mdiMinusThick } from "@mdi/js";
 import * as CheckboxPrimitive from "@radix-ui/react-checkbox";
 import { useEffect, useState } from "react";
-import { Icon } from "../Icon.tsx";
-import { Text, type TextProps } from "../Text/index.ts";
 import classes from "./styles.module.css";
 
 export type CheckBoxProps = Omit<

@@ -1,7 +1,7 @@
+import { Text, type TextProps } from "@/components";
 import type { MergeElementProps } from "@/types";
 import { cn, useUniqueId } from "@/utils";
 import { useEffect, useState } from "react";
-import { Text, type TextProps } from "../Text/index.ts";
 import classes from "./styles.module.css";
 
 export type TextInputProps = Omit<
