@@ -1,5 +1,5 @@
-import { PORTAL_DESTINATION_ID } from "@/constants";
-import { cn } from "@/utils";
+import { usePortalConfig } from "@/components";
+import { cn, useIsomorphicValue } from "@/utils";
 import * as PopoverPrimitive from "@radix-ui/react-popover";
 import classes from "./styles.module.css";
 
@@ -9,9 +9,9 @@ export const PopoverContent = ({
   sideOffset = 4,
   ...props
 }: React.ComponentProps<typeof PopoverPrimitive.Content>) => {
-  const container = document.getElementById(PORTAL_DESTINATION_ID);
+  const { resolveContainer } = usePortalConfig();
+  const container = useIsomorphicValue(resolveContainer, null);
 
-  // TODO: fix HMR issue
   return (
     <PopoverPrimitive.Portal container={container}>
       <PopoverPrimitive.Content
