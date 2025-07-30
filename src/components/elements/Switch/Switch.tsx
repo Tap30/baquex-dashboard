@@ -145,10 +145,10 @@ export const Switch: React.FC<SwitchProps> = props => {
     fallbackValue: false,
   });
 
-  const rootId = `CheckBox:Root_${nodeId}`;
-  const labelId = `CheckBox:Label_${nodeId}`;
-  const descId = `CheckBox:Desc_${nodeId}`;
-  const inputId = idProp ?? `CheckBox:Input_${nodeId}`;
+  const rootId = `Switch:Root_${nodeId}`;
+  const labelId = `Switch:Label_${nodeId}`;
+  const descId = `Switch:Desc_${nodeId}`;
+  const inputId = idProp ?? `Switch:Input_${nodeId}`;
 
   const feedbackOrErrorText = hasError && errorText ? errorText : feedback;
 

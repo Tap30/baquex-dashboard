@@ -116,12 +116,12 @@
   margin-inline-start: var(--spacing-xs);
 }
 
-.start-slot + * {
-  margin-inline-start: var(--spacing-xs);
-}
-
 .end-slot {
   margin-inline-end: var(--spacing-xs);
+}
+
+.start-slot + * {
+  margin-inline-start: var(--spacing-xs);
 }
 
 * + .end-slot {

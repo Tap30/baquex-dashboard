@@ -134,10 +134,10 @@ export const FileInput: React.FC<FileInputProps> = props => {
   const [refreshErrorAlert, setRefreshErrorAlert] = useState(false);
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
 
-  const rootId = `TextInput:Root_${nodeId}`;
-  const labelId = `TextInput:Label_${nodeId}`;
-  const descId = `TextInput:Description_${nodeId}`;
-  const inputId = idProp ?? `TextInput:Input_${nodeId}`;
+  const rootId = `FileInput:Root_${nodeId}`;
+  const labelId = `FileInput:Label_${nodeId}`;
+  const descId = `FileInput:Description_${nodeId}`;
+  const inputId = idProp ?? `FileInput:Input_${nodeId}`;
 
   const feedbackOrErrorText = hasError && errorText ? errorText : feedback;
 
