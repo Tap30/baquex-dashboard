@@ -1,24 +1,100 @@
-import { Icon } from "@/components";
+import { Icon, Text, usePortalConfig, type TextProps } from "@/components";
 import type { MergeElementProps } from "@/types";
-import { cn } from "@/utils";
-import { mdiChevronDown } from "@mdi/js";
+import {
+  cn,
+  useControllableProp,
+  useForkedRefs,
+  useIsomorphicValue,
+} from "@/utils";
+import { mdiCheck, mdiChevronDown, mdiChevronUp } from "@mdi/js";
 import * as SelectPrimitive from "@radix-ui/react-select";
-import { useEffect, useId, useState } from "react";
-import { Text, type TextProps } from "../Text/index.ts";
-import { SelectContent, SelectItem, SelectValue } from "./components/index.ts";
+import { useCallback, useEffect, useId, useRef, useState } from "react";
 import classes from "./styles.module.css";
+import { isGroup } from "./utils.ts";
 
-type Item = { label: string; value: string; disabled?: boolean };
+export type SelectOption = {
+  /**
+   * The value given as data when submitted with a `name`.
+   */
+  value: string;
 
-// TODO:  improve styles
+  /**
+   * The text label of the option.
+   */
+  label: string;
+
+  /**
+   * When true, prevents the user from interacting with the item.
+   *
+   * @default false
+   */
+  disabled?: boolean;
+};
+
+export type SelectGroup = {
+  /**
+   * The text label of the group.
+   */
+  label: string;
+
+  /**
+   * The items of the group.
+   */
+  items: SelectOption[];
+};
+
+export type SelectItem = SelectOption | SelectGroup;
+
 export type SelectInputProps = Omit<
   MergeElementProps<
-    "select",
-    {
+    "button",
+    Pick<
+      SelectPrimitive.SelectContentProps,
+      | "onEscapeKeyDown"
+      | "onPointerDownOutside"
+      | "avoidCollisions"
+      | "collisionBoundary"
+      | "collisionPadding"
+    > & {
       /**
        * The label of the input.
        */
       label: string;
+
+      /**
+       * The select items.
+       */
+      items: SelectItem[];
+
+      /**
+       * The controlled value of the select.
+       * Should be used in conjunction with `onChange`.
+       */
+      value?: string;
+
+      /**
+       * The value of the select when initially rendered.
+       * Use when you do not need to control the state of the select.
+       */
+      defaultValue?: string;
+
+      /**
+       * The open state of the select when it is initially rendered.
+       * Use when you do not need to control its open state.
+       */
+      defaultOpen?: boolean;
+
+      /**
+       * The controlled open state of the select.
+       * Must be used in conjunction with `onOpenChange`.
+       */
+      open?: boolean;
+
+      /**
+       * The name of the select.
+       * Submitted with its owning form as part of a name/value pair.
+       */
+      name?: string;
 
       /**
        * Whether to hide the label or not.
@@ -28,14 +104,22 @@ export type SelectInputProps = Omit<
       hideLabel?: boolean;
 
       /**
-       * The placeholder of the input.
+       * When `true`, indicates that the user must select an option before the
+       * owning form can be submitted.
+       *
+       * @default false
        */
-      placeholder?: string;
+      required?: boolean;
 
       /**
        * The text to display as a description.
        */
       description?: string;
+
+      /**
+       * The placeholder text to display when no item is selected.
+       */
+      placeholder?: string;
 
       /**
        * Conveys additional information below the text input, such as how it should
@@ -98,13 +182,20 @@ export type SelectInputProps = Omit<
        * The slot used for element placed at the end.
        */
       endSlot?: React.ReactNode;
+
       /**
-       * The items of the select component.
+       * Event handler called when the open state of the select changes.
        */
-      items: Item[];
+      onOpenChange?: (open: boolean) => void;
+
+      /**
+       * Event handler called when the value changes.
+       */
+      onChange?: (value: string) => void;
     }
   >,
   | "children"
+  | "type"
   | "checked"
   | "defaultChecked"
   | "aria-invalid"
@@ -115,36 +206,68 @@ export type SelectInputProps = Omit<
 
 export const SelectInput: React.FC<SelectInputProps> = props => {
   const {
+    ref,
+    open: openProp,
+    defaultOpen,
+    value: valueProp,
+    items,
+    defaultValue,
+    name,
     className,
     id: idProp,
     startSlot,
     endSlot,
-    items = [],
     label,
     description,
     errorText,
-    required,
     feedback,
     placeholder,
+    avoidCollisions,
+    collisionBoundary,
+    collisionPadding,
     size = "md",
+    required = false,
     autoFocus = false,
     hasError = false,
     hideLabel = false,
     disabled = false,
     readOnly = false,
+    onEscapeKeyDown,
+    onPointerDownOutside,
+    onOpenChange,
+    onChange,
     ...otherProps
   } = props;
 
   const nodeId = useId();
 
+  const inputRef = useRef<HTMLButtonElement | null>(null);
+  const handleRef = useForkedRefs(ref, inputRef);
+
   const [refreshErrorAlert, setRefreshErrorAlert] = useState(false);
 
-  const rootId = `TextInput:Root_${nodeId}`;
-  const labelId = `TextInput:Label_${nodeId}`;
-  const descId = `TextInput:Description_${nodeId}`;
-  const inputId = idProp ?? `TextInput:Input_${nodeId}`;
+  const [open, setOpen] = useControllableProp({
+    fallbackValue: false,
+    controlledPropValue: openProp,
+    uncontrolledDefaultValueProp: defaultOpen,
+  });
+
+  const [value, setValue] = useControllableProp({
+    fallbackValue: "",
+    controlledPropValue: valueProp,
+    uncontrolledDefaultValueProp: defaultValue,
+  });
+
+  const rootId = `SelectInput:Root_${nodeId}`;
+  const labelId = `SelectInput:Label_${nodeId}`;
+  const descId = `SelectInput:Description_${nodeId}`;
+  const controlId = `SelectInput:Control_${nodeId}`;
+  const inputId = idProp ?? `SelectInput:Input_${nodeId}`;
 
   const feedbackOrErrorText = hasError && errorText ? errorText : feedback;
+
+  const { resolveContainer } = usePortalConfig();
+  const container = useIsomorphicValue(resolveContainer, null);
 
   useEffect(() => {
     if (refreshErrorAlert) {
@@ -165,6 +288,42 @@ export const SelectInput: React.FC<SelectInputProps> = props => {
       setRefreshErrorAlert(true);
     }
   }, [hasError, errorText]);
+
+  const contentRefCallback = useCallback(
+    (node: HTMLDivElement | null) => {
+      if (!node) return;
+
+      const control = document.getElementById(controlId);
+
+      if (!control) return;
+
+      node?.style.setProperty(
+        "--select-input-content-width",
+        `${control.offsetWidth}px`,
+      );
+    },
+    [controlId],
+  );
+
+  const handleClick: React.MouseEventHandler = () => {
+    if (disabled || readOnly) return;
+
+    inputRef.current?.click();
+  };
+
+  const handleOpenChange = (openState: boolean) => {
+    if (disabled || readOnly) return;
+
+    onOpenChange?.(openState);
+    setOpen(openState);
+  };
+
+  const handleValueChange = (value: string) => {
+    if (disabled || readOnly) return;
+
+    onChange?.(value);
+    setValue(value);
+  };
 
   const renderLabel = () => {
     if (hideLabel) return null;
@@ -253,6 +412,52 @@ export const SelectInput: React.FC<SelectInputProps> = props => {
     return <div className={classes["end-slot"]}>{endSlot}</div>;
   };
 
+  const renderOptions = (options: SelectOption[]) => {
+    return options.map(option => {
+      const key = option.label + option.value;
+
+      return (
+        <SelectPrimitive.Item
+          key={key}
+          className={classes["item"]}
+          value={option.value}
+          disabled={option.disabled}
+        >
+          <SelectPrimitive.ItemText className={classes["item-text"]}>
+            {option.label}
+          </SelectPrimitive.ItemText>
+          <SelectPrimitive.ItemIndicator className={classes["item-indicator"]}>
+            <Icon data={mdiCheck} />
+          </SelectPrimitive.ItemIndicator>
+        </SelectPrimitive.Item>
+      );
+    });
+  };
+
+  const renderItems = () => {
+    return items.map(item => {
+      if (isGroup(item)) {
+        const key = item.label;
+
+        return (
+          <SelectPrimitive.Group
+            key={key}
+            className={classes["group"]}
+          >
+            <SelectPrimitive.Label className={classes["group-label"]}>
+              {item.label}
+            </SelectPrimitive.Label>
+            <div className={classes["group-items"]}>
+              {renderOptions(item.items)}
+            </div>
+          </SelectPrimitive.Group>
+        );
+      }
+
+      return renderOptions([item]);
+    });
+  };
+
   const ariaLabel = hideLabel ? label : undefined;
   const ariaDescribedBy = description ? descId : undefined;
   const ariaInvalid = hasError;
@@ -268,42 +473,79 @@ export const SelectInput: React.FC<SelectInputProps> = props => {
     >
       {renderLabel()}
       {renderDescription()}
-      <div>
-        <SelectPrimitive.Root required={required}>
+      <SelectPrimitive.Root
+        required={required}
+        open={open}
+        value={value}
+        disabled={disabled}
+        onOpenChange={handleOpenChange}
+        onValueChange={handleValueChange}
+        name={name}
+      >
+        <div
+          id={controlId}
+          className={classes["control"]}
+          tabIndex={-1}
+          onClick={handleClick}
+          inert={disabled}
+        >
+          {renderStartSlot()}
           <SelectPrimitive.Trigger
+            {...otherProps}
+            ref={handleRef}
             id={inputId}
+            disabled={disabled}
+            autoFocus={autoFocus}
+            className={classes["input"]}
+            aria-readonly={readOnly}
             aria-label={ariaLabel}
-            data-size={size}
             aria-invalid={ariaInvalid}
             aria-describedby={ariaDescribedBy}
-            className={classes["control"]}
           >
-            <div>
-              {renderStartSlot()}
-              <SelectValue
-                className={classes["input"]}
-                placeholder={placeholder}
-              />
-              {renderEndSlot()}
-            </div>
-            <SelectPrimitive.Icon className={classes["select-icon"]}>
-              <Icon data={mdiChevronDown} />
-            </SelectPrimitive.Icon>
+            <SelectPrimitive.Value placeholder={placeholder} />
           </SelectPrimitive.Trigger>
-          <SelectContent className={classes["dropdown"]}>
-            {items.map(item => (
-              <SelectItem
-                size={size}
-                key={item.value}
-                value={item.value}
-                disabled={item.disabled}
-              >
-                {item.label}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </SelectPrimitive.Root>
-      </div>
+          {renderEndSlot()}
+          <SelectPrimitive.Icon className={classes["select-icon"]}>
+            <Icon data={mdiChevronDown} />
+          </SelectPrimitive.Icon>
+        </div>
+        <SelectPrimitive.Portal container={container}>
+          <SelectPrimitive.Content
+            ref={contentRefCallback}
+            onEscapeKeyDown={onEscapeKeyDown}
+            onPointerDownOutside={onPointerDownOutside}
+            align="start"
+            avoidCollisions={avoidCollisions}
+            collisionBoundary={collisionBoundary}
+            collisionPadding={collisionPadding}
+            side="bottom"
+            position="popper"
+            className={classes["content"]}
+          >
+            <SelectPrimitive.ScrollUpButton
+              className={classes["scroll-indicator"]}
+              data-position="top"
+            >
+              <Icon
+                size={16}
+                data={mdiChevronUp}
+              />
+            </SelectPrimitive.ScrollUpButton>
+            <SelectPrimitive.Viewport className={classes["viewport"]}>
+              {renderItems()}
+            </SelectPrimitive.Viewport>
+            <SelectPrimitive.ScrollDownButton
+              className={classes["scroll-indicator"]}
+              data-position="down"
+            >
+              <Icon
+                size={16}
+                data={mdiChevronDown}
+              />
+            </SelectPrimitive.ScrollDownButton>
+          </SelectPrimitive.Content>
+        </SelectPrimitive.Portal>
+      </SelectPrimitive.Root>
       {renderFeedback()}
     </div>
   );
