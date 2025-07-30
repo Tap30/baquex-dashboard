@@ -1,4 +1,5 @@
 import type { ExcludeUndefined } from "@/types";
+import { formatNumber } from "@/utils";
 import type { DefaultTooltipContent } from "recharts";
 import classes from "./styles.module.css";
 
@@ -66,7 +67,7 @@ export const TooltipItem: React.FC<Props> = props => {
         <span className={classes["label"]}>{itemLabel || item.name}</span>
         {item.value && (
           <strong className={classes["value"]}>
-            {item.value.toLocaleString()}
+            {formatNumber(Number(item.value.toLocaleString()))}
           </strong>
         )}
       </div>
