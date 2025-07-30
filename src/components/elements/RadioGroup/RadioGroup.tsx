@@ -1,8 +1,8 @@
 import type { MergeElementProps } from "@/types";
-import { cn, useControllableProp } from "@/utils";
+import { cn, useControllableProp, useUniqueId } from "@/utils";
 import { mdiCircleMedium } from "@mdi/js";
 import * as RadioGroupPrimitive from "@radix-ui/react-radio-group";
-import { useEffect, useId, useState } from "react";
+import { useEffect, useState } from "react";
 import { Icon } from "../Icon.tsx";
 import { Text, type TextProps } from "../Text/index.ts";
 import classes from "./styles.module.css";
@@ -158,7 +158,7 @@ export const RadioGroup: React.FC<RadioGroupProps> = props => {
     ...otherProps
   } = props;
 
-  const nodeId = useId();
+  const nodeId = useUniqueId();
 
   const [refreshErrorAlert, setRefreshErrorAlert] = useState(false);
 

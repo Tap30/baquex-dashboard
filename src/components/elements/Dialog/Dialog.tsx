@@ -6,10 +6,10 @@ import {
   type ButtonProps,
 } from "@/components";
 import type { WithRef } from "@/types";
-import { cn, useIsomorphicValue } from "@/utils";
+import { cn, useIsomorphicValue, useUniqueId } from "@/utils";
 import { mdiClose } from "@mdi/js";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
-import { useEffect, useId, useRef } from "react";
+import { useEffect, useRef } from "react";
 import classes from "./styles.module.css";
 
 export type DialogAction = Pick<
@@ -92,7 +92,7 @@ export const Dialog: React.FC<DialogProps> = props => {
     onPointerDownOutside,
   } = props;
 
-  const nodeId = useId();
+  const nodeId = useUniqueId();
   const cancelBtnId = `CANCEL_BTN_${nodeId}`;
 
   const previousActiveElement = useRef<HTMLElement | null>(null);

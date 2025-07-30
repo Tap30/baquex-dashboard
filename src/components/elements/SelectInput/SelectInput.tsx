@@ -5,10 +5,11 @@ import {
   useControllableProp,
   useForkedRefs,
   useIsomorphicValue,
+  useUniqueId,
 } from "@/utils";
 import { mdiCheck, mdiChevronDown, mdiChevronUp } from "@mdi/js";
 import * as SelectPrimitive from "@radix-ui/react-select";
-import { useCallback, useEffect, useId, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import classes from "./styles.module.css";
 import { isGroup } from "./utils.ts";
 
@@ -239,7 +240,7 @@ export const SelectInput: React.FC<SelectInputProps> = props => {
     ...otherProps
   } = props;
 
-  const nodeId = useId();
+  const nodeId = useUniqueId();
 
   const inputRef = useRef<HTMLButtonElement | null>(null);
   const handleRef = useForkedRefs(ref, inputRef);

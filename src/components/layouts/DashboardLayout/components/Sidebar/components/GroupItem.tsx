@@ -1,6 +1,6 @@
 import { Flex, Text } from "@/components";
 import { SidebarItemTypes, type SidebarGroupItem } from "@/constants";
-import { useId } from "react";
+import { useUniqueId } from "@/utils";
 import { LeafItem } from "./LeafItem/index.ts";
 import { ParentItem } from "./ParentItem/index.ts";
 
@@ -12,7 +12,7 @@ export const GroupItem: React.FC<Props> = props => {
   const { item } = props;
   const { title, items } = item;
 
-  const nodeId = useId();
+  const nodeId = useUniqueId();
   const labelId = `LABEL_${nodeId}`;
 
   const renderItems = () => {

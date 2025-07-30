@@ -1,9 +1,9 @@
 import { Icon, IconButton, Text, type TextProps } from "@/components";
 import { strings } from "@/static-content";
 import type { MergeElementProps } from "@/types";
-import { cn, formatNumber, useForkedRefs } from "@/utils";
+import { cn, formatNumber, useForkedRefs, useUniqueId } from "@/utils";
 import { mdiClose } from "@mdi/js";
-import { useEffect, useId, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import classes from "./styles.module.css";
 import { arrayFromFileList } from "./utils.ts";
 
@@ -126,7 +126,7 @@ export const FileInput: React.FC<FileInputProps> = props => {
     ...otherProps
   } = props;
 
-  const nodeId = useId();
+  const nodeId = useUniqueId();
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   const handleRef = useForkedRefs(ref, inputRef);

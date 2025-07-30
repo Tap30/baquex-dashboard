@@ -1,7 +1,6 @@
 import { Flex, Text } from "@/components";
 import type { WithBaseProps } from "@/types";
-import { cn } from "@/utils";
-import { useId } from "react";
+import { cn, useUniqueId } from "@/utils";
 import classes from "./styles.module.css";
 
 export type PanelCardProps = WithBaseProps<{
@@ -24,7 +23,7 @@ export type PanelCardProps = WithBaseProps<{
 export const PanelCard: React.FC<PanelCardProps> = props => {
   const { subtitle, title, headingSlot, className, children } = props;
 
-  const nodeId = useId();
+  const nodeId = useUniqueId();
   const titleId = `TITLE_${nodeId}`;
 
   return (

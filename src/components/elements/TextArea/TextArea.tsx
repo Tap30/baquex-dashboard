@@ -1,6 +1,6 @@
 import type { MergeElementProps } from "@/types";
-import { cn } from "@/utils";
-import { useEffect, useId, useState } from "react";
+import { cn, useUniqueId } from "@/utils";
+import { useEffect, useState } from "react";
 import { Text, type TextProps } from "../Text/index.ts";
 import classes from "./styles.module.css";
 
@@ -104,7 +104,7 @@ export const TextArea: React.FC<TextAreaProps> = props => {
     ...otherProps
   } = props;
 
-  const nodeId = useId();
+  const nodeId = useUniqueId();
 
   const [refreshErrorAlert, setRefreshErrorAlert] = useState(false);
 

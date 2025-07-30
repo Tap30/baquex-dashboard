@@ -1,8 +1,8 @@
 import type { MergeElementProps } from "@/types";
-import { cn, useControllableProp } from "@/utils";
+import { cn, useControllableProp, useUniqueId } from "@/utils";
 import { mdiCheckBold, mdiMinusThick } from "@mdi/js";
 import * as CheckboxPrimitive from "@radix-ui/react-checkbox";
-import { useEffect, useId, useState } from "react";
+import { useEffect, useState } from "react";
 import { Icon } from "../Icon.tsx";
 import { Text, type TextProps } from "../Text/index.ts";
 import classes from "./styles.module.css";
@@ -137,7 +137,7 @@ export const CheckBox: React.FC<CheckBoxProps> = props => {
     ...otherProps
   } = props;
 
-  const nodeId = useId();
+  const nodeId = useUniqueId();
 
   const [refreshErrorAlert, setRefreshErrorAlert] = useState(false);
 

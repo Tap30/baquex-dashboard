@@ -1,7 +1,7 @@
 import type { MergeElementProps } from "@/types";
-import { cn, useForkedRefs } from "@/utils";
+import { cn, useForkedRefs, useUniqueId } from "@/utils";
 import { mdiClock } from "@mdi/js";
-import { useEffect, useId, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Icon } from "../Icon.tsx";
 import { Text, type TextProps } from "../Text/index.ts";
 import classes from "./styles.module.css";
@@ -124,7 +124,7 @@ export const TimeInput: React.FC<TimeInputProps> = props => {
     ...otherProps
   } = props;
 
-  const nodeId = useId();
+  const nodeId = useUniqueId();
 
   const inputRef = useRef<HTMLInputElement | null>(null);
 
@@ -132,10 +132,10 @@ export const TimeInput: React.FC<TimeInputProps> = props => {
 
   const [refreshErrorAlert, setRefreshErrorAlert] = useState(false);
 
-  const rootId = `TextInput:Root_${nodeId}`;
-  const labelId = `TextInput:Label_${nodeId}`;
-  const descId = `TextInput:Description_${nodeId}`;
-  const inputId = idProp ?? `TextInput:Input_${nodeId}`;
+  const rootId = `TimeInput:Root_${nodeId}`;
+  const labelId = `TimeInput:Label_${nodeId}`;
+  const descId = `TimeInput:Description_${nodeId}`;
+  const inputId = idProp ?? `TimeInput:Input_${nodeId}`;
 
   const feedbackOrErrorText = hasError && errorText ? errorText : feedback;
 

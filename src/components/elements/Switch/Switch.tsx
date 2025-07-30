@@ -1,7 +1,7 @@
 import type { MergeElementProps } from "@/types";
-import { cn, useControllableProp } from "@/utils";
+import { cn, useControllableProp, useUniqueId } from "@/utils";
 import * as SwitchPrimitive from "@radix-ui/react-switch";
-import { useEffect, useId, useState } from "react";
+import { useEffect, useState } from "react";
 import { Text, type TextProps } from "../Text/index.ts";
 import classes from "./styles.module.css";
 
@@ -135,7 +135,7 @@ export const Switch: React.FC<SwitchProps> = props => {
     ...otherProps
   } = props;
 
-  const nodeId = useId();
+  const nodeId = useUniqueId();
 
   const [refreshErrorAlert, setRefreshErrorAlert] = useState(false);
 

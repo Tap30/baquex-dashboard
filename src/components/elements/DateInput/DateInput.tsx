@@ -6,11 +6,11 @@ import {
   PopoverTrigger,
 } from "@/components";
 import type { MergeElementProps } from "@/types";
-import { cn, formatDate } from "@/utils";
+import { cn, formatDate, useUniqueId } from "@/utils";
 import { mdiCalendar } from "@mdi/js";
 
 import { strings } from "@/static-content";
-import { useEffect, useId, useState } from "react";
+import { useEffect, useState } from "react";
 import "react-day-picker/style.css";
 import { Text, type TextProps } from "../Text/index.ts";
 import classes from "./styles.module.css";
@@ -135,7 +135,7 @@ export const DateInput: React.FC<DateInputProps> = props => {
     ...otherProps
   } = props;
 
-  const nodeId = useId();
+  const nodeId = useUniqueId();
 
   // TODO: fix type
   const [selectedDate, setSelectedDate] = useState<
