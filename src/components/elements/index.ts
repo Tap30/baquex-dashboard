@@ -3,6 +3,7 @@ export * from "./Avatar/index.ts";
 export * from "./Badge/index.ts";
 export * from "./Breadcrumb/index.ts";
 export * from "./Button/index.ts";
+export * from "./Chart/index.ts";
 export * from "./CheckBox/index.ts";
 export * from "./ClickableArea/index.ts";
 export * from "./DataTable/index.ts";

@@ -1,0 +1,57 @@
+.root {
+  background-color: var(--color-neutral);
+  color: var(--color-on-neutral);
+
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-lg);
+}
+
+.label {
+  font-size: var(--text-caption);
+  line-height: var(--leading-caption);
+  font-weight: 400;
+}
+
+.items {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+
+  width: 100%;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+}
+
+.icon {
+  width: 1.125rem;
+  height: 1.125rem;
+  min-width: 1.125rem;
+  min-height: 1.125rem;
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  min-width: 10rem;
+  gap: var(--spacing-sm);
+}
+
+.value {
+  margin-inline-start: auto;
+}
+
+.indicator {
+  width: 1.125rem;
+  height: 1.125rem;
+  min-width: 1.125rem;
+  min-height: 1.125rem;
+
+  border-radius: var(--radius-full);
+
+  background-color: var(--tooltip-item-indicator-background);
+}

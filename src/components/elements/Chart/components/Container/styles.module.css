@@ -1,0 +1,57 @@
+.root {
+  display: flex;
+  justify-content: center;
+
+  aspect-ratio: 16 / 9;
+
+  font-size: var(--text-caption);
+  line-height: var(--leading-caption);
+}
+
+.root :global(.recharts-cartesian-axis-tick text) {
+  fill: var(--color-neutral-text-tertiary);
+}
+
+.root :global(.recharts-cartesian-grid line[stroke="#ccc"]) {
+  stroke: var(--color-border-tertiary);
+}
+
+.root :global(.recharts-curve.recharts-tooltip-cursor) {
+  stroke: var(--color-border-secondary);
+}
+
+.root :global(.recharts-polar-grid [stroke="#ccc"]) {
+  stroke: var(--color-border-secondary);
+}
+
+.root :global(.recharts-radial-bar-background-sector) {
+  fill: var(--color-neutral-muted);
+}
+
+.root :global(.recharts-rectangle.recharts-tooltip-cursor) {
+  fill: var(--color-neutral-muted);
+}
+
+.root :global(.recharts-reference-line [stroke="#ccc"]) {
+  stroke: var(--color-border-secondary);
+}
+
+.root :global(.recharts-dot[stroke="#fff"]) {
+  stroke: transparent;
+}
+
+.root :global(.recharts-layer) {
+  outline: hidden;
+}
+
+.root :global(.recharts-sector) {
+  outline: hidden;
+}
+
+.root :global(.recharts-sector[stroke="#fff"]) {
+  stroke: transparent;
+}
+
+.root :global(.recharts-surface) {
+  outline: hidden;
+}
