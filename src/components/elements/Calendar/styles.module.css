@@ -1,8 +1,28 @@
 .root {
+  --calendar-padding: 0;
+  --calendar-cells-gap: 0;
+  --calendar-cell-size: 0;
+
   width: fit-content;
   background: var(--color-background);
   border-radius: var(--radius-md);
-  padding: var(--spacing);
+  padding: var(--calendar-padding);
+}
+
+.root.sm {
+  --calendar-padding: var(--spacing-xs);
+  --calendar-cells-gap: var(--spacing-xxs);
+  --calendar-cell-size: 2rem;
+}
+.root.md {
+  --calendar-padding: var(--spacing-sm);
+  --calendar-cells-gap: var(--spacing-xs);
+  --calendar-cell-size: 2.125rem;
+}
+.root.lg {
+  --calendar-padding: var(--spacing-sm);
+  --calendar-cells-gap: var(--spacing-sm);
+  --calendar-cell-size: 2.25rem;
 }
 
 .nav {
@@ -31,17 +51,20 @@
 .weekdays {
   display: flex;
   color: var(--color-gray-400);
-  gap: var(--spacing-xxs);
+  gap: var(--calendar-cells-gap);
 }
 .weekday {
   flex: 1;
   user-select: none;
+
+  width: var(--calendar-cell-size);
+  height: var(--calendar-cell-size);
 }
 .week {
   display: flex;
   width: 100%;
-  margin-top: var(--spacing-xxs);
-  gap: var(--spacing-xxs);
+  margin-top: var(--calendar-cells-gap);
+  gap: var(--calendar-cells-gap);
 }
 .week-number-header {
   user-select: none;
@@ -53,8 +76,8 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  width: var(--cell-size);
-  height: var(--cell-size);
+  width: var(--calendar-cell-size);
+  height: var(--calendar-cell-size);
 }
 
 .selected {
@@ -69,7 +92,6 @@
 .range-start {
   background: var(--color-white);
   color: var(--color-black);
-  /* border-radius: 0  var(--radius-sm) var(--radius-sm) 0; */
   border-radius: var(--radius-sm);
 }
 .range-middle {
@@ -80,7 +102,6 @@
   background: var(--color-white);
   color: var(--color-black);
   border-radius: var(--radius-sm);
-  /* border-radius:  var(--radius-sm) 0 0 var(--radius-sm); */
 }
 
 .outside {
@@ -94,8 +115,15 @@
   justify-content: center;
   align-items: center;
   display: flex;
-  width: var(--rdp-day_button-width);
-  height: var(--rdp-day_button-height);
+}
+
+.day.day {
+  width: var(--calendar-cell-size);
+  height: var(--calendar-cell-size);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .caption-label {
@@ -105,7 +133,7 @@
   padding-inline: var(--spacing-sm);
   display: flex;
   align-items: center;
-  gap: 0.25rem;
+  gap: var(--calendar-cells-gap);
   height: 2rem;
 }
 
@@ -122,4 +150,8 @@
 
 .hidden {
   visibility: hidden;
+}
+
+.dropdown .control {
+  margin-top: 0;
 }

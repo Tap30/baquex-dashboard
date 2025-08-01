@@ -1,44 +1,52 @@
-import { Icon, IconButton } from "@/components";
+import { Icon, IconButton, SelectInput } from "@/components";
+import { strings } from "@/static-content";
 import { cn } from "@/utils";
 import { mdiChevronDown, mdiChevronLeft, mdiChevronRight } from "@mdi/js";
 import { getDefaultClassNames, type DayPickerProps } from "react-day-picker";
-import { DayPicker, faIR, getDateLib } from "react-day-picker/persian";
-// import type { DayPickerProps as JalaliProps } from "react-day-picker/persian";
-import { strings } from "@/static-content";
-
+import { DayPicker, faIR } from "react-day-picker/persian";
 import classes from "./styles.module.css";
 
 export type CalendarProps = Omit<
   DayPickerProps,
-  "showOutsideDays" | "captionLayout"
->;
+  "captionLayout" | "disabled"
+> & {
+  /**
+   * The size of the input.
+   *
+   * @default "md"
+   */
+  size?: "sm" | "md" | "lg";
+
+  /**
+   * Whether the calendar is disabled.
+   *
+   * @default false
+   */
+  disabled?: boolean;
+};
 
 export const Calendar = (props: CalendarProps) => {
   const {
     className,
     formatters,
     components,
-    locale = faIR,
     disabled,
     mode = "single",
+    size = "md",
     ...otherProps
   } = props;
 
   const defaultClassNames = getDefaultClassNames();
-  const dateLib = getDateLib();
 
   return (
     <DayPicker
       disabled={disabled}
-      locale={locale}
+      locale={faIR}
       showOutsideDays
       mode={mode}
       className={cn(className)}
       captionLayout="dropdown"
-      formatters={{
-        formatMonthDropdown: date => dateLib.format(date, "MM"), // TODO: convert to persian
-        ...formatters,
-      }}
+      formatters={formatters}
       classNames={{
         months: cn(defaultClassNames.months, classes["months"]),
         month: cn(defaultClassNames.month, classes["month"]),
@@ -66,6 +74,7 @@ export const Calendar = (props: CalendarProps) => {
           [classes["selected"]!]: mode !== "range",
         }),
         week_number: cn(defaultClassNames.week_number, classes["week-number"]),
+        day: cn(defaultClassNames.day, classes["day"]),
         day_button: cn(classes["day-button"]),
         range_start: cn(classes["range-start"]),
         range_middle: cn(classes["range-middle"]),
@@ -81,27 +90,52 @@ export const Calendar = (props: CalendarProps) => {
             <div
               data-slot="calendar"
               ref={rootRef}
-              className={cn(classes["root"], className)}
+              className={cn(classes["root"], classes[size], className)}
               {...props}
             />
           );
         },
-        // Dropdown: ({ options = [], name, size, ...props }) => {
-        //   const items = options.map(option => ({
-        //     label: option.label,
-        //     value: option.value.toString(),
-        //     disabled: option.disabled,
-        //   }));
+        MonthsDropdown: ({ options = [], size: dropdownSize, ...props }) => {
+          const items = options.map(option => ({
+            label: option.label,
+            value: option.value.toString(),
+            disabled: option.disabled,
+          }));
 
-        //   return (
-        //     <SelectInput
-        //       size="sm"
-        //       label={name ?? ""}
-        //       items={items}
-        //       {...props}
-        //     />
-        //   );
-        // },
+          return (
+            <SelectInput
+              disabled={disabled}
+              label={strings.components.calendar.month}
+              size={!Number.isNaN(dropdownSize) ? "md" : size}
+              hideLabel
+              items={items}
+              {...props}
+            />
+          );
+        },
+        YearsDropdown: ({
+          options = [],
+          size: dropdownSize,
+          onSelect,
+          ...props
+        }) => {
+          const items = options.map(option => ({
+            label: option.label,
+            value: option.value.toString(),
+            disabled: option.disabled,
+          }));
+
+          return (
+            <SelectInput
+              disabled={disabled}
+              label={strings.components.calendar.year}
+              size={!Number.isNaN(dropdownSize) ? "md" : size}
+              hideLabel
+              items={items}
+              {...props}
+            />
+          );
+        },
         NextMonthButton: ({ children, color, ...restProps }) => {
           return (
             <IconButton
@@ -114,12 +148,16 @@ export const Calendar = (props: CalendarProps) => {
             />
           );
         },
-        PreviousMonthButton: ({ children, color, ...restProps }) => {
+        PreviousMonthButton: ({
+          children,
+          color = "neutral",
+          ...restProps
+        }) => {
           return (
             <IconButton
               disabled={!!disabled}
               variant="ghost"
-              color="neutral"
+              color={color}
               title={strings.components.calendar.previousMonth}
               icon={<Icon data={mdiChevronRight} />}
               {...restProps}
@@ -137,17 +175,6 @@ export const Calendar = (props: CalendarProps) => {
 
           return <Icon data={mdiChevronDown} />;
         },
-        // DayButton: CalendarDayButton,
-        // WeekNumber: ({ children, ...props }) => {
-        //   return (
-        //     <td {...props}>
-        //       <div className={classes["week-number"]}>
-        //         {/* <div className="flex size-(--cell-size) items-center justify-center text-center"> */}
-        //         {children}
-        //       </div>
-        //     </td>
-        //   );
-        // },
         ...components,
       }}
       {...otherProps}
