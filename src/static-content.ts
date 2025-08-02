@@ -8,6 +8,7 @@ type GlobalStrings = {
   to: string;
   clearValue: string;
   close: string;
+  cancel: string;
   sorting: {
     ascending: string;
     descending: string;
@@ -80,6 +81,7 @@ export const strings = new Localization<GlobalStrings>({
     comma: ",",
     logoutButton: "Logout",
     close: "Close",
+    cancel: "Cancel",
     clearValue: "Clear value",
     breadcrumb: "Breadcrumb",
     sorting: {
@@ -152,6 +154,7 @@ export const strings = new Localization<GlobalStrings>({
     logoutButton: "خروج",
     clearValue: "حذف مقدار",
     close: "بستن",
+    cancel: "لغو عملیات",
     breadcrumb: "نقشه صفحات",
     sorting: {
       ascending: "مرتب‌سازی صعودی",
