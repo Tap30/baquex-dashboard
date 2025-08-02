@@ -149,14 +149,14 @@
 }
 
 .content {
-  width: var(--select-input-content-width);
+  width: max(var(--select-input-content-width), max-content);
   max-height: 11rem;
 
   background-color: var(--color-surface-secondary);
   box-shadow: 0 0 0 1px var(--color-border-secondary);
   border-radius: var(--radius-sm);
   padding: var(--spacing-xs);
-  margin-left: calc(-1 * var(--spacing-xxs));
+  margin-inline-start: calc(-1 * var(--spacing-xs));
 }
 
 .content[data-side="top"] {

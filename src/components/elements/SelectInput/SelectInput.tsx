@@ -25,7 +25,7 @@ export type SelectOption = {
   label: string;
 
   /**
-   * When true, prevents the user from interacting with the item.
+   * When `true`, prevents the user from interacting with the item.
    *
    * @default false
    */
