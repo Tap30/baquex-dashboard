@@ -1,12 +1,13 @@
 import {
   Calendar,
+  type CalendarValue,
   Icon,
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components";
 import type { MergeElementProps } from "@/types";
-import { cn, formatDate, useUniqueId } from "@/utils";
+import { cn, formatDate, useControllableProp, useUniqueId } from "@/utils";
 import { mdiCalendar } from "@mdi/js";
 
 import { strings } from "@/static-content";
@@ -67,7 +68,7 @@ export type DateInputProps = Omit<
       size?: "sm" | "md" | "lg";
 
       /**
-       * Indicates whether or not a user should be able to edit the text input's
+       * Indicates whether or not a user should be able to edit the date input's
        * value.
        *
        * @default false
@@ -103,7 +104,31 @@ export type DateInputProps = Omit<
        *
        * @see https://daypicker.dev/
        */
-      calendarProps?: React.ComponentProps<typeof Calendar>;
+      calendarProps?: Partial<React.ComponentProps<typeof Calendar>>;
+
+      /**
+       * The controlled value of the calendar.
+       * Should be used in conjunction with `onChange`.
+       */
+      value?: CalendarValue;
+
+      /**
+       * The value of the input when initially rendered.
+       * Use when you do not need to control the state of the calendar.
+       */
+      defaultValue?: CalendarValue;
+
+      /**
+       * The open state of the input when it is initially rendered.
+       * Use when you do not need to control its open state.
+       */
+      defaultOpen?: boolean;
+
+      /**
+       * The controlled open state of the input.
+       * Must be used in conjunction with `onOpenChange`.
+       */
+      open?: boolean;
     }
   >,
   | "children"
@@ -125,6 +150,10 @@ export const DateInput: React.FC<DateInputProps> = props => {
     description,
     errorText,
     feedback,
+    value: valueProp,
+    defaultValue,
+    defaultOpen,
+    open: openProp,
     size = "md",
     autoFocus = false,
     hasError = false,
@@ -132,22 +161,30 @@ export const DateInput: React.FC<DateInputProps> = props => {
     disabled = false,
     readOnly = false,
     calendarProps = {},
-    ...otherProps
   } = props;
+
+  const { mode = "single" } = calendarProps;
 
   const nodeId = useUniqueId();
 
-  // TODO: fix type
-  const [selectedDate, setSelectedDate] = useState<
-    Date | Date[] | { from: Date; to: Date } | undefined
-  >();
+  const [value, setValue] = useControllableProp<CalendarValue | undefined>({
+    fallbackValue: undefined,
+    controlledPropValue: valueProp,
+    uncontrolledDefaultValueProp: defaultValue,
+  });
+
+  const [open, setOpen] = useControllableProp({
+    fallbackValue: false,
+    controlledPropValue: openProp,
+    uncontrolledDefaultValueProp: defaultOpen,
+  });
 
   const [refreshErrorAlert, setRefreshErrorAlert] = useState(false);
 
-  const rootId = `TextInput:Root_${nodeId}`;
-  const labelId = `TextInput:Label_${nodeId}`;
-  const descId = `TextInput:Description_${nodeId}`;
-  const inputId = idProp ?? `TextInput:Input_${nodeId}`;
+  const rootId = `DateInput:Root_${nodeId}`;
+  const labelId = `DateInput:Label_${nodeId}`;
+  const descId = `DateInput:Description_${nodeId}`;
+  const inputId = idProp ?? `DateInput:Input_${nodeId}`;
 
   const feedbackOrErrorText = hasError && errorText ? errorText : feedback;
 
@@ -262,28 +299,41 @@ export const DateInput: React.FC<DateInputProps> = props => {
   const ariaDescribedBy = description ? descId : undefined;
   const ariaInvalid = hasError;
 
-  const getFormattedString = () => {
-    if (!selectedDate) {
+  const getFormattedSlot = () => {
+    if (!value) {
       return strings.components.dateInput.selectDate;
     }
 
-    if (calendarProps?.mode === "multiple") {
-      return (selectedDate as Date[]).map(formatDate).join(`${strings.comma} `);
+    if (mode === "multiple") {
+      return (value as Date[])
+        .map(value => formatDate(value))
+        .join(strings.comma);
     }
 
-    if (calendarProps?.mode === "range") {
-      const { from, to } = selectedDate as { from: Date; to: Date };
+    if (mode === "range" && value && "from" in value && "to" in value) {
+      const { from, to } = value;
 
-      if (from === to) {
-        return formatDate(from);
-      }
+      if (!from) return strings.components.dateInput.selectDate;
+      if (from === to || !to) return formatDate(from);
 
       return [strings.from, formatDate(from), strings.to, formatDate(to)].join(
         " ",
       );
     }
 
-    return formatDate(selectedDate as Date);
+    return formatDate(value as Date);
+  };
+
+  const handleChange = (e: CalendarValue) => {
+    if (readOnly || disabled) return;
+
+    setValue(e);
+  };
+
+  const handleOpenChange = (newValue: boolean) => {
+    if (readOnly || disabled) return;
+
+    setOpen(newValue);
   };
 
   return (
@@ -297,8 +347,11 @@ export const DateInput: React.FC<DateInputProps> = props => {
     >
       {renderLabel()}
       {renderDescription()}
-      <Popover>
-        <PopoverTrigger asChild>
+      <Popover
+        open={open}
+        onOpenChange={handleOpenChange}
+      >
+        <PopoverTrigger autoFocus={autoFocus}>
           <div
             role="combobox"
             tabIndex={0}
@@ -311,10 +364,10 @@ export const DateInput: React.FC<DateInputProps> = props => {
             {renderStartSlot()}
             <div
               className={cn(classes["value"], classes["value-display"], {
-                [classes["placeholder"]!]: !selectedDate,
+                [classes["placeholder"]!]: !value,
               })}
             >
-              {getFormattedString()}
+              {getFormattedSlot()}
             </div>
             {renderEndSlot()}
           </div>
@@ -322,9 +375,9 @@ export const DateInput: React.FC<DateInputProps> = props => {
         <PopoverContent className={classes["dropdown"]}>
           <Calendar
             disabled={disabled}
-            selected={selectedDate}
-            onSelect={setSelectedDate}
-            {...calendarProps}
+            value={value}
+            onChange={handleChange}
+            mode={mode}
           />
         </PopoverContent>
       </Popover>
