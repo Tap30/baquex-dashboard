@@ -31,6 +31,13 @@ export type DialogProps = WithRef<
     onClose: () => void;
 
     /**
+     * Whether to hide heading.
+     *
+     * @default false;
+     */
+    hideHeading?: boolean;
+
+    /**
      * The modality of the dialog.
      * When set to `true`, interaction with outside elements will be disabled
      * and only dialog content will be visible to screen readers.
@@ -62,7 +69,7 @@ export type DialogProps = WithRef<
     /**
      * The ok action button used in the dialog.
      */
-    okAction: DialogAction;
+    okAction?: DialogAction;
   } & Pick<
     DialogPrimitive.DialogContentProps,
     | "onOpenAutoFocus"
@@ -85,6 +92,7 @@ export const Dialog: React.FC<DialogProps> = props => {
     className,
     onClose,
     modal = true,
+    hideHeading = false,
     onCloseAutoFocus,
     onEscapeKeyDown,
     onInteractOutside,
@@ -145,6 +153,29 @@ export const Dialog: React.FC<DialogProps> = props => {
     );
   };
 
+  const renderOk = () => {
+    if (!okAction) return null;
+
+    return (
+      <Button
+        {...okAction}
+        variant="filled"
+        color="neutral"
+      />
+    );
+  };
+
+  const renderActions = () => {
+    if (!okAction && !cancelAction) return null;
+
+    return (
+      <div className={classes["actions"]}>
+        {renderOk()}
+        {renderCancel()}
+      </div>
+    );
+  };
+
   const renderBody = () => {
     if (!content) return null;
 
@@ -176,6 +207,7 @@ export const Dialog: React.FC<DialogProps> = props => {
           <DialogPrimitive.Overlay className={classes["overlay"]} />
           <DialogPrimitive.Content
             {...(hasTextDescription ? {} : { "aria-describedby": undefined })}
+            data-no-heading={hideHeading ? "" : undefined}
             className={classes["content"]}
             onCloseAutoFocus={handleCloseAutoFocus}
             onOpenAutoFocus={onOpenAutoFocus}
@@ -183,7 +215,9 @@ export const Dialog: React.FC<DialogProps> = props => {
             onInteractOutside={onInteractOutside}
             onPointerDownOutside={onPointerDownOutside}
           >
-            <header className={classes["header"]}>
+            <header
+              className={cn(classes["header"], { "sr-only": hideHeading })}
+            >
               <DialogPrimitive.Title className={classes["title"]}>
                 {title}
               </DialogPrimitive.Title>
@@ -197,14 +231,7 @@ export const Dialog: React.FC<DialogProps> = props => {
               />
             </header>
             <div className={classes["body"]}>{renderBody()}</div>
-            <div className={classes["actions"]}>
-              <Button
-                {...okAction}
-                variant="filled"
-                color="neutral"
-              />
-              {renderCancel()}
-            </div>
+            {renderActions()}
           </DialogPrimitive.Content>
         </div>
       </DialogPrimitive.Portal>

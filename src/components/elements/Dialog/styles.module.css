@@ -40,6 +40,10 @@
   box-shadow: 0 0 0 1px var(--color-border-secondary);
 }
 
+.content[data-no-heading] .body {
+  margin: 0;
+}
+
 .header {
   gap: var(--space-md);
 
