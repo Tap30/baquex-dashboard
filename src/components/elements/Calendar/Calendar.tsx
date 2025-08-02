@@ -1,14 +1,17 @@
 import { Icon, IconButton, SelectInput } from "@/components";
 import { strings } from "@/static-content";
 import { cn, useControllableProp } from "@/utils";
-import { mdiChevronDown, mdiChevronLeft, mdiChevronRight } from "@mdi/js";
+import { mdiChevronLeft, mdiChevronRight } from "@mdi/js";
+import { faIR } from "date-fns/locale";
 import {
   type DateRange,
   type DayPickerProps,
   type DropdownProps,
   getDefaultClassNames,
+  type Locale,
+  type OnSelectHandler,
 } from "react-day-picker";
-import { DayPicker, faIR } from "react-day-picker/persian";
+import { DayPicker } from "react-day-picker/persian";
 import classes from "./styles.module.css";
 
 export type CalendarValue = Date | Date[] | DateRange;
@@ -57,11 +60,21 @@ export type CalendarProps = Omit<
   onChange?: (value: CalendarValue) => void;
 };
 
-export const Calendar = (props: CalendarProps) => {
+type ValueForMode<M extends "single" | "multiple" | "range"> =
+  M extends "single"
+    ? Date | undefined
+    : M extends "multiple"
+      ? Date[] | undefined
+      : M extends "range"
+        ? DateRange | undefined
+        : never;
+
+export const Calendar = <M extends "single" | "multiple" | "range">(
+  props: CalendarProps & { mode: M; value?: ValueForMode<M> },
+) => {
   const {
     className,
     formatters,
-    components,
     onChange,
     defaultValue,
     disabled,
@@ -80,30 +93,49 @@ export const Calendar = (props: CalendarProps) => {
 
   const defaultClassNames = getDefaultClassNames();
 
-  const handleChange: OnSelectHandler<DateRange> = value => {
-    if (disabled || readOnly) return;
-
-    if (!value) return;
+  const handleChange: OnSelectHandler<CalendarValue> = selected => {
+    if (disabled || readOnly || !selected) return;
 
     if (mode === "single") {
-      onChange?.([value]);
-      setValue([value]);
+      onChange?.(selected); // ✅ Just the date
+      setValue(selected);
     } else if (mode === "range") {
-      onChange?.(value);
-      setValue(value);
+      onChange?.(selected); // ✅ DateRange
+      setValue(selected);
     } else if (mode === "multiple") {
-      onChange?.(value);
-      setValue(value);
+      onChange?.(selected); // ✅ Date[]
+      setValue(selected);
     }
   };
 
+  function getSelectedValue(): ValueForMode<M> {
+    if (!value) return undefined as ValueForMode<M>;
+
+    if (mode === "single") {
+      return !Array.isArray(value) && !("from" in value)
+        ? (value as ValueForMode<M>)
+        : (undefined as ValueForMode<M>);
+    }
+
+    if (mode === "range") {
+      return "from" in (value as DateRange)
+        ? (value as ValueForMode<M>)
+        : (undefined as ValueForMode<M>);
+    }
+
+    if (mode === "multiple") {
+      return (Array.isArray(value) ? value : [value]) as ValueForMode<M>;
+    }
+
+    return undefined as ValueForMode<M>;
+  }
+
   return (
     <DayPicker
-      selected={value}
+      selected={getSelectedValue()}
       disabled={disabled}
-      locale={faIR}
-      // OnSelectHandler={console.log}
-      onDaySelect={handleChange}
+      locale={faIR as unknown as Locale}
+      onSelect={handleChange}
       showOutsideDays
       mode={mode}
       className={cn(className)}
@@ -188,7 +220,7 @@ export const Calendar = (props: CalendarProps) => {
               items={items}
               value={value?.toString() ?? ""}
               onChange={handleChange}
-              size="sm"
+              size={size === "lg" ? "md" : "sm"}
               placeholder=""
               hideLabel
             />
@@ -201,7 +233,7 @@ export const Calendar = (props: CalendarProps) => {
               variant="ghost"
               color="neutral"
               title={strings.components.calendar.previousMonth}
-              icon={<Icon data={mdiChevronRight} />}
+              icon={<Icon data={mdiChevronLeft} />}
               onClick={onClick}
             />
           );
@@ -218,14 +250,6 @@ export const Calendar = (props: CalendarProps) => {
             />
           );
         },
-        Chevron: ({ orientation }) => {
-          if (orientation === "left") {
-            return <Icon data={mdiChevronLeft} />;
-          }
-
-          return <Icon data={mdiChevronDown} />;
-        },
-        ...components,
       }}
       {...otherProps}
     />
