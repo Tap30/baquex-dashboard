@@ -1,4 +1,5 @@
 export * from "./Alert/index.ts";
+export * from "./AlertDialogController/index.ts";
 export * from "./Avatar/index.ts";
 export * from "./Badge/index.ts";
 export * from "./Breadcrumb/index.ts";

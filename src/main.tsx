@@ -1,4 +1,8 @@
-import { PortalConfigProvider, Toaster } from "@/components";
+import {
+  AlertDialogController,
+  PortalConfigProvider,
+  Toaster,
+} from "@/components";
 import { PORTAL_DESTINATION_ID } from "@/constants";
 import { DirectionProvider } from "@/contexts";
 import { StrictMode } from "react";
@@ -24,6 +28,7 @@ createRoot(root).render(
           config={{ resolveContainer: defaultContainerResolver }}
         >
           <App />
+          <AlertDialogController />
           <div
             id={PORTAL_DESTINATION_ID}
             data-portal-destination=""
