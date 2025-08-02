@@ -2,6 +2,7 @@ import { Icon, IconButton, SelectInput } from "@/components";
 import { strings } from "@/static-content";
 import { cn, useControllableProp } from "@/utils";
 import { mdiChevronLeft, mdiChevronRight } from "@mdi/js";
+import { format } from "date-fns";
 import { faIR } from "date-fns/locale";
 import {
   type DateRange,
@@ -20,13 +21,6 @@ export type CalendarProps = Omit<
   DayPickerProps,
   "captionLayout" | "disabled"
 > & {
-  /**
-   * The size of the input.
-   *
-   * @default "md"
-   */
-  size?: "sm" | "md" | "lg";
-
   /**
    * The controlled value of the calendar.
    * Should be used in conjunction with `onChange`.
@@ -81,7 +75,6 @@ export const Calendar = <M extends "single" | "multiple" | "range">(
     readOnly,
     value: valueProp,
     mode = "single",
-    size = "md",
     ...otherProps
   } = props;
 
@@ -96,23 +89,15 @@ export const Calendar = <M extends "single" | "multiple" | "range">(
   const handleChange: OnSelectHandler<CalendarValue> = selected => {
     if (disabled || readOnly || !selected) return;
 
-    if (mode === "single") {
-      onChange?.(selected); // ✅ Just the date
-      setValue(selected);
-    } else if (mode === "range") {
-      onChange?.(selected); // ✅ DateRange
-      setValue(selected);
-    } else if (mode === "multiple") {
-      onChange?.(selected); // ✅ Date[]
-      setValue(selected);
-    }
+    onChange?.(selected);
+    setValue(selected);
   };
 
   function getSelectedValue(): ValueForMode<M> {
     if (!value) return undefined as ValueForMode<M>;
 
     if (mode === "single") {
-      return !Array.isArray(value) && !("from" in value)
+      return !Array.isArray(value)
         ? (value as ValueForMode<M>)
         : (undefined as ValueForMode<M>);
     }
@@ -140,7 +125,10 @@ export const Calendar = <M extends "single" | "multiple" | "range">(
       mode={mode}
       className={cn(className)}
       captionLayout="dropdown"
-      formatters={formatters}
+      formatters={{
+        formatWeekdayName: (weekday, options) =>
+          format(weekday, "EEEE", options)[0] || "",
+      }}
       classNames={{
         months: cn(defaultClassNames.months, classes["months"]),
         month: cn(defaultClassNames.month, classes["month"]),
@@ -152,10 +140,6 @@ export const Calendar = <M extends "single" | "multiple" | "range">(
         dropdown_root: cn(
           classes["dropdown-root"],
           defaultClassNames.dropdown_root,
-        ),
-        caption_label: cn(
-          classes["caption-label"],
-          defaultClassNames.caption_label,
         ),
         weekdays: cn(defaultClassNames.weekdays, classes["weekdays"]),
         weekday: cn(defaultClassNames.weekday, classes["weekday"]),
@@ -184,7 +168,7 @@ export const Calendar = <M extends "single" | "multiple" | "range">(
             <div
               data-slot="calendar"
               ref={rootRef}
-              className={cn(classes["root"], classes[size], className)}
+              className={cn(classes["root"], className)}
               {...props}
             />
           );
@@ -215,12 +199,12 @@ export const Calendar = <M extends "single" | "multiple" | "range">(
 
           return (
             <SelectInput
+              disabled={disabled}
               label={label}
               name={name}
               items={items}
               value={value?.toString() ?? ""}
               onChange={handleChange}
-              size={size === "lg" ? "md" : "sm"}
               placeholder=""
               hideLabel
             />
