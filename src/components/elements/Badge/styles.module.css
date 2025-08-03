@@ -83,3 +83,10 @@
 
   flex-shrink: 0;
 }
+
+.action {
+  margin-inline-start: auto;
+  margin-inline-end: calc(-1 * var(--spacing-sm));
+
+  flex-shrink: 0;
+}
