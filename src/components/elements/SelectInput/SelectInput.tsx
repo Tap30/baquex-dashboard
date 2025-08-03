@@ -25,6 +25,11 @@ export type SelectOption = {
   label: string;
 
   /**
+   * The type of the item.
+   */
+  type: "option";
+
+  /**
    * When `true`, prevents the user from interacting with the item.
    *
    * @default false
@@ -39,9 +44,14 @@ export type SelectGroup = {
   label: string;
 
   /**
+   * The type of the item.
+   */
+  type: "group";
+
+  /**
    * The items of the group.
    */
-  items: SelectOption[];
+  items: Omit<SelectOption, "type">[];
 };
 
 export type SelectItem = SelectOption | SelectGroup;
@@ -413,7 +423,7 @@ export const SelectInput: React.FC<SelectInputProps> = props => {
     return <div className={classes["end-slot"]}>{endSlot}</div>;
   };
 
-  const renderOptions = (options: SelectOption[]) => {
+  const renderOptions = (options: Omit<SelectOption, "type">[]) => {
     return options.map(option => {
       const key = option.label + option.value;
 
