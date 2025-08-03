@@ -1,7 +1,8 @@
+import type { WithRef } from "@/types";
 import * as PopoverPrimitive from "@radix-ui/react-popover";
 
 export type PopoverTriggerProps = Omit<
-  PopoverPrimitive.PopoverTriggerProps,
+  WithRef<PopoverPrimitive.PopoverTriggerProps, "button">,
   "asChild"
 >;
 
