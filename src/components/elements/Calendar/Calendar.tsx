@@ -1,241 +1,221 @@
-import { Icon, IconButton, SelectInput } from "@/components";
+import { Icon, IconButton, SelectInput, Skeleton } from "@/components";
+import { useDirection } from "@/contexts";
 import { strings } from "@/static-content";
-import { cn, useControllableProp } from "@/utils";
+import { type Overwrite } from "@/types";
+import { cn } from "@/utils";
 import { mdiChevronLeft, mdiChevronRight } from "@mdi/js";
-import { format } from "date-fns";
-import { faIR } from "date-fns/locale";
+import { format, getWeeksInMonth, type Locale } from "date-fns";
+import { Suspense } from "react";
 import {
-  type DateRange,
+  getDefaultClassNames,
   type DayPickerProps,
   type DropdownProps,
-  getDefaultClassNames,
-  type Locale,
-  type OnSelectHandler,
+  type Mode,
+  type PropsMultiRequired,
+  type PropsRangeRequired,
+  type PropsSingleRequired,
 } from "react-day-picker";
-import { DayPicker } from "react-day-picker/persian";
 import classes from "./styles.module.css";
+import { type resolveCalendar } from "./utils.ts";
 
-export type CalendarValue = Date | Date[] | DateRange;
+export type CalendarProps<M extends Mode> = Overwrite<
+  Omit<
+    DayPickerProps,
+    | "captionLayout"
+    | "disabled"
+    | "required"
+    | "modifiersStyles"
+    | "animate"
+    | "classNames"
+    | "dir"
+    | "components"
+    | "style"
+    | "styles"
+    | "lang"
+    | "showOutsideDays"
+  >,
+  {
+    /**
+     * The locale object used to localize dates. Pass a locale from
+     * `react-day-picker/locale` to localize the calendar.
+     *
+     * @default enUS - The English locale default of `date-fns`.
+     * @see https://daypicker.dev/docs/localization
+     * @see https://github.com/date-fns/date-fns/tree/main/src/locale for a list of the supported locales
+     */
+    locale: Locale;
+    /**
+     * Enable the selection of a single day, multiple days, or a range of days.
+     *
+     * @see https://daypicker.dev/docs/selection-modes
+     */
+    mode: M;
+    /**
+     * The daypicker instance to use.
+     */
+    DayPicker: ReturnType<typeof resolveCalendar>["DayPicker"];
+    /**
+     * Whether to render the calendar with full width.
+     *
+     * @default false
+     */
+    fullWidth?: boolean;
+  } & (
+    | Omit<PropsMultiRequired, "required">
+    | Omit<PropsRangeRequired, "required">
+    | Omit<PropsSingleRequired, "required">
+  )
+>;
 
-export type CalendarProps = Omit<
-  DayPickerProps,
-  "captionLayout" | "disabled"
-> & {
-  /**
-   * The controlled value of the calendar.
-   * Should be used in conjunction with `onChange`.
-   */
-  value?: CalendarValue;
-
-  /**
-   * The value of the select when initially rendered.
-   * Use when you do not need to control the state of the calendar.
-   */
-  defaultValue?: CalendarValue;
-
-  /**
-   * Whether the calendar is disabled.
-   *
-   * @default false
-   */
-  disabled?: boolean;
-
-  /**
-   * Indicates whether or not a user should be able to edit the date input's
-   * value.
-   *
-   * @default false
-   */
-  readOnly?: boolean;
-
-  /**
-   *
-   */
-  onChange?: (value: CalendarValue) => void;
-};
-
-type ValueForMode<M extends "single" | "multiple" | "range"> =
-  M extends "single"
-    ? Date | undefined
-    : M extends "multiple"
-      ? Date[] | undefined
-      : M extends "range"
-        ? DateRange | undefined
-        : never;
-
-export const Calendar = <M extends "single" | "multiple" | "range">(
-  props: CalendarProps & { mode: M; value?: ValueForMode<M> },
-) => {
+export const Calendar = <M extends Mode>(props: CalendarProps<M>) => {
   const {
     className,
     formatters,
-    onChange,
-    defaultValue,
-    disabled,
-    readOnly,
-    value: valueProp,
-    mode = "single",
+    DayPicker,
+    locale,
+    today: todayProp,
+    fullWidth = false,
     ...otherProps
-  } = props;
-
-  const [value, setValue] = useControllableProp<CalendarValue | null>({
-    fallbackValue: null,
-    controlledPropValue: valueProp,
-    uncontrolledDefaultValueProp: defaultValue,
-  });
+  } = props as CalendarProps<"single">;
 
   const defaultClassNames = getDefaultClassNames();
 
-  const handleChange: OnSelectHandler<CalendarValue> = selected => {
-    if (disabled || readOnly || !selected) return;
-
-    onChange?.(selected);
-    setValue(selected);
-  };
-
-  function getSelectedValue(): ValueForMode<M> {
-    if (!value) return undefined as ValueForMode<M>;
-
-    if (mode === "single") {
-      return !Array.isArray(value)
-        ? (value as ValueForMode<M>)
-        : (undefined as ValueForMode<M>);
-    }
-
-    if (mode === "range") {
-      return "from" in (value as DateRange)
-        ? (value as ValueForMode<M>)
-        : (undefined as ValueForMode<M>);
-    }
-
-    if (mode === "multiple") {
-      return (Array.isArray(value) ? value : [value]) as ValueForMode<M>;
-    }
-
-    return undefined as ValueForMode<M>;
-  }
+  const today = todayProp ?? new Date();
+  const dir = useDirection();
 
   return (
-    <DayPicker
-      selected={getSelectedValue()}
-      disabled={disabled}
-      locale={faIR as unknown as Locale}
-      onSelect={handleChange}
-      showOutsideDays
-      mode={mode}
-      className={cn(className)}
-      captionLayout="dropdown"
-      formatters={{
-        formatWeekdayName: (weekday, options) =>
-          format(weekday, "EEEE", options)[0] || "",
-      }}
-      classNames={{
-        months: cn(defaultClassNames.months, classes["months"]),
-        month: cn(defaultClassNames.month, classes["month"]),
-        nav: cn(defaultClassNames.nav, classes["nav"]),
-        month_caption: cn(
-          defaultClassNames.month_caption,
-          classes["month-caption"],
-        ),
-        dropdown_root: cn(
-          classes["dropdown-root"],
-          defaultClassNames.dropdown_root,
-        ),
-        weekdays: cn(defaultClassNames.weekdays, classes["weekdays"]),
-        weekday: cn(defaultClassNames.weekday, classes["weekday"]),
-        week: cn(defaultClassNames.week, classes["week"]),
-        week_number_header: cn(
-          defaultClassNames.week_number_header,
-          classes["week-number-header"],
-        ),
-        selected: cn(defaultClassNames.selected, {
-          [classes["selected"]!]: mode !== "range",
-        }),
-        week_number: cn(defaultClassNames.week_number, classes["week-number"]),
-        day: cn(defaultClassNames.day, classes["day"]),
-        day_button: cn(classes["day-button"]),
-        range_start: cn(classes["range-start"]),
-        range_middle: cn(classes["range-middle"]),
-        range_end: cn(classes["range-end"]),
-        today: cn(classes["today"]),
-        outside: cn(defaultClassNames.outside, classes["outside"]),
-        disabled: cn(defaultClassNames.disabled, classes["disabled"]),
-        hidden: cn(classes["hidden"], defaultClassNames.hidden),
-      }}
-      components={{
-        Root: ({ className, rootRef, ...props }) => {
-          return (
-            <div
-              data-slot="calendar"
-              ref={rootRef}
-              className={cn(classes["root"], className)}
-              {...props}
-            />
-          );
-        },
-        Dropdown: (props: DropdownProps) => {
-          const { value, onChange, name, options = [] } = props;
+    <Suspense
+      fallback={
+        <Skeleton
+          variant="rectangular"
+          width={fullWidth ? "100%" : 278}
+          height={getWeeksInMonth(today) === 5 ? 284 : 322}
+        />
+      }
+    >
+      <DayPicker
+        {...otherProps}
+        locale={locale}
+        dir={dir}
+        today={today}
+        required
+        showOutsideDays
+        className={cn(className)}
+        captionLayout="dropdown"
+        formatters={{
+          formatWeekdayName: (weekday, options) =>
+            format(weekday, "EEEE", options)[0] || "",
+          ...formatters,
+        }}
+        classNames={{
+          months: cn(defaultClassNames.months, classes["months"]),
+          month: cn(defaultClassNames.month, classes["month"]),
+          nav: cn(defaultClassNames.nav, classes["nav"]),
+          month_caption: cn(
+            defaultClassNames.month_caption,
+            classes["month-caption"],
+          ),
+          dropdown_root: cn(
+            classes["dropdown-root"],
+            defaultClassNames.dropdown_root,
+          ),
+          weekdays: cn(defaultClassNames.weekdays, classes["weekdays"]),
+          weekday: cn(defaultClassNames.weekday, classes["weekday"]),
+          week: cn(defaultClassNames.week, classes["week"]),
+          week_number_header: cn(
+            defaultClassNames.week_number_header,
+            classes["week-number-header"],
+          ),
+          selected: cn(defaultClassNames.selected, {
+            [classes["selected"]!]: (otherProps.mode as M) !== "range",
+          }),
+          week_number: cn(
+            defaultClassNames.week_number,
+            classes["week-number"],
+          ),
+          day: cn(defaultClassNames.day, classes["day"]),
+          month_grid: cn(defaultClassNames.month_grid, classes["month-grid"]),
+          day_button: cn(classes["day-button"]),
+          range_start: cn(classes["range-start"]),
+          range_middle: cn(classes["range-middle"]),
+          range_end: cn(classes["range-end"]),
+          today: cn(classes["today"]),
+          outside: cn(defaultClassNames.outside, classes["outside"]),
+          disabled: cn(defaultClassNames.disabled, classes["disabled"]),
+          hidden: cn(classes["hidden"], defaultClassNames.hidden),
+        }}
+        components={{
+          Root: ({ className, rootRef, ...props }) => {
+            return (
+              <div
+                {...props}
+                data-slot="calendar"
+                ref={rootRef}
+                className={cn(classes["root"], className, {
+                  [classes["full-width"]!]: fullWidth,
+                })}
+              />
+            );
+          },
+          Dropdown: (props: DropdownProps) => {
+            const { value, onChange, name, options = [] } = props;
 
-          const items = options.map(option => ({
-            label: option.label,
-            value: option.value.toString(),
-            disabled: option.disabled,
-          }));
+            const items = options.map(option => ({
+              label: option.label,
+              value: option.value.toString(),
+              disabled: option.disabled,
+            }));
 
-          const handleChange = (val: string) => {
-            const syntheticEvent = {
-              target: { value: val },
-            } as React.ChangeEvent<HTMLSelectElement>;
+            const handleChange = (val: string) => {
+              const syntheticEvent = {
+                target: { value: val },
+              } as React.ChangeEvent<HTMLSelectElement>;
 
-            onChange?.(syntheticEvent);
-          };
+              onChange?.(syntheticEvent);
+            };
 
-          const label =
-            name === "month"
-              ? strings.components.calendar.month
-              : name === "year"
+            const label =
+              name === "month"
                 ? strings.components.calendar.month
-                : "";
+                : name === "year"
+                  ? strings.components.calendar.month
+                  : "";
 
-          return (
-            <SelectInput
-              disabled={disabled}
-              label={label}
-              name={name}
-              items={items}
-              value={value?.toString() ?? ""}
-              onChange={handleChange}
-              placeholder=""
-              hideLabel
-            />
-          );
-        },
-        NextMonthButton: ({ onClick }) => {
-          return (
-            <IconButton
-              disabled={!!disabled}
-              variant="ghost"
-              color="neutral"
-              title={strings.components.calendar.previousMonth}
-              icon={<Icon data={mdiChevronLeft} />}
-              onClick={onClick}
-            />
-          );
-        },
-        PreviousMonthButton: ({ onClick }) => {
-          return (
-            <IconButton
-              disabled={!!disabled}
-              variant="ghost"
-              color="neutral"
-              title={strings.components.calendar.previousMonth}
-              icon={<Icon data={mdiChevronRight} />}
-              onClick={onClick}
-            />
-          );
-        },
-      }}
-      {...otherProps}
-    />
+            return (
+              <SelectInput
+                label={label}
+                name={name}
+                items={items}
+                value={value?.toString() ?? ""}
+                onChange={handleChange}
+                hideLabel
+              />
+            );
+          },
+          NextMonthButton: props => {
+            return (
+              <IconButton
+                {...props}
+                variant="ghost"
+                color="neutral"
+                title={strings.components.calendar.previousMonth}
+                icon={<Icon data={mdiChevronLeft} />}
+              />
+            );
+          },
+          PreviousMonthButton: props => {
+            return (
+              <IconButton
+                {...props}
+                variant="ghost"
+                color="neutral"
+                title={strings.components.calendar.previousMonth}
+                icon={<Icon data={mdiChevronRight} />}
+              />
+            );
+          },
+        }}
+      />
+    </Suspense>
   );
 };
