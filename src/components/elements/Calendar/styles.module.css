@@ -10,6 +10,16 @@
   padding: var(--calendar-padding);
 }
 
+.root.full-width,
+.root.full-width .month,
+.root.full-width .month-grid {
+  width: 100%;
+}
+
+.root.full-width .months {
+  max-width: unset;
+}
+
 .nav {
   width: 100%;
   border-radius: var(--radius-sm);
