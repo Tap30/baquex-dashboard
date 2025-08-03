@@ -45,7 +45,7 @@
   --file-input-control-height: 1.5rem;
 }
 
-.feedback {
+.feedback.feedback {
   margin-top: var(--spacing-sm);
 }
 
