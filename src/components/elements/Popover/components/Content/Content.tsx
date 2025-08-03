@@ -1,10 +1,11 @@
 import { usePortalConfig } from "@/components";
+import type { WithRef } from "@/types";
 import { cn, useIsomorphicValue } from "@/utils";
 import * as PopoverPrimitive from "@radix-ui/react-popover";
 import classes from "./styles.module.css";
 
 export type PopoverContentProps = Omit<
-  PopoverPrimitive.PopoverContentProps,
+  WithRef<PopoverPrimitive.PopoverContentProps, "div">,
   "asChild" | "forceMount" | "arrowPadding" | "sticky" | "hideWhenDetached"
 >;
 

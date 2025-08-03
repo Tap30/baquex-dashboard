@@ -152,7 +152,7 @@
   width: max(var(--select-input-content-width), max-content);
   max-height: 11rem;
 
-  background-color: var(--color-surface-secondary);
+  background-color: var(--color-surface-base);
   box-shadow: 0 0 0 1px var(--color-border-secondary);
   border-radius: var(--radius-sm);
   padding: var(--spacing-xs);
@@ -209,7 +209,7 @@
 }
 
 .item + * {
-  margin-top: var(--spacing-sm);
+  margin-top: var(--spacing-xs);
 }
 
 .group:not(:last-child) {
@@ -251,5 +251,5 @@
   padding: 0 var(--spacing-sm);
 
   color: var(--color-neutral-text-tertiary);
-  margin-bottom: var(--spacing-sm);
+  margin-bottom: var(--spacing-xs);
 }

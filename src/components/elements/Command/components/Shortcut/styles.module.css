@@ -1,0 +1,12 @@
+.root {
+  font-size: var(--text-caption);
+  line-height: var(--leading-caption);
+  font-weight: 400;
+  color: var(--color-neutral-text-tertiary);
+
+  margin-inline-end: auto;
+
+  direction: ltr;
+  font-family: var(--font-mono);
+  letter-spacing: var(--spacing-xxs);
+}
