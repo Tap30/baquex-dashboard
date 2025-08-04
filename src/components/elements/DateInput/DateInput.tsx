@@ -1,24 +1,34 @@
 import {
+  Badge,
   Calendar,
-  type CalendarValue,
+  CalendarType,
+  Flex,
   Icon,
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components";
 import type { MergeElementProps } from "@/types";
-import { cn, formatDate, useControllableProp, useUniqueId } from "@/utils";
+import {
+  cn,
+  formatDate,
+  useControllableProp,
+  useForkedRefs,
+  useUniqueId,
+} from "@/utils";
 import { mdiCalendar } from "@mdi/js";
 
 import { strings } from "@/static-content";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "react-day-picker/style.css";
 import { Text, type TextProps } from "../Text/index.ts";
 import classes from "./styles.module.css";
 
+export type DateValue = React.ComponentProps<typeof Calendar>["selected"];
+
 export type DateInputProps = Omit<
   MergeElementProps<
-    "input",
+    "button",
     {
       /**
        * The label of the input.
@@ -110,13 +120,13 @@ export type DateInputProps = Omit<
        * The controlled value of the calendar.
        * Should be used in conjunction with `onChange`.
        */
-      value?: CalendarValue;
+      value?: DateValue;
 
       /**
        * The value of the input when initially rendered.
        * Use when you do not need to control the state of the calendar.
        */
-      defaultValue?: CalendarValue;
+      defaultValue?: DateValue;
 
       /**
        * The open state of the input when it is initially rendered.
@@ -129,6 +139,11 @@ export type DateInputProps = Omit<
        * Must be used in conjunction with `onOpenChange`.
        */
       open?: boolean;
+
+      /**
+       * Event handler called when the value changes.
+       */
+      onChange?: (value: DateValue) => void;
     }
   >,
   | "children"
@@ -150,25 +165,40 @@ export const DateInput: React.FC<DateInputProps> = props => {
     description,
     errorText,
     feedback,
+    onChange,
     value: valueProp,
     defaultValue,
     defaultOpen,
     open: openProp,
     size = "md",
     autoFocus = false,
+    ref,
     hasError = false,
     hideLabel = false,
     disabled = false,
     readOnly = false,
     calendarProps = {},
+    ...otherProps
   } = props;
 
-  const { mode = "single" } = calendarProps;
+  const {
+    mode = "single",
+    type = CalendarType.JALALI,
+    ...otherCalendarProps
+  } = calendarProps;
 
   const nodeId = useUniqueId();
 
-  const [value, setValue] = useControllableProp<CalendarValue | undefined>({
-    fallbackValue: undefined,
+  const inputRef = useRef<HTMLButtonElement | null>(null);
+  const handleRef = useForkedRefs(ref, inputRef);
+
+  const [value, setValue] = useControllableProp<DateValue>({
+    fallbackValue:
+      mode === "single"
+        ? undefined
+        : mode === "multiple"
+          ? []
+          : { from: undefined, to: undefined },
     controlledPropValue: valueProp,
     uncontrolledDefaultValueProp: defaultValue,
   });
@@ -184,14 +214,13 @@ export const DateInput: React.FC<DateInputProps> = props => {
   const rootId = `DateInput:Root_${nodeId}`;
   const labelId = `DateInput:Label_${nodeId}`;
   const descId = `DateInput:Description_${nodeId}`;
+  const controlId = `DateInput:Control_${nodeId}`;
   const inputId = idProp ?? `DateInput:Input_${nodeId}`;
 
   const feedbackOrErrorText = hasError && errorText ? errorText : feedback;
 
   useEffect(() => {
     if (refreshErrorAlert) {
-      // The past render cycle removed the role="alert" from the error message.
-      // Re-add it after an animation frame to re-announce the error.
       window.requestAnimationFrame(() => {
         setRefreshErrorAlert(false);
       });
@@ -200,10 +229,6 @@ export const DateInput: React.FC<DateInputProps> = props => {
 
   useEffect(() => {
     if (hasError && errorText) {
-      /**
-       * Re-announces the field's error to screen readers.
-       * Error text announces to screen readers anytime it is visible and changes.
-       */
       setRefreshErrorAlert(true);
     }
   }, [hasError, errorText]);
@@ -256,10 +281,6 @@ export const DateInput: React.FC<DateInputProps> = props => {
     if (!feedback && !errorText) return null;
     if (!feedbackOrErrorText) return null;
 
-    // Announce if there is an error and error text visible.
-    // If `refreshErrorAlert` is true, do not announce. This will remove the
-    // role="alert" attribute. Another render cycle will happen after an
-    // animation frame to re-add the role.
     const shouldAnnounceError = hasError && errorText && !refreshErrorAlert;
     const role = shouldAnnounceError ? "alert" : undefined;
     const hasErrorText = hasError && !!errorText;
@@ -295,6 +316,18 @@ export const DateInput: React.FC<DateInputProps> = props => {
     return <div className={classes["end-slot"]}>{endSlot}</div>;
   };
 
+  const renderBadge = (text: string) => {
+    return (
+      <Badge
+        aria-hidden
+        key={text}
+        tabIndex={-1}
+        text={text}
+        className={classes["badge"]}
+      />
+    );
+  };
+
   const ariaLabel = hideLabel ? label : undefined;
   const ariaDescribedBy = description ? descId : undefined;
   const ariaInvalid = hasError;
@@ -305,29 +338,37 @@ export const DateInput: React.FC<DateInputProps> = props => {
     }
 
     if (mode === "multiple") {
-      return (value as Date[])
-        .map(value => formatDate(value))
-        .join(strings.comma);
+      return (
+        <Flex gap="sm">
+          {(value as Date[]).map(value => renderBadge(formatDate(value)))}
+        </Flex>
+      );
     }
 
     if (mode === "range" && value && "from" in value && "to" in value) {
       const { from, to } = value;
 
       if (!from) return strings.components.dateInput.selectDate;
-      if (from === to || !to) return formatDate(from);
+      if (from === to || !to) return renderBadge(formatDate(from));
 
-      return [strings.from, formatDate(from), strings.to, formatDate(to)].join(
-        " ",
+      return (
+        <Flex gap="sm">
+          <span>{strings.from}</span>
+          {renderBadge(formatDate(from))}
+          <span>{strings.to}</span>
+          {renderBadge(formatDate(to))}
+        </Flex>
       );
     }
 
-    return formatDate(value as Date);
+    return renderBadge(formatDate(value as Date));
   };
 
-  const handleChange = (e: CalendarValue) => {
+  const handleChange = (e: DateValue) => {
     if (readOnly || disabled) return;
 
     setValue(e);
+    onChange?.(e);
   };
 
   const handleOpenChange = (newValue: boolean) => {
@@ -347,40 +388,53 @@ export const DateInput: React.FC<DateInputProps> = props => {
     >
       {renderLabel()}
       {renderDescription()}
-      <Popover
-        open={open}
-        onOpenChange={handleOpenChange}
+      <div
+        id={controlId}
+        className={classes["control"]}
+        tabIndex={-1}
+        inert={disabled}
       >
-        <PopoverTrigger autoFocus={autoFocus}>
-          <div
+        <Popover
+          open={open}
+          onOpenChange={handleOpenChange}
+        >
+          <PopoverTrigger
+            {...otherProps}
+            id={inputId}
+            ref={handleRef}
+            disabled={disabled}
+            autoFocus={autoFocus}
+            className={classes["input"]}
             role="combobox"
-            tabIndex={0}
-            className={classes["control"]}
             aria-describedby={ariaDescribedBy}
+            aria-readonly={readOnly}
             aria-label={ariaLabel}
             aria-invalid={ariaInvalid}
             aria-haspopup="dialog"
           >
-            {renderStartSlot()}
-            <div
-              className={cn(classes["value"], classes["value-display"], {
-                [classes["placeholder"]!]: !value,
-              })}
-            >
-              {getFormattedSlot()}
-            </div>
-            {renderEndSlot()}
-          </div>
-        </PopoverTrigger>
-        <PopoverContent className={classes["dropdown"]}>
-          <Calendar
-            disabled={disabled}
-            value={value}
-            onChange={handleChange}
-            mode={mode}
-          />
-        </PopoverContent>
-      </Popover>
+            <button>
+              {renderStartSlot()}
+              <div
+                className={cn(classes["value"], classes["value-display"], {
+                  [classes["placeholder"]!]: !value,
+                })}
+              >
+                {getFormattedSlot()}
+              </div>
+              {renderEndSlot()}
+            </button>
+          </PopoverTrigger>
+          <PopoverContent className={classes["dropdown"]}>
+            <Calendar
+              {...otherCalendarProps}
+              selected={value}
+              onSelect={handleChange}
+              type={type}
+              mode={mode}
+            />
+          </PopoverContent>
+        </Popover>
+      </div>
       {renderFeedback()}
     </div>
   );

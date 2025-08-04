@@ -157,6 +157,8 @@
   border-radius: var(--radius-sm);
   padding: var(--spacing-xs);
   margin-inline-start: calc(-1 * var(--spacing-xs));
+
+  z-index: var(--z-5);
 }
 
 .content[data-side="top"] {

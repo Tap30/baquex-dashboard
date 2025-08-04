@@ -1,11 +1,18 @@
-import { Icon, IconButton, SelectInput, Skeleton } from "@/components";
+import {
+  CalendarType,
+  Icon,
+  IconButton,
+  SelectInput,
+  Skeleton,
+  type SelectItem,
+} from "@/components";
 import { useDirection } from "@/contexts";
 import { strings } from "@/static-content";
 import { type Overwrite } from "@/types";
-import { cn } from "@/utils";
+import { cn, formatNumber, normalizeNumbers } from "@/utils";
 import { mdiChevronLeft, mdiChevronRight } from "@mdi/js";
-import { format, getWeeksInMonth, type Locale } from "date-fns";
-import { Suspense } from "react";
+import { format, getWeeksInMonth } from "date-fns";
+import { Suspense, useMemo } from "react";
 import {
   getDefaultClassNames,
   type DayPickerProps,
@@ -16,7 +23,7 @@ import {
   type PropsSingleRequired,
 } from "react-day-picker";
 import classes from "./styles.module.css";
-import { type resolveCalendar } from "./utils.ts";
+import { resolveCalendar } from "./utils.ts";
 
 export type CalendarProps<M extends Mode> = Overwrite<
   Omit<
@@ -29,6 +36,7 @@ export type CalendarProps<M extends Mode> = Overwrite<
     | "classNames"
     | "dir"
     | "components"
+    | "locale"
     | "style"
     | "styles"
     | "lang"
@@ -36,30 +44,25 @@ export type CalendarProps<M extends Mode> = Overwrite<
   >,
   {
     /**
-     * The locale object used to localize dates. Pass a locale from
-     * `react-day-picker/locale` to localize the calendar.
-     *
-     * @default enUS - The English locale default of `date-fns`.
-     * @see https://daypicker.dev/docs/localization
-     * @see https://github.com/date-fns/date-fns/tree/main/src/locale for a list of the supported locales
-     */
-    locale: Locale;
-    /**
      * Enable the selection of a single day, multiple days, or a range of days.
      *
      * @see https://daypicker.dev/docs/selection-modes
      */
     mode: M;
-    /**
-     * The daypicker instance to use.
-     */
-    DayPicker: ReturnType<typeof resolveCalendar>["DayPicker"];
+
     /**
      * Whether to render the calendar with full width.
      *
      * @default false
      */
     fullWidth?: boolean;
+
+    /**
+     * The calendar type.
+     *
+     * @default "jalali"
+     */
+    type?: (typeof CalendarType)[keyof typeof CalendarType];
   } & (
     | Omit<PropsMultiRequired, "required">
     | Omit<PropsRangeRequired, "required">
@@ -70,9 +73,8 @@ export type CalendarProps<M extends Mode> = Overwrite<
 export const Calendar = <M extends Mode>(props: CalendarProps<M>) => {
   const {
     className,
-    formatters,
-    DayPicker,
-    locale,
+    formatters: formattersProp,
+    type = CalendarType.JALALI,
     today: todayProp,
     fullWidth = false,
     ...otherProps
@@ -82,6 +84,141 @@ export const Calendar = <M extends Mode>(props: CalendarProps<M>) => {
 
   const today = todayProp ?? new Date();
   const dir = useDirection();
+
+  const { DayPicker, locale } = useMemo(() => {
+    return resolveCalendar(type);
+  }, [type]);
+
+  const formatters = useMemo<DayPickerProps["formatters"]>(
+    () => ({
+      formatWeekdayName: (weekday, options) =>
+        format(weekday, "EEEE", options)[0] || "",
+      formatDay: date => {
+        return formatNumber(parseInt(format(date, "d")));
+      },
+      formatYearDropdown: (year, dateLib) => {
+        return formatNumber(
+          normalizeNumbers(dateLib?.format(year, "yyyy") || ""),
+        );
+      },
+      ...formattersProp,
+    }),
+
+    [formattersProp],
+  );
+
+  const classNames = useMemo<DayPickerProps["classNames"]>(
+    () => ({
+      months: cn(defaultClassNames.months, classes["months"]),
+      month: cn(defaultClassNames.month, classes["month"]),
+      nav: cn(defaultClassNames.nav, classes["nav"]),
+      month_caption: cn(
+        defaultClassNames.month_caption,
+        classes["month-caption"],
+      ),
+      dropdown_root: cn(
+        classes["dropdown-root"],
+        defaultClassNames.dropdown_root,
+      ),
+      weekdays: cn(defaultClassNames.weekdays, classes["weekdays"]),
+      weekday: cn(defaultClassNames.weekday, classes["weekday"]),
+      week: cn(defaultClassNames.week, classes["week"]),
+      week_number_header: cn(
+        defaultClassNames.week_number_header,
+        classes["week-number-header"],
+      ),
+      selected: cn(defaultClassNames.selected, {
+        [classes["selected"]!]: (otherProps.mode as M) !== "range",
+      }),
+      week_number: cn(defaultClassNames.week_number, classes["week-number"]),
+      day: cn(defaultClassNames.day, classes["day"]),
+      month_grid: cn(defaultClassNames.month_grid, classes["month-grid"]),
+      day_button: cn(classes["day-button"]),
+      range_start: cn(classes["range-start"]),
+      range_middle: cn(classes["range-middle"]),
+      range_end: cn(classes["range-end"]),
+      today: cn(classes["today"]),
+      outside: cn(defaultClassNames.outside, classes["outside"]),
+      disabled: cn(defaultClassNames.disabled, classes["disabled"]),
+      hidden: cn(classes["hidden"], defaultClassNames.hidden),
+    }),
+    [],
+  );
+
+  const components = useMemo<DayPickerProps["components"]>(
+    () => ({
+      Root: ({ className, rootRef, ...props }) => {
+        return (
+          <div
+            {...props}
+            data-slot="calendar"
+            ref={rootRef}
+            className={cn(classes["root"], className, {
+              [classes["full-width"]!]: fullWidth,
+            })}
+          />
+        );
+      },
+      Dropdown: (props: DropdownProps) => {
+        const { value, onChange, name, options = [] } = props;
+
+        const items = options.map(option => ({
+          label: option.label,
+          value: option.value.toString(),
+          disabled: option.disabled,
+        })) as SelectItem[];
+
+        const handleChange = (val: string) => {
+          const syntheticEvent = {
+            target: { value: val },
+          } as React.ChangeEvent<HTMLSelectElement>;
+
+          onChange?.(syntheticEvent);
+        };
+
+        const label =
+          name === "month"
+            ? strings.components.calendar.month
+            : name === "year"
+              ? strings.components.calendar.year
+              : "";
+
+        return (
+          <SelectInput
+            label={label}
+            name={name}
+            items={items}
+            value={value?.toString() ?? ""}
+            onChange={handleChange}
+            hideLabel
+          />
+        );
+      },
+      NextMonthButton: props => {
+        return (
+          <IconButton
+            {...props}
+            variant="ghost"
+            color="neutral"
+            title={strings.components.calendar.previousMonth}
+            icon={<Icon data={mdiChevronLeft} />}
+          />
+        );
+      },
+      PreviousMonthButton: props => {
+        return (
+          <IconButton
+            {...props}
+            variant="ghost"
+            color="neutral"
+            title={strings.components.calendar.previousMonth}
+            icon={<Icon data={mdiChevronRight} />}
+          />
+        );
+      },
+    }),
+    [],
+  );
 
   return (
     <Suspense
@@ -102,119 +239,9 @@ export const Calendar = <M extends Mode>(props: CalendarProps<M>) => {
         showOutsideDays
         className={cn(className)}
         captionLayout="dropdown"
-        formatters={{
-          formatWeekdayName: (weekday, options) =>
-            format(weekday, "EEEE", options)[0] || "",
-          ...formatters,
-        }}
-        classNames={{
-          months: cn(defaultClassNames.months, classes["months"]),
-          month: cn(defaultClassNames.month, classes["month"]),
-          nav: cn(defaultClassNames.nav, classes["nav"]),
-          month_caption: cn(
-            defaultClassNames.month_caption,
-            classes["month-caption"],
-          ),
-          dropdown_root: cn(
-            classes["dropdown-root"],
-            defaultClassNames.dropdown_root,
-          ),
-          weekdays: cn(defaultClassNames.weekdays, classes["weekdays"]),
-          weekday: cn(defaultClassNames.weekday, classes["weekday"]),
-          week: cn(defaultClassNames.week, classes["week"]),
-          week_number_header: cn(
-            defaultClassNames.week_number_header,
-            classes["week-number-header"],
-          ),
-          selected: cn(defaultClassNames.selected, {
-            [classes["selected"]!]: (otherProps.mode as M) !== "range",
-          }),
-          week_number: cn(
-            defaultClassNames.week_number,
-            classes["week-number"],
-          ),
-          day: cn(defaultClassNames.day, classes["day"]),
-          month_grid: cn(defaultClassNames.month_grid, classes["month-grid"]),
-          day_button: cn(classes["day-button"]),
-          range_start: cn(classes["range-start"]),
-          range_middle: cn(classes["range-middle"]),
-          range_end: cn(classes["range-end"]),
-          today: cn(classes["today"]),
-          outside: cn(defaultClassNames.outside, classes["outside"]),
-          disabled: cn(defaultClassNames.disabled, classes["disabled"]),
-          hidden: cn(classes["hidden"], defaultClassNames.hidden),
-        }}
-        components={{
-          Root: ({ className, rootRef, ...props }) => {
-            return (
-              <div
-                {...props}
-                data-slot="calendar"
-                ref={rootRef}
-                className={cn(classes["root"], className, {
-                  [classes["full-width"]!]: fullWidth,
-                })}
-              />
-            );
-          },
-          Dropdown: (props: DropdownProps) => {
-            const { value, onChange, name, options = [] } = props;
-
-            const items = options.map(option => ({
-              label: option.label,
-              value: option.value.toString(),
-              disabled: option.disabled,
-            }));
-
-            const handleChange = (val: string) => {
-              const syntheticEvent = {
-                target: { value: val },
-              } as React.ChangeEvent<HTMLSelectElement>;
-
-              onChange?.(syntheticEvent);
-            };
-
-            const label =
-              name === "month"
-                ? strings.components.calendar.month
-                : name === "year"
-                  ? strings.components.calendar.month
-                  : "";
-
-            return (
-              <SelectInput
-                label={label}
-                name={name}
-                items={items}
-                value={value?.toString() ?? ""}
-                onChange={handleChange}
-                hideLabel
-              />
-            );
-          },
-          NextMonthButton: props => {
-            return (
-              <IconButton
-                {...props}
-                variant="ghost"
-                color="neutral"
-                title={strings.components.calendar.previousMonth}
-                icon={<Icon data={mdiChevronLeft} />}
-              />
-            );
-          },
-          PreviousMonthButton: props => {
-            return (
-              <IconButton
-                {...props}
-                variant="ghost"
-                color="neutral"
-                title={strings.components.calendar.previousMonth}
-                icon={<Icon data={mdiChevronRight} />}
-              />
-            );
-          },
-        }}
+        formatters={formatters}
+        classNames={classNames}
+        components={components}
       />
     </Suspense>
   );
