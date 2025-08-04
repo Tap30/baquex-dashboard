@@ -36,6 +36,8 @@
   --radiogroup-radio-label-color: var(--color-neutral-text-tertiary);
   --radiogroup-radio-border-color: var(--color-border-secondary);
   --radiogroup-radio-background: var(--color-surface-secondary);
+
+  opacity: 0.5;
 }
 
 .root:not(.disabled).has-error .control:not(.checked) {
@@ -46,10 +48,6 @@
   --radiogroup-radio-icon-color: var(--color-on-negative);
   --radiogroup-radio-label-color: var(--color-on-negative);
   --radiogroup-radio-background: var(--color-negative);
-}
-
-.root.disabled .radio {
-  opacity: 0.5;
 }
 
 .root.lg {

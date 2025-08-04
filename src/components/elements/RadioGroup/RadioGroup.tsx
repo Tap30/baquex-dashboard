@@ -6,7 +6,7 @@ import * as RadioGroupPrimitive from "@radix-ui/react-radio-group";
 import { useEffect, useState } from "react";
 import classes from "./styles.module.css";
 
-type Item = {
+export type RadioItem = {
   /**
    * The value given as data when submitted with a `name`.
    */
@@ -50,7 +50,7 @@ export type RadioGroupProps = Omit<
       /**
        * The array of items.
        */
-      items: Item[];
+      items: RadioItem[];
 
       /**
        * The name of the group. Submitted with its owning form as part of a name/value pair.
@@ -326,7 +326,7 @@ export const RadioGroup: React.FC<RadioGroupProps> = props => {
             variant={labelVariant}
             className={classes["radio-label"]}
           >
-            {label}
+            {item.label}
           </Text>
         </div>
       );
