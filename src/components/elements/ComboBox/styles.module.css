@@ -17,7 +17,7 @@
 }
 
 .root.disabled {
-  --combobox-control-color: var(--color-neutral-text-muted);
+  --combobox-control-color: var(--color-neutral);
   --combobox-control-border-color: var(--color-border-secondary);
   --combobox-control-background: var(--color-surface-secondary);
 
@@ -145,7 +145,7 @@
 }
 
 .item[data-explicitly-selected="false"] .item-indicator {
-  opacity: 0.25;
+  color: transparent;
 }
 
 .item-indicator {

@@ -19,9 +19,9 @@ import { strings } from "@/static-content";
 import type { MergeElementProps } from "@/types";
 import { cn, useControllableProp, useForkedRefs, useUniqueId } from "@/utils";
 import { mdiCheck, mdiClose } from "@mdi/js";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import classes from "./styles.module.css";
-import { isGroup, normalizeValues } from "./utils.ts";
+import { getTitleMap, isGroup, normalizeValues } from "./utils.ts";
 
 export type ComboBoxOption = {
   /**
@@ -285,6 +285,8 @@ export const ComboBox: React.FC<ComboBoxProps> = props => {
 
   const [refreshErrorAlert, setRefreshErrorAlert] = useState(false);
 
+  const itemsKey = JSON.stringify(items);
+
   const [open, setOpen] = useControllableProp({
     fallbackValue: false,
     controlledPropValue: openProp,
@@ -304,6 +306,12 @@ export const ComboBox: React.FC<ComboBoxProps> = props => {
   const inputId = idProp ?? `ComboBox:Input_${nodeId}`;
 
   const feedbackOrErrorText = hasError && errorText ? errorText : feedback;
+
+  const titleMap = useMemo(
+    () => getTitleMap(items),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [itemsKey],
+  );
 
   useEffect(() => {
     if (refreshErrorAlert) {
@@ -537,7 +545,7 @@ export const ComboBox: React.FC<ComboBoxProps> = props => {
 
   const renderEndSlot = () => {
     const values = normalizeValues(value);
-    const shouldRenderClear = !readOnly && values.length > 0;
+    const shouldRenderClear = !readOnly && !disabled && values.length > 0;
 
     if (!endSlot && !shouldRenderClear) return null;
 
@@ -610,7 +618,9 @@ export const ComboBox: React.FC<ComboBoxProps> = props => {
     }
 
     if (selectMode === "single") {
-      return <span className={classes["value"]}>{values[0]}</span>;
+      return (
+        <span className={classes["value"]}>{titleMap.get(values[0]!)}</span>
+      );
     }
 
     return values.map((v, idx) => {
@@ -627,7 +637,7 @@ export const ComboBox: React.FC<ComboBoxProps> = props => {
           aria-hidden
           tabIndex={-1}
           key={v + idx}
-          text={v}
+          text={titleMap.get(v) ?? ""}
           className={classes["badge"]}
           secondaryAction={{
             href: "",
