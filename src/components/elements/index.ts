@@ -6,6 +6,7 @@ export * from "./Breadcrumb/index.ts";
 export * from "./Button/index.ts";
 export * from "./Calendar/index.ts";
 export * from "./CheckBox/index.ts";
+export * from "./CheckGroup/index.ts";
 export * from "./ComboBox/index.ts";
 export * from "./Command/index.ts";
 export * from "./DataTable/index.ts";
