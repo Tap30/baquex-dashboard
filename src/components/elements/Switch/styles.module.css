@@ -47,7 +47,7 @@
 }
 
 .root.disabled .input {
-  --switch-color: var(--color-neutral-text-muted);
+  --switch-color: var(--color-neutral-text-tertiary);
   --switch-border-color: var(--color-border-secondary);
   --switch-background: var(--color-surface-secondary);
 

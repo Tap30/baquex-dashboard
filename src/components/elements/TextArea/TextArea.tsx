@@ -9,6 +9,18 @@ export type TextAreaProps = Omit<
     "textarea",
     {
       /**
+       * The controlled value of the input.
+       * Should be used in conjunction with `onChange`.
+       */
+      value?: string;
+
+      /**
+       * The value of the input when initially rendered.
+       * Use when you do not need to control the state of the input.
+       */
+      defaultValue?: string;
+
+      /**
        * The label of the input.
        */
       label: string;

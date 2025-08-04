@@ -18,7 +18,7 @@
 }
 
 .root.disabled {
-  --text-input-control-color: var(--color-neutral-text-muted);
+  --text-input-control-color: var(--color-neutral-text-tertiary);
   --text-input-control-border-color: var(--color-border-secondary);
   --text-input-control-background: var(--color-surface-secondary);
 }

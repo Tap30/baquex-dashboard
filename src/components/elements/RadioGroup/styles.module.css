@@ -32,8 +32,8 @@
 }
 
 .root.disabled .control {
-  --radiogroup-radio-icon-color: var(--color-neutral-text-muted);
-  --radiogroup-radio-label-color: var(--color-neutral-text-muted);
+  --radiogroup-radio-icon-color: var(--color-neutral-text-tertiary);
+  --radiogroup-radio-label-color: var(--color-neutral-text-tertiary);
   --radiogroup-radio-border-color: var(--color-border-secondary);
   --radiogroup-radio-background: var(--color-surface-secondary);
 }

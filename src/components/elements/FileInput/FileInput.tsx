@@ -302,7 +302,8 @@ export const FileInput: React.FC<FileInputProps> = props => {
   };
 
   const renderEndSlot = () => {
-    const shouldRenderClear = !readOnly && selectedFiles.length > 0;
+    const shouldRenderClear =
+      !readOnly && !disabled && selectedFiles.length > 0;
 
     if (!endSlot && !shouldRenderClear) return null;
 
