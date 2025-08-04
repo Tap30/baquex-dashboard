@@ -1,10 +1,10 @@
 .root {
-  --text-input-control-color: transparent;
-  --text-input-control-background: transparent;
-  --text-input-control-border-color: transparent;
-  --text-input-control-height: 0;
-  --text-input-control-font-size: 0;
-  --text-input-control-icon-size: 0;
+  --date-input-control-color: transparent;
+  --date-input-control-background: transparent;
+  --date-input-control-border-color: transparent;
+  --date-input-control-height: 0;
+  --date-input-control-font-size: 0;
+  --date-input-control-icon-size: 0;
 
   position: relative;
   display: flex;
@@ -12,37 +12,37 @@
 }
 
 .root:not(.disabled) {
-  --text-input-control-color: var(--color-neutral-text-secondary);
-  --text-input-control-border-color: var(--color-border-primary);
-  --text-input-control-background: var(--color-surface-base);
+  --date-input-control-color: var(--color-neutral-text-secondary);
+  --date-input-control-border-color: var(--color-border-primary);
+  --date-input-control-background: var(--color-surface-base);
 }
 
 .root.disabled {
-  --text-input-control-color: var(--color-neutral-text-muted);
-  --text-input-control-border-color: var(--color-border-secondary);
-  --text-input-control-background: var(--color-surface-secondary);
+  --date-input-control-color: var(--color-neutral-text-muted);
+  --date-input-control-border-color: var(--color-border-secondary);
+  --date-input-control-background: var(--color-surface-secondary);
 }
 
 .root.has-error {
-  --text-input-control-border-color: var(--color-negative-text);
+  --date-input-control-border-color: var(--color-negative-text);
 }
 
 .root.lg {
-  --text-input-control-font-size: var(--text-body1);
-  --text-input-control-icon-size: 1.25rem;
-  --text-input-control-height: 2.5rem;
+  --date-input-control-font-size: var(--text-body1);
+  --date-input-control-icon-size: 1.25rem;
+  --date-input-control-height: 2.5rem;
 }
 
 .root.md {
-  --text-input-control-font-size: var(--text-body2);
-  --text-input-control-icon-size: 1rem;
-  --text-input-control-height: 2rem;
+  --date-input-control-font-size: var(--text-body2);
+  --date-input-control-icon-size: 1rem;
+  --date-input-control-height: 2rem;
 }
 
 .root.sm {
-  --text-input-control-font-size: var(--text-body2);
-  --text-input-control-icon-size: 0.875rem;
-  --text-input-control-height: 1.5rem;
+  --date-input-control-font-size: var(--text-body2);
+  --date-input-control-icon-size: 0.875rem;
+  --date-input-control-height: 1.5rem;
 }
 
 .feedback {
@@ -57,17 +57,17 @@
   margin-top: var(--spacing-sm);
 }
 
-.control {
+/* .control {
   display: flex;
   align-items: center;
 
-  font-size: var(--text-input-control-font-size);
-  height: var(--text-input-control-height);
+  font-size: var(--date-input-control-font-size);
+  height: var(--date-input-control-height);
 
   padding: var(--spacing-xs);
   border-radius: var(--radius-sm);
-  box-shadow: 0 0 0 0.0625rem var(--text-input-control-border-color);
-  background-color: var(--text-input-control-background);
+  box-shadow: 0 0 0 0.0625rem var(--date-input-control-border-color);
+  background-color: var(--date-input-control-background);
 }
 
 .control:has(.value-display:focus-visible) {
@@ -79,6 +79,50 @@
 
 .root.disabled .control {
   opacity: 0.5;
+} */
+
+.control {
+  display: flex;
+  align-items: center;
+
+  font-size: var(--date-input-control-font-size);
+  height: var(--date-input-control-height);
+  color: var(--date-input-control-color);
+
+  cursor: pointer;
+
+  padding: var(--spacing-xs);
+
+  border-radius: var(--radius-sm);
+  box-shadow: 0 0 0 0.0625rem var(--date-input-control-border-color);
+  background-color: var(--date-input-control-background);
+}
+
+.control:has(.input:focus-visible) {
+  outline-style: solid;
+  outline-width: var(--token-focus-ring-stroke);
+  outline-color: var(--token-focus-ring-color);
+  outline-offset: var(--token-focus-ring-offset);
+}
+
+.input {
+  font-size: inherit;
+  color: inherit;
+
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+  height: 100%;
+
+  cursor: pointer;
+
+  border-radius: inherit;
+  padding-inline: var(--spacing-xs);
+}
+
+.input:focus-visible {
+  outline: none;
 }
 
 .value-display:focus-visible {
@@ -88,10 +132,9 @@
 .value-display {
   font-size: inherit;
 
-  width: 100%;
-
   border-radius: inherit;
   padding-inline: var(--spacing-xs);
+  margin-inline-end: auto;
 }
 
 .start-slot,
@@ -120,10 +163,10 @@
 }
 
 :is(.start-slot, .end-slot) > svg {
-  width: var(--text-input-control-icon-size);
-  height: var(--text-input-control-icon-size);
-  max-width: var(--text-input-control-icon-size);
-  max-height: var(--text-input-control-icon-size);
+  width: var(--date-input-control-icon-size);
+  height: var(--date-input-control-icon-size);
+  max-width: var(--date-input-control-icon-size);
+  max-height: var(--date-input-control-icon-size);
 }
 
 .value-display.placeholder {
