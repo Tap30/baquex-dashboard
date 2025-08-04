@@ -1,4 +1,4 @@
-import type { ChartConfig } from "../../types.ts";
+import type { ChartConfig } from "./types.ts";
 
 export const getPayloadConfigFromPayload = (
   config: ChartConfig,
