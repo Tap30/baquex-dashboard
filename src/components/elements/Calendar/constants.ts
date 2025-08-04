@@ -1,17 +1,18 @@
-import { enUS, type Locale } from "date-fns/locale";
-import { enUS as jalaliEn, faIR as jalaliFa } from "react-day-picker/persian";
+import { Languages } from "@/constants";
+import { strings } from "@/static-content";
+import { faIR as enFaIR, enUS, type Locale } from "date-fns/locale";
+import { enUS as faEnUS, faIR } from "react-day-picker/persian";
 
 export const CalendarType = {
   GREGORIAN: "GREGORIAN",
-  JALALI_FA: "JALALI_FA",
-  JALALI_EN: "JALALI_EN",
+  JALALI: "JALALI",
 } as const;
 
 export const CalendarLocale: Record<
   (typeof CalendarType)[keyof typeof CalendarType],
   Locale
 > = {
-  [CalendarType.JALALI_FA]: jalaliFa,
-  [CalendarType.JALALI_EN]: jalaliEn,
-  [CalendarType.GREGORIAN]: enUS,
+  [CalendarType.JALALI]: strings.getLanguage() === Languages.EN ? faEnUS : faIR,
+  [CalendarType.GREGORIAN]:
+    strings.getLanguage() === Languages.EN ? enUS : enFaIR,
 } as const;
