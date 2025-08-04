@@ -27,7 +27,7 @@
   cursor: default;
 }
 
-.root[data-selected="true"] {
+.root[data-highlighted="true"] {
   --command-item-background: var(--color-brand);
 }
 

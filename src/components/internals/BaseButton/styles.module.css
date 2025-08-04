@@ -44,7 +44,7 @@
   color: var(--button-color);
 }
 
-:is(button.root, .focus-anchor):focus-visible {
+:is(button.root, a.root, .focus-anchor):focus-visible {
   outline-style: solid;
   outline-width: var(--token-focus-ring-stroke);
   outline-color: var(--token-focus-ring-color);

@@ -64,7 +64,7 @@
   --radiogroup-radio-size: 0.875rem;
 }
 
-.feedback {
+.feedback.feedback {
   margin-top: var(--spacing-sm);
 }
 

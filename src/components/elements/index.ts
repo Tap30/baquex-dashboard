@@ -8,6 +8,7 @@ export * from "./Calendar/index.ts";
 export * from "./Chart/index.ts";
 export * from "./CheckBox/index.ts";
 export * from "./ClickableArea/index.ts";
+export * from "./ComboBox/index.ts";
 export * from "./Command/index.ts";
 export * from "./DataTable/index.ts";
 export * from "./DateInput/index.ts";

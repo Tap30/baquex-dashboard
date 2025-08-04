@@ -9,6 +9,9 @@ type GlobalStrings = {
   clearValue: string;
   close: string;
   cancel: string;
+  empty: string;
+  search: string;
+  options: string;
   sorting: {
     ascending: string;
     descending: string;
@@ -82,15 +85,18 @@ export const strings = new Localization<GlobalStrings>({
     logoutButton: "Logout",
     close: "Close",
     cancel: "Cancel",
+    empty: "No results found",
+    search: "Search",
     clearValue: "Clear value",
     breadcrumb: "Breadcrumb",
+    options: "Options",
     sorting: {
       ascending: "Sort ascending",
       descending: "Sort descending",
       clear: "Clear sort",
     },
     emptyStatement: {
-      table: "No data found.",
+      table: "No data found",
     },
     navButton: {
       close: "Close navigation menu",
@@ -155,7 +161,10 @@ export const strings = new Localization<GlobalStrings>({
     clearValue: "حذف مقدار",
     close: "بستن",
     cancel: "لغو عملیات",
+    empty: "موردی یافت نشد",
+    search: "جستجو",
     breadcrumb: "نقشه صفحات",
+    options: "گزینه‌ها",
     sorting: {
       ascending: "مرتب‌سازی صعودی",
       descending: "مرتب‌سازی نزولی",

@@ -1,6 +1,17 @@
+import { IconButton, type IconButtonProps } from "@/components";
 import type { MergeElementProps } from "@/types";
 import { cn } from "@/utils";
 import classes from "./styles.module.css";
+
+export type SecondaryBadgeAction = Omit<
+  IconButtonProps,
+  "aria-label" | "aria-labelledby"
+> & {
+  /**
+   * The label used for screen readers.
+   */
+  label: string;
+};
 
 export type BadgeProps = Omit<
   MergeElementProps<
@@ -15,6 +26,11 @@ export type BadgeProps = Omit<
        * The icon used for the badge.
        */
       icon?: React.ReactNode;
+
+      /**
+       * The secondary action button used in the badge.
+       */
+      secondaryAction?: SecondaryBadgeAction;
 
       /**
        * The color scheme of the badge.
@@ -40,6 +56,7 @@ export const Badge: React.FC<BadgeProps> = props => {
     className,
     text,
     icon,
+    secondaryAction,
     color = "neutral",
     ...otherProps
   } = props;
@@ -57,6 +74,22 @@ export const Badge: React.FC<BadgeProps> = props => {
     );
   };
 
+  const renderAction = () => {
+    if (!secondaryAction) return null;
+
+    const { label, ...etc } = secondaryAction;
+
+    return (
+      <IconButton
+        {...etc}
+        size="sm"
+        variant="ghost"
+        className={classes["action"]}
+        aria-label={label}
+      />
+    );
+  };
+
   return (
     <div
       {...otherProps}
@@ -65,6 +98,7 @@ export const Badge: React.FC<BadgeProps> = props => {
     >
       {renderIcon()}
       <span className={classes["text"]}>{text}</span>
+      {renderAction()}
     </div>
   );
 };
