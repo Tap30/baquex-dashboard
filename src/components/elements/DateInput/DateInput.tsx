@@ -1,6 +1,8 @@
 import {
+  Badge,
   Calendar,
   CalendarType,
+  Flex,
   Icon,
   Popover,
   PopoverContent,
@@ -314,6 +316,18 @@ export const DateInput: React.FC<DateInputProps> = props => {
     return <div className={classes["end-slot"]}>{endSlot}</div>;
   };
 
+  const renderBadge = (text: string) => {
+    return (
+      <Badge
+        aria-hidden
+        key={text}
+        tabIndex={-1}
+        text={text}
+        className={classes["badge"]}
+      />
+    );
+  };
+
   const ariaLabel = hideLabel ? label : undefined;
   const ariaDescribedBy = description ? descId : undefined;
   const ariaInvalid = hasError;
@@ -324,23 +338,30 @@ export const DateInput: React.FC<DateInputProps> = props => {
     }
 
     if (mode === "multiple") {
-      return (value as Date[])
-        .map(value => formatDate(value))
-        .join(strings.comma + " ");
+      return (
+        <Flex gap="sm">
+          {(value as Date[]).map(value => renderBadge(formatDate(value)))}
+        </Flex>
+      );
     }
 
     if (mode === "range" && value && "from" in value && "to" in value) {
       const { from, to } = value;
 
       if (!from) return strings.components.dateInput.selectDate;
-      if (from === to || !to) return formatDate(from);
+      if (from === to || !to) return renderBadge(formatDate(from));
 
-      return [strings.from, formatDate(from), strings.to, formatDate(to)].join(
-        " ",
+      return (
+        <Flex gap="sm">
+          <span>{strings.from}</span>
+          {renderBadge(formatDate(from))}
+          <span>{strings.to}</span>
+          {renderBadge(formatDate(to))}
+        </Flex>
       );
     }
 
-    return formatDate(value as Date);
+    return renderBadge(formatDate(value as Date));
   };
 
   const handleChange = (e: DateValue) => {

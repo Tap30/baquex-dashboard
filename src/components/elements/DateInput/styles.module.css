@@ -176,3 +176,12 @@
 .dropdown.dropdown {
   padding: 0;
 }
+
+.badge {
+  --badge-border-color: var(--color-border-tertiary) !important;
+}
+
+.root.sm .badge {
+  border-radius: 0;
+  height: calc(1.5rem - 0.25rem);
+}
