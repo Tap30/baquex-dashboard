@@ -1,6 +1,7 @@
 import {
   Badge,
   Calendar,
+  type CalendarProps,
   CalendarType,
   Flex,
   Icon,
@@ -20,6 +21,7 @@ import { mdiCalendar } from "@mdi/js";
 
 import { strings } from "@/static-content";
 import { useEffect, useRef, useState } from "react";
+import { type DateRange } from "react-day-picker";
 import "react-day-picker/style.css";
 import { Text, type TextProps } from "../Text/index.ts";
 import classes from "./styles.module.css";
@@ -338,8 +340,16 @@ export const DateInput: React.FC<DateInputProps> = props => {
     }
 
     if (mode === "multiple") {
+      if ((value as Date[]).length === 0) {
+        return strings.components.dateInput.selectDate;
+      }
+
       return (
-        <Flex gap="sm">
+        <Flex
+          className={classes["value"]}
+          gap="sm"
+          wrapMode="wrap"
+        >
           {(value as Date[]).map(value => renderBadge(formatDate(value)))}
         </Flex>
       );
@@ -348,11 +358,14 @@ export const DateInput: React.FC<DateInputProps> = props => {
     if (mode === "range" && value && "from" in value && "to" in value) {
       const { from, to } = value;
 
-      if (!from) return strings.components.dateInput.selectDate;
-      if (from === to || !to) return renderBadge(formatDate(from));
+      if (!from || !to || from === to)
+        return strings.components.dateInput.selectDateRange;
 
       return (
-        <Flex gap="sm">
+        <Flex
+          gap="sm"
+          className={classes["value"]}
+        >
           <span>{strings.from}</span>
           {renderBadge(formatDate(from))}
           <span>{strings.to}</span>
@@ -375,6 +388,46 @@ export const DateInput: React.FC<DateInputProps> = props => {
     if (readOnly || disabled) return;
 
     setOpen(newValue);
+  };
+
+  const renderCalendar = () => {
+    if (mode === "single") {
+      return (
+        <Calendar
+          {...(otherCalendarProps as CalendarProps<"single">)}
+          selected={value as Date}
+          onSelect={handleChange}
+          type={type}
+          mode="single"
+        />
+      );
+    }
+
+    if (mode === "multiple") {
+      return (
+        <Calendar
+          {...(otherCalendarProps as CalendarProps<"multiple">)}
+          selected={value as Date[]}
+          onSelect={handleChange}
+          type={type}
+          mode="multiple"
+        />
+      );
+    }
+
+    if (mode === "range") {
+      return (
+        <Calendar
+          {...(otherCalendarProps as CalendarProps<"range">)}
+          selected={value as DateRange}
+          onSelect={handleChange}
+          type={type}
+          mode="range"
+        />
+      );
+    }
+
+    return null;
   };
 
   return (
@@ -425,13 +478,7 @@ export const DateInput: React.FC<DateInputProps> = props => {
             </button>
           </PopoverTrigger>
           <PopoverContent className={classes["dropdown"]}>
-            <Calendar
-              {...otherCalendarProps}
-              selected={value}
-              onSelect={handleChange}
-              type={type}
-              mode={mode}
-            />
+            {renderCalendar()}
           </PopoverContent>
         </Popover>
       </div>

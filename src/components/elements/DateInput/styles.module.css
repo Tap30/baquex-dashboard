@@ -57,36 +57,12 @@
   margin-top: var(--spacing-sm);
 }
 
-/* .control {
-  display: flex;
-  align-items: center;
-
-  font-size: var(--date-input-control-font-size);
-  height: var(--date-input-control-height);
-
-  padding: var(--spacing-xs);
-  border-radius: var(--radius-sm);
-  box-shadow: 0 0 0 0.0625rem var(--date-input-control-border-color);
-  background-color: var(--date-input-control-background);
-}
-
-.control:has(.value-display:focus-visible) {
-  outline-style: solid;
-  outline-width: var(--token-focus-ring-stroke);
-  outline-color: var(--token-focus-ring-color);
-  outline-offset: var(--token-focus-ring-offset);
-}
-
-.root.disabled .control {
-  opacity: 0.5;
-} */
-
 .control {
   display: flex;
   align-items: center;
 
   font-size: var(--date-input-control-font-size);
-  height: var(--date-input-control-height);
+  min-height: var(--date-input-control-height);
   color: var(--date-input-control-color);
 
   cursor: pointer;
@@ -135,6 +111,13 @@
   border-radius: inherit;
   padding-inline: var(--spacing-xs);
   margin-inline-end: auto;
+
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.value {
+  flex-wrap: wrap;
 }
 
 .start-slot,

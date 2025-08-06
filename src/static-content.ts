@@ -33,6 +33,7 @@ type GlobalStrings = {
     };
     dateInput: {
       selectDate: string;
+      selectDateRange: string;
     };
     button: {
       pending: string;
@@ -118,6 +119,7 @@ export const strings = new Localization<GlobalStrings>({
       },
       dateInput: {
         selectDate: "Select date",
+        selectDateRange: "Select a date range",
       },
       paginator: {
         nextPage: "Go to the next page",
@@ -193,6 +195,7 @@ export const strings = new Localization<GlobalStrings>({
       },
       dateInput: {
         selectDate: "یک تاریخ انتخاب کنید",
+        selectDateRange: "یک بازه تاریخ انتخاب کنید",
       },
       paginator: {
         nextPage: "صفحه بعدی",
