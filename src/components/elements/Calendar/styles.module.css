@@ -36,9 +36,23 @@
   justify-content: center;
 }
 
-.today {
-  color: var(--color-brand-text-secondary);
+.today .day-button {
+  position: relative;
 }
+
+.today .day-button::before {
+  content: "";
+  box-shadow: 0 0 0 1px var(--color-brand-text-secondary);
+  position: absolute;
+
+  left: var(--spacing-xxs);
+  right: var(--spacing-xxs);
+  top: var(--spacing-xxs);
+  bottom: var(--spacing-xxs);
+
+  border-radius: 50%;
+}
+
 .day {
   flex: 1;
 }
@@ -94,7 +108,7 @@
 }
 
 .range-middle {
-  background: var(--color-surface-secondary);
+  background: var(--color-surface-tertiary);
   border-radius: var(--radius-sm);
 }
 
