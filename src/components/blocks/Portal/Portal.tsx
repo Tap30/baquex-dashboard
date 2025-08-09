@@ -24,7 +24,7 @@ export type PortalProps = {
   disabled?: boolean;
 };
 
-const Portal: React.FC<PortalProps> = props => {
+export const Portal: React.FC<PortalProps> = props => {
   const { resolveContainer, children, disabled = false } = props;
 
   const portalConfig = usePortalConfig();
@@ -38,5 +38,3 @@ const Portal: React.FC<PortalProps> = props => {
 
   return createPortal(children, container);
 };
-
-export default Portal;
