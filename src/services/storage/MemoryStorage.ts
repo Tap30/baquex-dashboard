@@ -39,7 +39,7 @@ export class MemoryStorage implements IStorage {
     this._store.clear();
   }
 
-  public length(): number {
+  public get length(): number {
     return this._store.size;
   }
 

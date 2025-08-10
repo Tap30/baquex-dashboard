@@ -1,9 +1,9 @@
-import { LOGIN_PATH } from "@/constants";
+import { LOGIN_PATH, UNAUTHORIZED_PATH } from "@/constants";
 import { useAuth } from "@/contexts";
 import { Navigate, Outlet } from "react-router";
 
 export const ProtectedRoute = () => {
-  const { isAuthenticated, isAuthenticating } = useAuth();
+  const { isAuthenticated, isAuthenticating, isAccessGranted } = useAuth();
 
   if (isAuthenticating) {
     return <div>Authenticating...</div>;
@@ -14,6 +14,16 @@ export const ProtectedRoute = () => {
     return (
       <Navigate
         to={LOGIN_PATH}
+        replace
+      />
+    );
+  }
+
+  // If authenticated but scope access is not granted, redirect to an unauthorized page
+  if (!isAccessGranted) {
+    return (
+      <Navigate
+        to={UNAUTHORIZED_PATH}
         replace
       />
     );

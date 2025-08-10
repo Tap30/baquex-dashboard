@@ -4,9 +4,10 @@ import {
   MainLayout,
   ProtectedRoute,
 } from "@/components";
-import { DASHBOARD_PATH, LOGIN_PATH } from "@/constants";
+import { DASHBOARD_PATH, LOGIN_PATH, UNAUTHORIZED_PATH } from "@/constants";
 import { AuthProvider } from "@/contexts";
 import {
+  AccessDeniedPage,
   dashboardLoader,
   DashboardPage,
   LoginPage,
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
           {
             path: LOGIN_PATH,
             element: <LoginPage />,
+          },
+          {
+            path: UNAUTHORIZED_PATH,
+            element: <AccessDeniedPage />,
           },
         ],
       },

@@ -30,7 +30,7 @@ export interface IStorage {
   /**
    * Gets the number of items in storage.
    */
-  length(): number;
+  length: number;
 
   /**
    * Gets the key at a specific index.

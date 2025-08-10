@@ -15,7 +15,7 @@ export const Footer: React.FC<Props> = props => {
   const { className } = props;
 
   const { pathname } = useLocation();
-  const { logout } = useAuth();
+  const { signout } = useAuth();
 
   const username = "mostafa.shamsitabar";
   const displayName = "مصطفی شمسی‌تبار";
@@ -72,7 +72,7 @@ export const Footer: React.FC<Props> = props => {
             icon={<Icon data={mdiLogout} />}
             color="neutral"
             variant="ghost"
-            onClick={() => void logout()}
+            onClick={() => void signout()}
           />
         </FlexItem>
       </Flex>

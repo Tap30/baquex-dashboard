@@ -1,8 +1,12 @@
-import type { LoginCredentials } from "@/services";
+import type { AuthenticatedUser } from "@/services";
 
 export type AuthContextValue = {
+  user: AuthenticatedUser | null;
   isAuthenticated: boolean;
   isAuthenticating: boolean;
-  login: (credentials: LoginCredentials) => Promise<boolean>;
-  logout: () => Promise<void>;
+  isAccessGranted: boolean;
+  signin: (credentials?: unknown) => Promise<void>;
+  signout: () => Promise<void>;
+  handleSignoutRedirectCallback: () => Promise<void>;
+  handleSigninRedirectCallback: () => Promise<void>;
 };

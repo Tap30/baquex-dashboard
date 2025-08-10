@@ -50,6 +50,7 @@
     "cmdk": "^1.1.1",
     "date-fns": "^4.1.0",
     "normalize.css": "^8.0.1",
+    "oidc-client-ts": "^3.3.0",
     "react": "^19.1.0",
     "react-containerized-state": "^3.0.1",
     "react-day-picker": "^9.8.1",

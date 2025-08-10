@@ -119,7 +119,7 @@ export class CookieStorage implements IStorage {
     this._getCookies().forEach((_, key) => this.removeItem(key));
   }
 
-  public length(): number {
+  public get length(): number {
     return this._getCookies().size;
   }
 

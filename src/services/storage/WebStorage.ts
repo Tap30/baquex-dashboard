@@ -56,7 +56,7 @@ export class WebStorage implements IStorage {
     this._storage.clear();
   }
 
-  public length(): number {
+  public get length(): number {
     return this._storage.length;
   }
 
