@@ -29,5 +29,6 @@ export const ProtectedRoute = () => {
     );
   }
 
+  // If authenticated and scope access is granted, render the dashboard page
   return <Outlet />;
 };
