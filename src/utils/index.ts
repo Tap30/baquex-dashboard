@@ -1,3 +1,4 @@
+export * from "./breakpoints.ts";
 export * from "./ClientIdGenerator.ts";
 export * from "./cn.ts";
 export * from "./copy-to-clipboard.ts";
@@ -16,6 +17,7 @@ export * from "./use-isomorphic-value.ts";
 export * from "./use-lazy-initialized-value.ts";
 export * from "./use-media-query.ts";
 export * from "./use-page-breadcrumb.ts";
+export * from "./use-persisted-state.ts";
 export * from "./use-unique-id.ts";
 
 export { arrayMove, arraySwap } from "@dnd-kit/sortable";

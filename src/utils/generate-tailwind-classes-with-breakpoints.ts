@@ -4,7 +4,7 @@ import type {
   PropValueWithBreakpoints,
 } from "@/types";
 
-const isBreakpointStepsMap = <T>(
+const isBreakpointStopsMap = <T>(
   o: unknown,
 ): o is Partial<Record<BreakpointStops, T>> => {
   if (typeof o !== "object") return false;
@@ -34,7 +34,7 @@ export const generateTailwindClassesWithBreakpoints = <T>(
     valueMapper ??
     ((v: T) => (typeof v === "undefined" ? undefined : String(v)));
 
-  if (isBreakpointStepsMap(propValueWithBreakpoints)) {
+  if (isBreakpointStopsMap(propValueWithBreakpoints)) {
     Object.entries(propValueWithBreakpoints).forEach(([stepKey, value]) => {
       const v = mapper(value as ExcludeUndefined<T>);
 

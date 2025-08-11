@@ -1,3 +1,5 @@
+import type { BREAKPOINT_KEYS } from "@/constants";
+
 export type Overwrite<T, U> = Omit<T, keyof U> & U;
 
 export type MergeElementProps<
@@ -35,7 +37,9 @@ export type WithRef<P extends object, E extends React.ElementType> = P & {
   ref?: React.ComponentPropsWithRef<E>["ref"];
 };
 
-export type BreakpointStops = "xs" | "sm" | "md" | "lg" | "xl" | "fallback";
+export type BreakpointKeys = (typeof BREAKPOINT_KEYS)[number];
+
+export type BreakpointStops = BreakpointKeys | "fallback";
 
 export type ExcludeUndefined<T> = Exclude<T, undefined>;
 
