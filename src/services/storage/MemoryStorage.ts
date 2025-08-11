@@ -1,10 +1,10 @@
-import type { IStorage } from "./types.ts";
+import type { DataStorage } from "./types.ts";
 
 /**
  * Represents an in-memory storage solution.
  * Data is lost when the page refreshes.
  */
-export class MemoryStorage implements IStorage {
+export class MemoryStorage implements DataStorage {
   private _store: Map<string, string> = new Map();
 
   public setItem<T>(key: string, value: T): void {

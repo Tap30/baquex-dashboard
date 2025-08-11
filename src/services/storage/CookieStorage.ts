@@ -1,9 +1,9 @@
-import type { IStorage } from "./types.ts";
+import type { DataStorage } from "./types.ts";
 
 /**
  * Represents a storage solution using browser cookies.
  */
-export class CookieStorage implements IStorage {
+export class CookieStorage implements DataStorage {
   private _getCookies(): Map<string, string> {
     const cookies = document.cookie.split("; ").reduce((result, cookie) => {
       const parts = cookie.split("=");

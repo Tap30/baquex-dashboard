@@ -1,4 +1,4 @@
-export interface IStorage {
+export interface DataStorage {
   /**
    * Sets an item in storage.
    *
