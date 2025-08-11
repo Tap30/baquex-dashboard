@@ -36,5 +36,5 @@ export const normalizeNumbers = (input: string): number => {
 
   const parsedNumber = Number(normalizedString);
 
-  return isNaN(parsedNumber) ? NaN : parsedNumber;
+  return Number.isNaN(parsedNumber) ? NaN : parsedNumber;
 };
