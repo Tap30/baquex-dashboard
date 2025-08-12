@@ -15,12 +15,15 @@
   min-width: 3rem;
 }
 
+.root.fluid {
+  width: 100%;
+  justify-content: center;
+}
+
 .text {
   font-size: var(--button-font-size);
   font-weight: var(--button-font-weight);
   line-height: var(--button-leading);
-
-  margin-inline: auto;
 }
 
 .icon {

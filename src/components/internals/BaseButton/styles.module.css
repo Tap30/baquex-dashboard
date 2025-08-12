@@ -55,6 +55,10 @@
   pointer-events: none;
 }
 
+.root.fluid {
+  justify-content: center;
+}
+
 .root.lg {
   --button-height: 2.5rem;
   --button-horizontal-padding: var(--spacing-sm);

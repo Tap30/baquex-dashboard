@@ -30,6 +30,7 @@ export const Button: React.FC<ButtonProps> = props => {
     startIcon,
     endIcon,
     pending = false,
+    fluid = false,
     ...otherProps
   } = props;
 
@@ -65,7 +66,10 @@ export const Button: React.FC<ButtonProps> = props => {
     <BaseButton
       {...otherProps}
       pending={pending}
-      className={cn(classes["root"], className)}
+      fluid={fluid}
+      className={cn(classes["root"], className, {
+        [classes["fluid"]!]: fluid,
+      })}
     >
       {renderStartIcon()}
       <span className={classes["text"]}>{text}</span>

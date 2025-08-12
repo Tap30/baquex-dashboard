@@ -10,7 +10,7 @@ export type IconButtonProps = Omit<
      */
     icon: React.ReactNode;
   },
-  "children"
+  "children" | "fluid"
 >;
 
 export const IconButton: React.FC<IconButtonProps> = props => {

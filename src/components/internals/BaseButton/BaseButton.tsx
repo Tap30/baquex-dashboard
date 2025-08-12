@@ -62,6 +62,13 @@ export type BaseButtonProps = MergeElementProps<
      * security and prevent potential tab exploitation.
      */
     target?: "_blank" | "_parent" | "_self" | "_top";
+
+    /**
+     * Whether to make the button fluid.
+     *
+     * @default false;
+     */
+    fluid?: boolean;
   }>
 >;
 
@@ -79,6 +86,7 @@ export const BaseButton: React.FC<BaseButtonProps> = (
     color = "neutral",
     disabled = false,
     pending = false,
+    fluid = false,
     size = "md",
     variant = "filled",
     tabIndex: tabIndexProp,
@@ -156,6 +164,7 @@ export const BaseButton: React.FC<BaseButtonProps> = (
           classes[size],
           {
             [classes["disabled"]!]: isButtonDisabled,
+            [classes["fluid"]!]: fluid,
           },
         )}
       >
