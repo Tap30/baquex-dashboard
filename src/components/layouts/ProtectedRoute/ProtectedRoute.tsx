@@ -1,3 +1,4 @@
+import { PageLoading } from "@/components";
 import { LOGIN_PATH, UNAUTHORIZED_PATH } from "@/constants";
 import { useAuth } from "@/contexts";
 import { Navigate, Outlet } from "react-router";
@@ -6,7 +7,7 @@ export const ProtectedRoute = () => {
   const { isAuthenticated, isAuthenticating, isAccessGranted } = useAuth();
 
   if (isAuthenticating) {
-    return <div>Authenticating...</div>;
+    return <PageLoading loading />;
   }
 
   // If not authenticated, redirect to the login page
