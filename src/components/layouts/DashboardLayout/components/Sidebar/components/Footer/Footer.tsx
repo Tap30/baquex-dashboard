@@ -1,4 +1,13 @@
-import { Avatar, Flex, FlexItem, Icon, IconButton, Text } from "@/components";
+import {
+  Avatar,
+  dismissConfirm,
+  Flex,
+  FlexItem,
+  Icon,
+  IconButton,
+  requestConfirm,
+  Text,
+} from "@/components";
 import { SETTINGS_PATH } from "@/constants";
 import { useAuth } from "@/contexts";
 import { strings } from "@/static-content";
@@ -15,15 +24,37 @@ export const Footer: React.FC<Props> = props => {
   const { className } = props;
 
   const { pathname } = useLocation();
-  const { signout } = useAuth();
+  const { signout, handleSignoutRedirectCallback, user } = useAuth();
 
-  const username = "mostafa.shamsitabar";
-  const displayName = "مصطفی شمسی‌تبار";
+  const { name, email } = user!;
+
+  const username = name ?? strings.unknownUser;
 
   const fallbackText = username
-    .split(".")
+    .split(/[. ]/)
     .map(s => s[0]?.toUpperCase() ?? "")
     .join("");
+
+  const handleSignout = () => {
+    void requestConfirm({
+      title: strings.logoutButton,
+      description: strings.areYouSure,
+      okText: strings.logoutButton,
+      onOk: () => {
+        void (async () => {
+          await signout().finally(
+            void (async () => {
+              void handleSignoutRedirectCallback();
+              await dismissConfirm();
+            })(),
+          );
+        })();
+      },
+      onCancel: () => {
+        void dismissConfirm();
+      },
+    });
+  };
 
   return (
     <footer className={cn(classes["root"], className)}>
@@ -53,17 +84,17 @@ export const Footer: React.FC<Props> = props => {
         className={classes["account"]}
       >
         <Avatar
-          src=""
-          alt=""
+          src={""}
+          alt={username}
           fallback={fallbackText}
         />
         <Flex direction="column">
-          <Text variant="subheading2">{displayName}</Text>
+          <Text variant="subheading2">{username}</Text>
           <Text
             variant="caption"
             color="tertiary"
           >
-            {username}
+            {email}
           </Text>
         </Flex>
         <FlexItem autoMarginInlineStart>
@@ -72,7 +103,7 @@ export const Footer: React.FC<Props> = props => {
             icon={<Icon data={mdiLogout} />}
             color="neutral"
             variant="ghost"
-            onClick={() => void signout()}
+            onClick={handleSignout}
           />
         </FlexItem>
       </Flex>
