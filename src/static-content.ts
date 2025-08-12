@@ -2,6 +2,7 @@ import { DEFAULT_LANGUAGE, Languages } from "@/constants";
 import Localization from "react-localization";
 
 type GlobalStrings = {
+  appTitle: string;
   logoutButton: string;
   from: string;
   comma: string;
@@ -107,6 +108,7 @@ type GlobalStrings = {
 
 export const strings = new Localization<GlobalStrings>({
   [Languages.EN]: {
+    appTitle: "Simorgh",
     from: "from",
     to: "to",
     comma: ",",
@@ -210,6 +212,7 @@ export const strings = new Localization<GlobalStrings>({
     },
   },
   [Languages.FA]: {
+    appTitle: "سیمرغ",
     from: "از",
     comma: "،",
     with: "با",

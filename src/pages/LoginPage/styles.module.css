@@ -13,25 +13,8 @@
 }
 
 .logo {
-  height: 5rem;
-  width: 5rem;
+  height: 2rem;
+  width: 2rem;
 
   margin: 0 auto;
-}
-
-.title,
-.description {
-  text-align: center;
-}
-
-.auth-provider {
-  padding: var(--spacing-xs);
-  border-radius: var(--radius-lg);
-  background-color: var(--color-surface-secondary);
-  box-shadow: 0 0 0 1px var(--color-border-tertiary);
-}
-
-.auth-provider .icon {
-  height: 1.25rem;
-  width: 1.25rem;
 }
