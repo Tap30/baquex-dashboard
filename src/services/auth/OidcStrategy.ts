@@ -1,3 +1,4 @@
+import { UNAUTHORIZED_PATH } from "@/constants";
 import {
   UserManager,
   WebStorageStateStore,
@@ -12,13 +13,12 @@ const OIDC_SETTINGS = {
   userStore: new WebStorageStateStore({
     store: persistedStorage,
   }),
-  client_id: "your-client-id",
-  authority: "https://your-identity-server.com",
-  redirect_uri: "http://localhost:3000/signin-callback",
-  post_logout_redirect_uri: "http://localhost:3000/",
-  silent_redirect_uri: "",
-  response_type: "code",
-  scope: "openid profile",
+  client_id: (import.meta.env["VITE_OIDC_CLIENT_ID"] as string) || "",
+  authority: (import.meta.env["VITE_OIDC_AUTHORITY"] as string) || "",
+  redirect_uri: (import.meta.env["VITE_OIDC_REDIRECT_URI"] as string) || "",
+  client_secret: (import.meta.env["VITE_OIDC_CLIENT_SECRET"] as string) || "",
+  response_type: (import.meta.env["VITE_OIDC_RESPONSE_TYPE"] as string) || "",
+  scope: (import.meta.env["VITE_OIDC_SCOPE"] as string) || "",
   automaticSilentRenew: true,
   filterProtocolClaims: true,
 } as const satisfies UserManagerSettings;
@@ -54,11 +54,27 @@ export class OidcStrategy extends AuthStrategy {
   }
 
   public async handleSigninRedirectCallback(): Promise<AuthenticatedUser | null> {
-    const user = await this._userManager.signinCallback();
+    try {
+      const user = await this._userManager.signinCallback();
 
-    if (!user) return null;
+      if (!user) return null;
 
-    return this._constructAuthenticatedUser(user);
+      return this._constructAuthenticatedUser(user);
+    } catch (e) {
+      console.error(e);
+      const queryParams = new URLSearchParams(window.location.search);
+      const errorType = queryParams.get("error");
+
+      switch (errorType) {
+        case "access_denied":
+          // TODO: udpate
+          window.location.replace(UNAUTHORIZED_PATH);
+
+          break;
+        default:
+          break;
+      }
+    }
   }
 
   public async handleSignoutRedirectCallback(): Promise<void> {
@@ -67,9 +83,7 @@ export class OidcStrategy extends AuthStrategy {
     if (!response) return;
     if (!response.error) return;
 
-    throw new Error(
-      [response.error, response.error_description].filter(Boolean).join(" "),
-    );
+    throw new Error(response.error);
   }
 
   public async signin(): Promise<void> {
