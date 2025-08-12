@@ -4,16 +4,22 @@ import {
   MainLayout,
   ProtectedRoute,
 } from "@/components";
-import { DASHBOARD_PATH, LOGIN_PATH, UNAUTHORIZED_PATH } from "@/constants";
+import {
+  DASHBOARD_PATH,
+  LOGIN_PATH,
+  SIGNIN_CALLBACK_PATH,
+  UNAUTHORIZED_PATH,
+} from "@/constants";
 import { AuthProvider } from "@/contexts";
 import {
-  AccessDeniedPage,
   dashboardLoader,
   DashboardPage,
   LoginPage,
   NotFoundPage,
+  SigninCallbackPage,
 } from "@/pages";
 import { createBrowserRouter, RouterProvider } from "react-router";
+import { AccessDeniedPage } from "./pages/AccessDeniedPage/Page.tsx";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +31,10 @@ const router = createBrowserRouter([
           {
             path: LOGIN_PATH,
             element: <LoginPage />,
+          },
+          {
+            path: SIGNIN_CALLBACK_PATH,
+            element: <SigninCallbackPage />,
           },
           {
             path: UNAUTHORIZED_PATH,
