@@ -1,0 +1,39 @@
+.root {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: var(--z-index-header);
+  opacity: 1;
+  visibility: hidden;
+  transition:
+    opacity 360ms ease,
+    visibility 360ms ease;
+}
+
+.progress {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  height: 4px;
+  background-color: var(--color-brand);
+  box-shadow: 0 0 20px 0px var(--color-brand-muted);
+  transition: width 360ms ease;
+}
+
+.overlay {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.visible {
+  opacity: 1;
+  visibility: visible;
+}
