@@ -3,6 +3,7 @@ import type { AuthenticatedUser } from "@/services";
 export type AuthContextValue = {
   user: AuthenticatedUser | null;
   isAuthenticated: boolean;
+  isInitialized: boolean;
   isAuthenticating: boolean;
   isAccessGranted: boolean;
   signin: (credentials?: unknown) => Promise<void>;

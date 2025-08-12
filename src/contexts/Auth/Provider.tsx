@@ -9,6 +9,7 @@ export const AuthProvider: React.FC<Props> = props => {
   const { children } = props;
 
   const [user, setUser] = useState<AuthenticatedUser | null>(null);
+  const [isInitialized, setIsInitialized] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isAccessGranted, setIsAccessGranted] = useState(false);
   const [isAuthenticating, setIsAuthenticating] = useState(false);
@@ -32,9 +33,10 @@ export const AuthProvider: React.FC<Props> = props => {
 
       setIsAccessGranted(accessGranted);
       setIsAuthenticating(false);
+      setIsInitialized(true);
     };
 
-    initializeAuth();
+    void initializeAuth();
   }, []);
 
   const handleSigninRedirectCallback = useCallback(async () => {
@@ -84,6 +86,7 @@ export const AuthProvider: React.FC<Props> = props => {
     return {
       user,
       isAuthenticated,
+      isInitialized,
       isAuthenticating,
       isAccessGranted,
       signin,
@@ -94,6 +97,7 @@ export const AuthProvider: React.FC<Props> = props => {
   }, [
     user,
     isAuthenticated,
+    isInitialized,
     isAuthenticating,
     isAccessGranted,
     signin,
