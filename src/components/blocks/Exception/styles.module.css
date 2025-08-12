@@ -1,0 +1,26 @@
+.root {
+  height: 100dvh;
+  width: 100dvw;
+
+  padding: var(--spacing-xxl);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.icon {
+  width: 5rem;
+  height: 5rem;
+
+  flex-shrink: 0;
+}
+
+.description {
+  margin: var(--spacing-md) 0 var(--spacing-xl);
+}
+
+.content {
+  max-width: 20rem;
+}
