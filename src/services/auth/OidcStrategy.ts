@@ -69,10 +69,9 @@ export class OidcStrategy extends AuthStrategy {
         case "access_denied":
           // TODO: udpate
           window.location.replace(UNAUTHORIZED_PATH);
-
-          break;
+          return null;
         default:
-          break;
+          return null;
       }
     }
   }
