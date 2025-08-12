@@ -5,7 +5,26 @@ type GlobalStrings = {
   logoutButton: string;
   from: string;
   comma: string;
+  areYouSure: string;
   to: string;
+  accessDenied: {
+    title: string;
+    description: string;
+    backToDashboard: string;
+  };
+  notAuthenticated: {
+    title: string;
+    description: string;
+    backToLogin: string;
+  };
+  notFound: {
+    title: string;
+    description: string;
+    backToLogin: string;
+    backToDashboard: string;
+  };
+  unknownUser: string;
+  with: string;
   clearValue: string;
   close: string;
   cancel: string;
@@ -17,11 +36,19 @@ type GlobalStrings = {
     descending: string;
     clear: string;
   };
+  authProviders: {
+    tapsi: string;
+  };
   emptyStatement: {
     table: string;
   };
   login: {
     title: string;
+    description: string;
+    error: {
+      title: string;
+      description: string;
+    };
   };
   components: {
     calendar: {
@@ -83,14 +110,18 @@ export const strings = new Localization<GlobalStrings>({
     from: "from",
     to: "to",
     comma: ",",
+    areYouSure: "Are you sure?",
+    unknownUser: "Unknown User",
     logoutButton: "Logout",
     close: "Close",
+    with: "with",
     cancel: "Cancel",
     empty: "No results found",
     search: "Search",
     clearValue: "Clear value",
     breadcrumb: "Breadcrumb",
     options: "Options",
+    authProviders: { tapsi: "Tapsi" },
     sorting: {
       ascending: "Sort ascending",
       descending: "Sort descending",
@@ -105,6 +136,11 @@ export const strings = new Localization<GlobalStrings>({
     },
     login: {
       title: "Login",
+      description: "Select one of these authentication methods to use the app.",
+      error: {
+        title: "Login Error",
+        description: "Please try again.",
+      },
     },
     components: {
       button: {
@@ -137,6 +173,24 @@ export const strings = new Localization<GlobalStrings>({
         title: "Settings",
       },
     },
+    accessDenied: {
+      title: "Access Denied",
+      description:
+        "You don't have permission to view this page. If you believe this is an error, please contact your administrator.",
+      backToDashboard: "Back to Dashboard",
+    },
+    notAuthenticated: {
+      title: "Not Authenticated",
+      description: "For using this panel, first you need to login.",
+      backToLogin: "Go to Login Page",
+    },
+    notFound: {
+      title: "Not Found",
+      description:
+        "The page you're looking for doesn't exist. It might have been moved or deleted. Please check the URL for errors or go back to the homepage.",
+      backToLogin: "Back to Login",
+      backToDashboard: "Back to Dashboard",
+    },
     sidebar: {
       title: "Main sidebar navigation",
       dashboard: "Dashboard",
@@ -158,8 +212,11 @@ export const strings = new Localization<GlobalStrings>({
   [Languages.FA]: {
     from: "از",
     comma: "،",
+    with: "با",
     to: "تا",
+    unknownUser: "کاربر نامشخص",
     logoutButton: "خروج",
+    areYouSure: "آیا از انجام این کار اطمینان دارید؟",
     clearValue: "حذف مقدار",
     close: "بستن",
     cancel: "لغو عملیات",
@@ -175,12 +232,26 @@ export const strings = new Localization<GlobalStrings>({
     emptyStatement: {
       table: "هیچ داده‌ای یافت نشد.",
     },
+    authProviders: { tapsi: "تپسی" },
     navButton: {
       close: "بستن نقشه اصلی",
       open: "باز کردن نقشه اصلی",
     },
     login: {
       title: "ورود",
+      description:
+        "برای ورود به برنامه، یکی از این متد‌های احراز هویت را انتخاب کنید.",
+      error: {
+        title: "خطا در ورود",
+        description: "مجدداً تلاش کنید.",
+      },
+    },
+    notFound: {
+      title: "صفحه پیدا نشد",
+      description:
+        "صفحه‌ای که به دنبال آن بودید وجود ندارد و بنظر می‌آید بین صفحات گم شده‌اید. ممکن است منتقل یا حذف شده باشد. لطفاً آدرس (URL) را برای خطاهای احتمالی بررسی کنید یا به صفحه اصلی بازگردید.",
+      backToLogin: "بازگشت به صفحه ورود",
+      backToDashboard: "بازگشت به صفحه اصلی",
     },
     components: {
       button: {
@@ -213,6 +284,12 @@ export const strings = new Localization<GlobalStrings>({
         title: "تنظیمات",
       },
     },
+    accessDenied: {
+      title: "خطا در دسترسی",
+      description:
+        "شما اجازه مشاهده این صفحه را ندارید. اگر فکر می‌کنید اشتباهی رخ داده، لطفاً با مدیر سیستم خود تماس بگیرید.",
+      backToDashboard: "بازگشت به صفحه اصلی",
+    },
     sidebar: {
       title: "نقشه اصلی",
       dashboard: "داشبورد",
@@ -229,6 +306,11 @@ export const strings = new Localization<GlobalStrings>({
           reports: "گزارشات",
         },
       },
+    },
+    notAuthenticated: {
+      title: "خطای احراز هویت",
+      description: "برای استفاده این این پنل ابتدا باید لاگین کنید.",
+      backToLogin: "رفتن به لاگین",
     },
   },
 });
