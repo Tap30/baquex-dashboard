@@ -9,7 +9,7 @@
   cursor: pointer;
   position: relative;
 
-  padding: var(--spacing-xs);
+  padding-inline: var(--spacing-xs);
 
   color: var(--color-neutral-text-secondary);
   border-radius: var(--radius-sm);

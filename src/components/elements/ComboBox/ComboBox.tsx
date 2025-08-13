@@ -349,7 +349,7 @@ export const ComboBox: React.FC<ComboBoxProps> = props => {
     [controlId],
   );
 
-  const handleClick: React.MouseEventHandler = () => {
+  const handleControlClick: React.MouseEventHandler = () => {
     if (disabled || readOnly) return;
 
     inputRef.current?.click();
@@ -443,6 +443,7 @@ export const ComboBox: React.FC<ComboBoxProps> = props => {
     HTMLInputElement
   > = event => {
     if (event.key !== "Backspace") return;
+
     const inputValue = (event.target as HTMLInputElement).value;
 
     if (inputValue.trim()) return;
@@ -551,14 +552,16 @@ export const ComboBox: React.FC<ComboBoxProps> = props => {
 
     return (
       <div className={classes["end-slot"]}>
-        <IconButton
-          tabIndex={-1}
-          aria-hidden
-          aria-label={strings.clearValue}
-          icon={<Icon data={mdiClose} />}
-          variant="ghost"
-          onClick={handleClear}
-        />
+        {shouldRenderClear && (
+          <IconButton
+            tabIndex={-1}
+            aria-hidden
+            aria-label={strings.clearValue}
+            icon={<Icon data={mdiClose} />}
+            variant="ghost"
+            onClick={handleClear}
+          />
+        )}
         {endSlot}
       </div>
     );
@@ -710,14 +713,14 @@ export const ComboBox: React.FC<ComboBoxProps> = props => {
           id={controlId}
           className={classes["control"]}
           tabIndex={-1}
-          onClick={handleClick}
+          onClick={handleControlClick}
           inert={disabled}
         >
           {renderStartSlot()}
           <PopoverTrigger
             {...otherProps}
-            ref={handleRef}
             id={inputId}
+            ref={handleRef}
             disabled={disabled}
             autoFocus={autoFocus}
             className={classes["input"]}

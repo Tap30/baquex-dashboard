@@ -69,7 +69,7 @@
 
   cursor: pointer;
 
-  padding: var(--spacing-xs);
+  padding-inline: var(--spacing-xs);
 
   border-radius: var(--radius-sm);
   box-shadow: 0 0 0 0.0625rem var(--select-input-control-border-color);
@@ -110,6 +110,8 @@
   align-items: center;
 
   flex-shrink: 0;
+
+  gap: var(--spacing-xs);
 }
 
 .start-slot {

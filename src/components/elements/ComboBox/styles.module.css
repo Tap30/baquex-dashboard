@@ -4,6 +4,7 @@
   --combobox-control-border-color: transparent;
   --combobox-control-height: 0;
   --combobox-control-font-size: 0;
+  --combobox-control-icon-size: 0;
 
   position: relative;
   display: flex;
@@ -30,16 +31,19 @@
 
 .root.lg {
   --combobox-control-font-size: var(--text-body1);
+  --combobox-control-icon-size: 1.25rem;
   --combobox-control-height: 2.5rem;
 }
 
 .root.md {
   --combobox-control-font-size: var(--text-body2);
+  --combobox-control-icon-size: 1rem;
   --combobox-control-height: 2rem;
 }
 
 .root.sm {
   --combobox-control-font-size: var(--text-body2);
+  --combobox-control-icon-size: 0.875rem;
   --combobox-control-height: 1.5rem;
 }
 
@@ -65,7 +69,7 @@
 
   cursor: pointer;
 
-  padding: var(--spacing-xs);
+  padding-inline: var(--spacing-xs);
 
   border-radius: var(--radius-sm);
   box-shadow: 0 0 0 0.0625rem var(--combobox-control-border-color);
@@ -98,6 +102,40 @@
 
 .input:focus-visible {
   outline: none;
+}
+
+.start-slot,
+.end-slot {
+  height: 100%;
+  display: inline-flex;
+  align-items: center;
+
+  flex-shrink: 0;
+
+  gap: var(--spacing-xs);
+}
+
+.start-slot {
+  margin-inline-start: var(--spacing-xs);
+}
+
+.end-slot {
+  margin-inline-end: var(--spacing-xs);
+}
+
+.start-slot + * {
+  margin-inline-start: var(--spacing-xs);
+}
+
+* + .end-slot {
+  margin-inline-start: var(--spacing-xs);
+}
+
+:is(.start-slot, .end-slot) > svg {
+  width: var(--combobox-control-icon-size);
+  height: var(--combobox-control-icon-size);
+  max-width: var(--combobox-control-icon-size);
+  max-height: var(--combobox-control-icon-size);
 }
 
 .select-icon {

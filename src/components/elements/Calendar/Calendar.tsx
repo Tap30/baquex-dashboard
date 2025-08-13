@@ -3,7 +3,6 @@ import {
   Icon,
   IconButton,
   SelectInput,
-  Skeleton,
   type SelectItem,
 } from "@/components";
 import { useDirection } from "@/contexts";
@@ -11,8 +10,8 @@ import { strings } from "@/static-content";
 import { type Overwrite } from "@/types";
 import { cn, formatNumber, normalizeNumbers } from "@/utils";
 import { mdiChevronLeft, mdiChevronRight } from "@mdi/js";
-import { format, getWeeksInMonth } from "date-fns";
-import { Suspense, useMemo } from "react";
+import { format } from "date-fns";
+import { useMemo } from "react";
 import {
   getDefaultClassNames,
   type DayPickerProps,
@@ -70,6 +69,8 @@ export type CalendarProps<M extends Mode> = Overwrite<
   )
 >;
 
+const defaultClassNames = getDefaultClassNames();
+
 export const Calendar = <M extends Mode>(props: CalendarProps<M>) => {
   const {
     className,
@@ -80,14 +81,10 @@ export const Calendar = <M extends Mode>(props: CalendarProps<M>) => {
     ...otherProps
   } = props as CalendarProps<"single">;
 
-  const defaultClassNames = getDefaultClassNames();
-
   const today = todayProp ?? new Date();
   const dir = useDirection();
 
-  const { DayPicker, locale } = useMemo(() => {
-    return resolveCalendar(type);
-  }, [type]);
+  const { DayPicker, locale } = useMemo(() => resolveCalendar(type), [type]);
 
   const formatters = useMemo<DayPickerProps["formatters"]>(
     () => ({
@@ -142,7 +139,7 @@ export const Calendar = <M extends Mode>(props: CalendarProps<M>) => {
       disabled: cn(defaultClassNames.disabled, classes["disabled"]),
       hidden: cn(classes["hidden"], defaultClassNames.hidden),
     }),
-    [],
+    [otherProps.mode],
   );
 
   const components = useMemo<DayPickerProps["components"]>(
@@ -151,7 +148,6 @@ export const Calendar = <M extends Mode>(props: CalendarProps<M>) => {
         return (
           <div
             {...props}
-            data-slot="calendar"
             ref={rootRef}
             className={cn(classes["root"], className, {
               [classes["full-width"]!]: fullWidth,
@@ -217,32 +213,22 @@ export const Calendar = <M extends Mode>(props: CalendarProps<M>) => {
         );
       },
     }),
-    [],
+    [fullWidth],
   );
 
   return (
-    <Suspense
-      fallback={
-        <Skeleton
-          variant="rectangular"
-          width={fullWidth ? "100%" : 278}
-          height={getWeeksInMonth(today) === 5 ? 284 : 322}
-        />
-      }
-    >
-      <DayPicker
-        {...otherProps}
-        locale={locale}
-        dir={dir}
-        today={today}
-        required
-        showOutsideDays
-        className={cn(className)}
-        captionLayout="dropdown"
-        formatters={formatters}
-        classNames={classNames}
-        components={components}
-      />
-    </Suspense>
+    <DayPicker
+      {...otherProps}
+      locale={locale}
+      dir={dir}
+      today={today}
+      required
+      showOutsideDays
+      className={cn(className)}
+      captionLayout="dropdown"
+      formatters={formatters}
+      classNames={classNames}
+      components={components}
+    />
   );
 };

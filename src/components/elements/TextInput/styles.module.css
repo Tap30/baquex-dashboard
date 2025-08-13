@@ -65,7 +65,8 @@
   height: var(--text-input-control-height);
   color: var(--text-input-control-color);
 
-  padding: var(--spacing-xs);
+  padding-inline: var(--spacing-xs);
+
   border-radius: var(--radius-sm);
   box-shadow: 0 0 0 0.0625rem var(--text-input-control-border-color);
   background-color: var(--text-input-control-background);
@@ -102,6 +103,8 @@
   align-items: center;
 
   flex-shrink: 0;
+
+  gap: var(--spacing-xs);
 }
 
 .start-slot {

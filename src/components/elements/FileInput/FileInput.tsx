@@ -309,12 +309,16 @@ export const FileInput: React.FC<FileInputProps> = props => {
 
     return (
       <div className={classes["end-slot"]}>
-        <IconButton
-          aria-label={strings.clearValue}
-          icon={<Icon data={mdiClose} />}
-          variant="ghost"
-          onClick={handleClear}
-        />
+        {shouldRenderClear && (
+          <IconButton
+            tabIndex={-1}
+            aria-hidden
+            aria-label={strings.clearValue}
+            icon={<Icon data={mdiClose} />}
+            variant="ghost"
+            onClick={handleClear}
+          />
+        )}
         {endSlot}
       </div>
     );
