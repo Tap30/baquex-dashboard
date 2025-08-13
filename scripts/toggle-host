@@ -1,0 +1,30 @@
+#!/bin/bash
+
+# Define the fixed IP and default domain
+FIXED_IP="127.0.0.1"
+DEFAULT_DOMAIN="admin.baquex.com"
+
+# Use the first argument as the domain or fall back to the default
+DOMAIN="${1:-$DEFAULT_DOMAIN}"
+
+# Combine the IP and domain to form the host entry
+HOST_ENTRY="$FIXED_IP $DOMAIN"
+HOSTS_FILE="/etc/hosts"
+
+# Check if the entry is active, commented, or absent
+if grep -q "^$HOST_ENTRY$" "$HOSTS_FILE"; then
+    # If the entry is active, comment it out
+    sudo sed -i.bak "/^$HOST_ENTRY$/s/^/# /" "$HOSTS_FILE"
+    echo "Entry commented: $HOST_ENTRY"
+elif grep -q "^# $HOST_ENTRY$" "$HOSTS_FILE"; then
+    # If the entry is commented, uncomment it
+    sudo sed -i.bak "/^# $HOST_ENTRY$/s/^# //" "$HOSTS_FILE"
+    echo "Entry uncommented: $HOST_ENTRY"
+else
+    # If the entry is absent, add it to the file
+    echo "$HOST_ENTRY" | sudo tee -a "$HOSTS_FILE" > /dev/null
+    echo "Entry added: $HOST_ENTRY"
+fi
+
+# Remove duplicate lines from the file
+sudo awk '!seen[$0]++' "$HOSTS_FILE" > /tmp/hosts && sudo mv /tmp/hosts "$HOSTS_FILE"
