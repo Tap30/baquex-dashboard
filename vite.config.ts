@@ -10,10 +10,6 @@ const baseConfig = {
 
 const devConfig: UserConfig = {
   ...baseConfig,
-  server: {
-    host: "simorgh.tapsi.ir",
-    port: 443,
-  },
   // @ts-expect-error Mkcert package exports are ridiculous
   plugins: [...baseConfig.plugins, mkcert({ savePath: ".certs" })],
 };
