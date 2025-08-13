@@ -10,7 +10,6 @@ import { strings } from "@/static-content";
 import { type Overwrite } from "@/types";
 import { cn, formatNumber, normalizeNumbers } from "@/utils";
 import { mdiChevronLeft, mdiChevronRight } from "@mdi/js";
-import { format } from "date-fns";
 import { useMemo } from "react";
 import {
   getDefaultClassNames,
@@ -84,7 +83,10 @@ export const Calendar = <M extends Mode>(props: CalendarProps<M>) => {
   const today = todayProp ?? new Date();
   const dir = useDirection();
 
-  const { DayPicker, locale } = useMemo(() => resolveCalendar(type), [type]);
+  const { DayPicker, locale, format } = useMemo(
+    () => resolveCalendar(type),
+    [type],
+  );
 
   const formatters = useMemo<DayPickerProps["formatters"]>(
     () => ({
@@ -101,7 +103,7 @@ export const Calendar = <M extends Mode>(props: CalendarProps<M>) => {
       ...formattersProp,
     }),
 
-    [formattersProp],
+    [formattersProp, format],
   );
 
   const classNames = useMemo<DayPickerProps["classNames"]>(

@@ -1,4 +1,5 @@
 import {
+  CalendarFormatter,
   CalendarInstance,
   CalendarLocale,
   type CalendarType,
@@ -9,6 +10,7 @@ export const resolveCalendar = (
 ) => {
   const locale = CalendarLocale[type];
   const DayPicker = CalendarInstance[type];
+  const format = CalendarFormatter[type];
 
-  return { DayPicker, locale };
+  return { DayPicker, locale, format };
 };
