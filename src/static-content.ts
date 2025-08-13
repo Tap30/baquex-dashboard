@@ -109,7 +109,7 @@ type GlobalStrings = {
 
 export const strings = new Localization<GlobalStrings>({
   [Languages.EN]: {
-    appTitle: "Simorgh",
+    appTitle: "Baquex",
     pageLoading: "The page is loading",
     from: "from",
     to: "to",
@@ -214,7 +214,7 @@ export const strings = new Localization<GlobalStrings>({
     },
   },
   [Languages.FA]: {
-    appTitle: "سیمرغ",
+    appTitle: "Baquex",
     pageLoading: "در حال آماده‌سازی صفحه",
     from: "از",
     comma: "،",
