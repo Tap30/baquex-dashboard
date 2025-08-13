@@ -9,6 +9,7 @@
   position: relative;
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 
 .root:not(.disabled) {
@@ -18,9 +19,11 @@
 }
 
 .root.disabled {
-  --date-input-control-color: var(--color-neutral-text-tertiary);
+  --date-input-control-color: var(--color-neutral);
   --date-input-control-border-color: var(--color-border-secondary);
   --date-input-control-background: var(--color-surface-secondary);
+
+  opacity: 0.5;
 }
 
 .root.has-error {
@@ -67,7 +70,7 @@
 
   cursor: pointer;
 
-  padding: var(--spacing-xs);
+  padding-inline: var(--spacing-xs);
 
   border-radius: var(--radius-sm);
   box-shadow: 0 0 0 0.0625rem var(--date-input-control-border-color);
@@ -101,25 +104,6 @@
   outline: none;
 }
 
-.value-display:focus-visible {
-  outline: none;
-}
-
-.value-display {
-  font-size: inherit;
-
-  border-radius: inherit;
-  padding-inline: var(--spacing-xs);
-  margin-inline-end: auto;
-
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.value {
-  flex-wrap: wrap;
-}
-
 .start-slot,
 .end-slot {
   height: 100%;
@@ -127,6 +111,8 @@
   align-items: center;
 
   flex-shrink: 0;
+
+  gap: var(--spacing-xs);
 }
 
 .start-slot {
@@ -152,19 +138,18 @@
   max-height: var(--date-input-control-icon-size);
 }
 
-.value-display.placeholder {
-  color: color-mix(in oklab, var(--file-input-control-color), transparent);
+.placeholder {
+  color: color-mix(in oklab, var(--date-input-control-color), transparent);
 }
 
-.dropdown.dropdown {
+.content.content {
   padding: 0;
 }
 
-.badge {
-  --badge-border-color: var(--color-border-tertiary) !important;
+.content[data-side="top"] {
+  margin-bottom: calc(var(--spacing-xs) + 1px);
 }
 
-.root.sm .badge {
-  border-radius: 0;
-  height: calc(1.5rem - 0.25rem);
+.content[data-side="bottom"] {
+  margin-top: calc(var(--spacing-xs) + 1px);
 }

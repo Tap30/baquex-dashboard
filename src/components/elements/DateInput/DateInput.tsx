@@ -1,12 +1,12 @@
 import {
-  Badge,
   Calendar,
   type CalendarProps,
   CalendarType,
-  Flex,
   Icon,
+  IconButton,
   Popover,
   PopoverContent,
+  type PopoverContentProps,
   PopoverTrigger,
 } from "@/components";
 import type { MergeElementProps } from "@/types";
@@ -17,7 +17,7 @@ import {
   useForkedRefs,
   useUniqueId,
 } from "@/utils";
-import { mdiCalendar } from "@mdi/js";
+import { mdiCalendar, mdiClose } from "@mdi/js";
 
 import { strings } from "@/static-content";
 import { useEffect, useRef, useState } from "react";
@@ -25,13 +25,21 @@ import { type DateRange } from "react-day-picker";
 import "react-day-picker/style.css";
 import { Text, type TextProps } from "../Text/index.ts";
 import classes from "./styles.module.css";
+import { getValueDisplay } from "./utils.ts";
 
-export type DateValue = React.ComponentProps<typeof Calendar>["selected"];
+export type DateValue = Date | Date[] | DateRange | null;
 
 export type DateInputProps = Omit<
   MergeElementProps<
     "button",
-    {
+    Pick<
+      PopoverContentProps,
+      | "onEscapeKeyDown"
+      | "onPointerDownOutside"
+      | "avoidCollisions"
+      | "collisionBoundary"
+      | "collisionPadding"
+    > & {
       /**
        * The label of the input.
        */
@@ -56,6 +64,11 @@ export type DateInputProps = Omit<
       feedback?: string;
 
       /**
+       * The placeholder text to display when no item is selected.
+       */
+      placeholder?: string;
+
+      /**
        * Gets or sets whether or not the text input is in a visually invalid state.
        *
        * This error state overrides the error state controlled by
@@ -78,6 +91,12 @@ export type DateInputProps = Omit<
        * @default "md"
        */
       size?: "sm" | "md" | "lg";
+
+      /**
+       * The name of the input.
+       * Submitted with its owning form as part of a name/value pair.
+       */
+      name?: string;
 
       /**
        * Indicates whether or not a user should be able to edit the date input's
@@ -112,25 +131,6 @@ export type DateInputProps = Omit<
       endSlot?: React.ReactNode;
 
       /**
-       * Calendar properties.
-       *
-       * @see https://daypicker.dev/
-       */
-      calendarProps?: Partial<React.ComponentProps<typeof Calendar>>;
-
-      /**
-       * The controlled value of the calendar.
-       * Should be used in conjunction with `onChange`.
-       */
-      value?: DateValue;
-
-      /**
-       * The value of the input when initially rendered.
-       * Use when you do not need to control the state of the calendar.
-       */
-      defaultValue?: DateValue;
-
-      /**
        * The open state of the input when it is initially rendered.
        * Use when you do not need to control its open state.
        */
@@ -143,10 +143,57 @@ export type DateInputProps = Omit<
       open?: boolean;
 
       /**
-       * Event handler called when the value changes.
+       * Event handler called when the open state of the select changes.
        */
-      onChange?: (value: DateValue) => void;
-    }
+      onOpenChange?: (open: boolean) => void;
+    } & (
+        | {
+            /**
+             * Enable the selection of a single day, multiple days, or a range of days.
+             *
+             * @see https://daypicker.dev/docs/selection-modes
+             */
+            mode: "single";
+
+            /**
+             * Calendar properties.
+             *
+             * @see https://daypicker.dev/
+             */
+            calendarProps?: Omit<CalendarProps<"single">, "mode">;
+
+            /**
+             * The controlled value of the calendar.
+             * Should be used in conjunction with `onChange`.
+             */
+            value?: Date | null;
+
+            /**
+             * The value of the input when initially rendered.
+             * Use when you do not need to control the state of the calendar.
+             */
+            defaultValue?: Date | null;
+
+            /**
+             * Event handler called when the value changes.
+             */
+            onChange?: (value: Date | null) => void;
+          }
+        | {
+            mode: "multiple";
+            calendarProps?: Omit<CalendarProps<"multiple">, "mode">;
+            value?: Date[];
+            defaultValue?: Date[];
+            onChange?: (value: Date[]) => void;
+          }
+        | {
+            mode: "range";
+            calendarProps?: Omit<CalendarProps<"range">, "mode">;
+            value?: DateRange | null;
+            defaultValue?: DateRange | null;
+            onChange?: (value: DateRange | null) => void;
+          }
+      )
   >,
   | "children"
   | "checked"
@@ -159,35 +206,41 @@ export type DateInputProps = Omit<
 
 export const DateInput: React.FC<DateInputProps> = props => {
   const {
+    ref,
     className,
     id: idProp,
     startSlot,
-    endSlot = <Icon data={mdiCalendar} />,
     label,
     description,
     errorText,
     feedback,
-    onChange,
+    placeholder,
+    name,
+    mode,
     value: valueProp,
+    open: openProp,
     defaultValue,
     defaultOpen,
-    open: openProp,
+    onChange,
+    onOpenChange,
+    onEscapeKeyDown,
+    onPointerDownOutside,
+    avoidCollisions,
+    collisionBoundary,
+    collisionPadding,
     size = "md",
     autoFocus = false,
-    ref,
     hasError = false,
     hideLabel = false,
     disabled = false,
     readOnly = false,
-    calendarProps = {},
+    endSlot = <Icon data={mdiCalendar} />,
+    calendarProps,
     ...otherProps
   } = props;
 
-  const {
-    mode = "single",
-    type = CalendarType.JALALI,
-    ...otherCalendarProps
-  } = calendarProps;
+  const { type = CalendarType.JALALI, ...otherCalendarProps } =
+    calendarProps ?? {};
 
   const nodeId = useUniqueId();
 
@@ -195,12 +248,7 @@ export const DateInput: React.FC<DateInputProps> = props => {
   const handleRef = useForkedRefs(ref, inputRef);
 
   const [value, setValue] = useControllableProp<DateValue>({
-    fallbackValue:
-      mode === "single"
-        ? undefined
-        : mode === "multiple"
-          ? []
-          : { from: undefined, to: undefined },
+    fallbackValue: mode === "single" ? null : mode === "multiple" ? [] : null,
     controlledPropValue: valueProp,
     uncontrolledDefaultValueProp: defaultValue,
   });
@@ -234,6 +282,32 @@ export const DateInput: React.FC<DateInputProps> = props => {
       setRefreshErrorAlert(true);
     }
   }, [hasError, errorText]);
+
+  const closeListAndMaintainFocus = () => {
+    const trigger = document.getElementById(inputId ?? "");
+
+    trigger?.focus();
+    handleOpenChange(false);
+  };
+
+  const handleClear = (event: React.MouseEvent<HTMLElement>) => {
+    if (disabled || readOnly) {
+      event.preventDefault();
+
+      return;
+    }
+
+    event.stopPropagation();
+
+    closeListAndMaintainFocus();
+
+    let newValue: DateValue;
+
+    if (mode === "multiple") newValue = [];
+    else newValue = null;
+
+    handleChange(newValue);
+  };
 
   const renderLabel = () => {
     if (hideLabel) return null;
@@ -313,19 +387,69 @@ export const DateInput: React.FC<DateInputProps> = props => {
   };
 
   const renderEndSlot = () => {
-    if (!endSlot) return null;
+    const valueDisplay = getValueDisplay(value);
+    const shouldRenderClear = !readOnly && !disabled && valueDisplay.length > 0;
 
-    return <div className={classes["end-slot"]}>{endSlot}</div>;
+    if (!endSlot && !shouldRenderClear) return null;
+
+    return (
+      <div className={classes["end-slot"]}>
+        {shouldRenderClear && (
+          <IconButton
+            aria-label={strings.clearValue}
+            size={size === "sm" ? "sm" : "md"}
+            icon={<Icon data={mdiClose} />}
+            variant="ghost"
+            onClick={handleClear}
+          />
+        )}
+        {endSlot}
+      </div>
+    );
   };
 
-  const renderBadge = (text: string) => {
+  const handleChange = (newValue: DateValue) => {
+    if (readOnly || disabled) return;
+
+    setValue(newValue);
+    (onChange as (value: DateValue) => void)?.(newValue);
+  };
+
+  const handleOpenChange = (openState: boolean) => {
+    if (disabled || readOnly) return;
+
+    onOpenChange?.(openState);
+    setOpen(openState);
+  };
+
+  const handleControlClick: React.MouseEventHandler = () => {
+    if (disabled || readOnly) return;
+
+    inputRef.current?.click();
+  };
+
+  const renderValue = () => {
+    const valueDisplay = getValueDisplay(value, formatDate);
+
+    if (valueDisplay.length === 0) {
+      return <span className={classes["placeholder"]}>{placeholder}</span>;
+    }
+
+    return <span className={classes["value"]}>{valueDisplay}</span>;
+  };
+
+  const renderHiddenInput = () => {
+    if (!name) return null;
+    if (!value) return null;
+
+    const valueDisplay = getValueDisplay(value);
+
     return (
-      <Badge
-        aria-hidden
-        key={text}
-        tabIndex={-1}
-        text={text}
-        className={classes["badge"]}
+      <input
+        type="hidden"
+        name={name}
+        disabled={disabled}
+        value={valueDisplay}
       />
     );
   };
@@ -333,102 +457,6 @@ export const DateInput: React.FC<DateInputProps> = props => {
   const ariaLabel = hideLabel ? label : undefined;
   const ariaDescribedBy = description ? descId : undefined;
   const ariaInvalid = hasError;
-
-  const getFormattedSlot = () => {
-    if (!value) {
-      return strings.components.dateInput.selectDate;
-    }
-
-    if (mode === "multiple") {
-      if ((value as Date[]).length === 0) {
-        return strings.components.dateInput.selectDate;
-      }
-
-      return (
-        <Flex
-          className={classes["value"]}
-          gap="sm"
-          wrapMode="wrap"
-        >
-          {(value as Date[]).map(value => renderBadge(formatDate(value)))}
-        </Flex>
-      );
-    }
-
-    if (mode === "range" && value && "from" in value && "to" in value) {
-      const { from, to } = value;
-
-      if (!from || !to || from === to)
-        return strings.components.dateInput.selectDateRange;
-
-      return (
-        <Flex
-          gap="sm"
-          className={classes["value"]}
-        >
-          <span>{strings.from}</span>
-          {renderBadge(formatDate(from))}
-          <span>{strings.to}</span>
-          {renderBadge(formatDate(to))}
-        </Flex>
-      );
-    }
-
-    return renderBadge(formatDate(value as Date));
-  };
-
-  const handleChange = (e: DateValue) => {
-    if (readOnly || disabled) return;
-
-    setValue(e);
-    onChange?.(e);
-  };
-
-  const handleOpenChange = (newValue: boolean) => {
-    if (readOnly || disabled) return;
-
-    setOpen(newValue);
-  };
-
-  const renderCalendar = () => {
-    if (mode === "single") {
-      return (
-        <Calendar
-          {...(otherCalendarProps as CalendarProps<"single">)}
-          selected={value as Date}
-          onSelect={handleChange}
-          type={type}
-          mode="single"
-        />
-      );
-    }
-
-    if (mode === "multiple") {
-      return (
-        <Calendar
-          {...(otherCalendarProps as CalendarProps<"multiple">)}
-          selected={value as Date[]}
-          onSelect={handleChange}
-          type={type}
-          mode="multiple"
-        />
-      );
-    }
-
-    if (mode === "range") {
-      return (
-        <Calendar
-          {...(otherCalendarProps as CalendarProps<"range">)}
-          selected={value as DateRange}
-          onSelect={handleChange}
-          type={type}
-          mode="range"
-        />
-      );
-    }
-
-    return null;
-  };
 
   return (
     <div
@@ -439,18 +467,21 @@ export const DateInput: React.FC<DateInputProps> = props => {
         [classes["readonly"]!]: readOnly,
       })}
     >
+      {renderHiddenInput()}
       {renderLabel()}
       {renderDescription()}
-      <div
-        id={controlId}
-        className={classes["control"]}
-        tabIndex={-1}
-        inert={disabled}
+      <Popover
+        open={open}
+        onOpenChange={handleOpenChange}
       >
-        <Popover
-          open={open}
-          onOpenChange={handleOpenChange}
+        <div
+          id={controlId}
+          className={classes["control"]}
+          tabIndex={-1}
+          onClick={handleControlClick}
+          inert={disabled}
         >
+          {renderStartSlot()}
           <PopoverTrigger
             {...otherProps}
             id={inputId}
@@ -458,30 +489,34 @@ export const DateInput: React.FC<DateInputProps> = props => {
             disabled={disabled}
             autoFocus={autoFocus}
             className={classes["input"]}
-            role="combobox"
             aria-describedby={ariaDescribedBy}
             aria-readonly={readOnly}
             aria-label={ariaLabel}
             aria-invalid={ariaInvalid}
-            aria-haspopup="dialog"
           >
-            <button>
-              {renderStartSlot()}
-              <div
-                className={cn(classes["value"], classes["value-display"], {
-                  [classes["placeholder"]!]: !value,
-                })}
-              >
-                {getFormattedSlot()}
-              </div>
-              {renderEndSlot()}
-            </button>
+            <button>{renderValue()}</button>
           </PopoverTrigger>
-          <PopoverContent className={classes["dropdown"]}>
-            {renderCalendar()}
-          </PopoverContent>
-        </Popover>
-      </div>
+          {renderEndSlot()}
+        </div>
+        <PopoverContent
+          onEscapeKeyDown={onEscapeKeyDown}
+          onPointerDownOutside={onPointerDownOutside}
+          align="start"
+          avoidCollisions={avoidCollisions}
+          collisionBoundary={collisionBoundary}
+          collisionPadding={collisionPadding}
+          side="bottom"
+          className={classes["content"]}
+        >
+          <Calendar
+            {...otherCalendarProps}
+            selected={value as Date}
+            mode={mode as "single"}
+            onSelect={handleChange}
+            type={type}
+          />
+        </PopoverContent>
+      </Popover>
       {renderFeedback()}
     </div>
   );
