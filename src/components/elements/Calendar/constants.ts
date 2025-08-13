@@ -1,5 +1,11 @@
 import { Languages } from "@/constants";
 import { strings } from "@/static-content";
+import {
+  type DateArg,
+  format as formatGregorian,
+  type FormatOptions,
+} from "date-fns";
+import { format as formatJalali } from "date-fns-jalali";
 import { faIR as enFaIR, enUS, type Locale } from "date-fns/locale";
 import {
   type DayPicker,
@@ -31,4 +37,16 @@ export const CalendarInstance: Record<
 > = {
   [CalendarType.JALALI]: JalaliDayPicker as typeof DayPicker,
   [CalendarType.GREGORIAN]: GregorianDayPicker,
+} as const;
+
+export const CalendarFormatter: Record<
+  (typeof CalendarType)[keyof typeof CalendarType],
+  (
+    date: DateArg<Date> & {},
+    formatStr: string,
+    options?: FormatOptions,
+  ) => string
+> = {
+  [CalendarType.JALALI]: formatJalali,
+  [CalendarType.GREGORIAN]: formatGregorian,
 } as const;
