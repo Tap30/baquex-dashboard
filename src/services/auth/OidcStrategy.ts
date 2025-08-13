@@ -1,4 +1,5 @@
-import { Env } from "@/constants";
+import { SIGNIN_CALLBACK_PATH } from "@/constants";
+import { getEnv } from "@/utils";
 import {
   UserManager,
   WebStorageStateStore,
@@ -13,11 +14,11 @@ const OIDC_SETTINGS = {
   userStore: new WebStorageStateStore({
     store: persistedStorage,
   }),
-  client_id: Env.VITE_OIDC_CLIENT_ID ?? "",
-  authority: Env.VITE_OIDC_AUTHORITY ?? "",
-  redirect_uri: Env.VITE_OIDC_REDIRECT_URI ?? "",
-  client_secret: Env.VITE_OIDC_CLIENT_SECRET ?? undefined,
-  scope: Env.VITE_OIDC_SCOPE ?? undefined,
+  client_id: getEnv("VITE_OIDC_CLIENT_ID", true),
+  authority: getEnv("VITE_OIDC_AUTHORITY", true),
+  redirect_uri: `${getEnv("VITE_APP_HOSTNAME", true)}${SIGNIN_CALLBACK_PATH}`,
+  client_secret: getEnv("VITE_OIDC_CLIENT_SECRET") ?? undefined,
+  scope: getEnv("VITE_OIDC_SCOPE") ?? undefined,
   response_type: "code",
   automaticSilentRenew: true,
   filterProtocolClaims: true,

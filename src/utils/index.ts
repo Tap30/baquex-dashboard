@@ -4,6 +4,7 @@ export * from "./cn.ts";
 export * from "./copy-to-clipboard.ts";
 export * from "./date.ts";
 export * from "./decode-jwt.ts";
+export * from "./env.ts";
 export * from "./generate-tailwind-classes-with-breakpoints.ts";
 export * from "./handle-ref.ts";
 export * from "./math.ts";
