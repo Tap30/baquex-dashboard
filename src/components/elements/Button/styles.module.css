@@ -1,3 +1,11 @@
+.root.root:has(.icon) {
+  min-width: auto;
+}
+
+.root:not(:has(.icon)) > :is(button, a) {
+  justify-content: center;
+}
+
 .root > :is(button, a) {
   width: 100%;
   height: var(--button-height);
