@@ -557,6 +557,7 @@ export const ComboBox: React.FC<ComboBoxProps> = props => {
             tabIndex={-1}
             aria-hidden
             aria-label={strings.clearValue}
+            size={size === "sm" ? "sm" : "md"}
             icon={<Icon data={mdiClose} />}
             variant="ghost"
             onClick={handleClear}

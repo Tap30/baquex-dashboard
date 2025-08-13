@@ -313,6 +313,7 @@ export const FileInput: React.FC<FileInputProps> = props => {
           <IconButton
             tabIndex={-1}
             aria-hidden
+            size={size === "sm" ? "sm" : "md"}
             aria-label={strings.clearValue}
             icon={<Icon data={mdiClose} />}
             variant="ghost"
