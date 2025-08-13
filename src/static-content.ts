@@ -3,6 +3,7 @@ import Localization from "react-localization";
 
 type GlobalStrings = {
   appTitle: string;
+  pageLoading: string;
   logoutButton: string;
   from: string;
   comma: string;
@@ -109,6 +110,7 @@ type GlobalStrings = {
 export const strings = new Localization<GlobalStrings>({
   [Languages.EN]: {
     appTitle: "Simorgh",
+    pageLoading: "The page is loading",
     from: "from",
     to: "to",
     comma: ",",
@@ -213,6 +215,7 @@ export const strings = new Localization<GlobalStrings>({
   },
   [Languages.FA]: {
     appTitle: "سیمرغ",
+    pageLoading: "در حال آماده‌سازی صفحه",
     from: "از",
     comma: "،",
     with: "با",
