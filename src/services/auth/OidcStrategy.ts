@@ -1,4 +1,4 @@
-import { UNAUTHORIZED_PATH } from "@/constants";
+import { Env } from "@/constants";
 import {
   UserManager,
   WebStorageStateStore,
@@ -13,17 +13,19 @@ const OIDC_SETTINGS = {
   userStore: new WebStorageStateStore({
     store: persistedStorage,
   }),
-  client_id: (import.meta.env["VITE_OIDC_CLIENT_ID"] as string) || "",
-  authority: (import.meta.env["VITE_OIDC_AUTHORITY"] as string) || "",
-  redirect_uri: (import.meta.env["VITE_OIDC_REDIRECT_URI"] as string) || "",
-  client_secret: (import.meta.env["VITE_OIDC_CLIENT_SECRET"] as string) || "",
-  response_type: (import.meta.env["VITE_OIDC_RESPONSE_TYPE"] as string) || "",
-  scope: (import.meta.env["VITE_OIDC_SCOPE"] as string) || "",
+  client_id: Env.VITE_OIDC_CLIENT_ID ?? "",
+  authority: Env.VITE_OIDC_AUTHORITY ?? "",
+  redirect_uri: Env.VITE_OIDC_REDIRECT_URI ?? "",
+  client_secret: Env.VITE_OIDC_CLIENT_SECRET ?? undefined,
+  scope: Env.VITE_OIDC_SCOPE ?? undefined,
+  response_type: "code",
   automaticSilentRenew: true,
   filterProtocolClaims: true,
 } as const satisfies UserManagerSettings;
 
-const REQUIRED_SCOPES = OIDC_SETTINGS.scope.split(" ");
+const REQUIRED_SCOPES = OIDC_SETTINGS.scope
+  ? OIDC_SETTINGS.scope.split(" ")
+  : [];
 
 export class OidcStrategy extends AuthStrategy {
   private readonly _userManager: UserManager;
@@ -54,26 +56,11 @@ export class OidcStrategy extends AuthStrategy {
   }
 
   public async handleSigninRedirectCallback(): Promise<AuthenticatedUser | null> {
-    try {
-      const user = await this._userManager.signinCallback();
+    const user = await this._userManager.signinCallback();
 
-      if (!user) return null;
+    if (!user) return null;
 
-      return this._constructAuthenticatedUser(user);
-    } catch (e) {
-      console.error(e);
-      const queryParams = new URLSearchParams(window.location.search);
-      const errorType = queryParams.get("error");
-
-      switch (errorType) {
-        case "access_denied":
-          // TODO: udpate
-          window.location.replace(UNAUTHORIZED_PATH);
-          return null;
-        default:
-          return null;
-      }
-    }
+    return this._constructAuthenticatedUser(user);
   }
 
   public async handleSignoutRedirectCallback(): Promise<void> {
