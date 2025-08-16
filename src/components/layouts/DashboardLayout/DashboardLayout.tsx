@@ -1,7 +1,7 @@
+import { ClickableArea } from "@/components";
 import { cn, useMediaQuery } from "@/utils";
 import { useEffect, useRef, useState } from "react";
 import { Outlet } from "react-router";
-import { ClickableArea } from "../../blocks/index.ts";
 import { BreadcrumbProvider } from "./BreadcrumbContext/index.ts";
 import { Header, Sidebar } from "./components/index.ts";
 import classes from "./styles.module.css";

@@ -8,7 +8,10 @@ import {
   PopoverContent,
   type PopoverContentProps,
   PopoverTrigger,
+  Text,
+  type TextProps,
 } from "@/components";
+import { strings } from "@/static-content";
 import type { MergeElementProps } from "@/types";
 import {
   cn,
@@ -18,12 +21,9 @@ import {
   useUniqueId,
 } from "@/utils";
 import { mdiCalendar, mdiClose } from "@mdi/js";
-
-import { strings } from "@/static-content";
 import { useEffect, useRef, useState } from "react";
 import { type DateRange } from "react-day-picker";
 import "react-day-picker/style.css";
-import { Text, type TextProps } from "../Text/index.ts";
 import classes from "./styles.module.css";
 import { getValueDisplay } from "./utils.ts";
 
