@@ -1,7 +1,4 @@
 export const Languages = {
-  FA: "FA",
-  EN: "EN",
+  FA: "fa-IR",
+  EN: "en-US",
 } as const;
-
-export const DEFAULT_LANGUAGE: (typeof Languages)[keyof typeof Languages] =
-  "FA";

@@ -1,4 +1,4 @@
-import type { BREAKPOINT_KEYS } from "@/constants";
+import type { BREAKPOINT_KEYS, Languages } from "@/constants";
 
 export type Overwrite<T, U> = Omit<T, keyof U> & U;
 
@@ -44,3 +44,25 @@ export type BreakpointStops = BreakpointKeys | "fallback";
 export type ExcludeUndefined<T> = Exclude<T, undefined>;
 
 export type PropValueWithBreakpoints<T> = T | { [P in BreakpointStops]?: T };
+
+export type Language = (typeof Languages)[keyof typeof Languages];
+
+export type OidcAuthStrategyConfig = {
+  type: "oidc";
+  clientId: string;
+  authority: string;
+  redirectAbsoluteUri: string;
+  logoutRedirectAbsoluteUri: string;
+  clientSecret?: string;
+  scope?: string;
+};
+
+export type AuthStrategyConfig = OidcAuthStrategyConfig;
+
+export type AppConfig = {
+  name: string;
+  logo: string;
+  language: Language;
+  host: string;
+  authStrategy: AuthStrategyConfig;
+};

@@ -1,4 +1,5 @@
-import { DEFAULT_LANGUAGE, Languages } from "@/constants";
+import appConfig from "@/config";
+import { Languages } from "@/constants";
 import Localization from "react-localization";
 
 type GlobalStrings = {
@@ -330,4 +331,4 @@ export const strings = new Localization<GlobalStrings>({
   },
 });
 
-strings.setLanguage(DEFAULT_LANGUAGE);
+strings.setLanguage(appConfig.language);

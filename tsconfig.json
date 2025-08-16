@@ -42,7 +42,8 @@
       "@/utils": ["./src/utils/index.ts"],
       "@/constants": ["./src/constants/index.ts"],
       "@/types": ["./src/types.ts"],
-      "@/static-content": ["./src/static-content.ts"]
+      "@/static-content": ["./src/static-content.ts"],
+      "@/config": ["./src/app.config.ts"]
     }
   },
   "include": ["**/*.ts", "**/*.tsx"],

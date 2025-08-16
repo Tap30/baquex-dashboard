@@ -1,26 +1,34 @@
-import { LOGIN_PATH, SIGNIN_CALLBACK_PATH } from "@/constants";
-import { getEnv } from "@/utils";
+import appConfig from "@/config";
+import { persistedStorage } from "@/services";
 import {
   UserManager,
   WebStorageStateStore,
   type User,
   type UserManagerSettings,
 } from "oidc-client-ts";
-import { persistedStorage } from "../storage/storage.ts";
 import { AuthStrategy } from "./Strategy.ts";
 import type { AuthenticatedUser } from "./types.ts";
+
+const {
+  authority,
+  clientId,
+  logoutRedirectAbsoluteUri,
+  redirectAbsoluteUri,
+  clientSecret,
+  scope,
+} = appConfig.authStrategy;
 
 const OIDC_SETTINGS = {
   userStore: new WebStorageStateStore({
     store: persistedStorage,
   }),
-  client_id: getEnv("VITE_OIDC_CLIENT_ID", true),
-  authority: getEnv("VITE_OIDC_AUTHORITY", true),
-  redirect_uri: `${getEnv("VITE_APP_HOSTNAME", true)}${SIGNIN_CALLBACK_PATH}`,
-  client_secret: getEnv("VITE_OIDC_CLIENT_SECRET") ?? undefined,
-  scope: getEnv("VITE_OIDC_SCOPE") ?? undefined,
+  authority,
+  scope,
+  client_id: clientId,
+  redirect_uri: redirectAbsoluteUri,
+  client_secret: clientSecret,
   response_type: "code",
-  post_logout_redirect_uri: `${getEnv("VITE_APP_HOSTNAME", true)}${LOGIN_PATH}`,
+  post_logout_redirect_uri: logoutRedirectAbsoluteUri,
   filterProtocolClaims: true,
 } as const satisfies UserManagerSettings;
 
