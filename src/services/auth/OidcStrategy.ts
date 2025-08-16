@@ -1,4 +1,4 @@
-import { SIGNIN_CALLBACK_PATH } from "@/constants";
+import { LOGIN_PATH, SIGNIN_CALLBACK_PATH } from "@/constants";
 import { getEnv } from "@/utils";
 import {
   UserManager,
@@ -20,7 +20,7 @@ const OIDC_SETTINGS = {
   client_secret: getEnv("VITE_OIDC_CLIENT_SECRET") ?? undefined,
   scope: getEnv("VITE_OIDC_SCOPE") ?? undefined,
   response_type: "code",
-  automaticSilentRenew: true,
+  post_logout_redirect_uri: `${getEnv("VITE_APP_HOSTNAME", true)}${LOGIN_PATH}`,
   filterProtocolClaims: true,
 } as const satisfies UserManagerSettings;
 
@@ -40,7 +40,10 @@ export class OidcStrategy extends AuthStrategy {
   private _constructAuthenticatedUser(user: User): AuthenticatedUser {
     return {
       id: user.profile.sub,
-      name: user.profile.name,
+      name:
+        user.profile.name ||
+        (user.profile["display_name"] as string) ||
+        (user.profile["username"] as string),
       email: user.profile.email,
       token: user.access_token,
       tokenType: "Bearer",

@@ -12,6 +12,7 @@ import {
 } from "@/constants";
 import { AuthProvider } from "@/contexts";
 import {
+  AccessDeniedPage,
   dashboardLoader,
   DashboardPage,
   LoginPage,
@@ -19,7 +20,6 @@ import {
   SigninCallbackPage,
 } from "@/pages";
 import { createBrowserRouter, RouterProvider } from "react-router";
-import { AccessDeniedPage } from "./pages/AccessDeniedPage/Page.tsx";
 
 const router = createBrowserRouter([
   {
@@ -36,11 +36,11 @@ const router = createBrowserRouter([
             path: SIGNIN_CALLBACK_PATH,
             element: <SigninCallbackPage />,
           },
-          {
-            path: UNAUTHORIZED_PATH,
-            element: <AccessDeniedPage />,
-          },
         ],
+      },
+      {
+        path: UNAUTHORIZED_PATH,
+        element: <AccessDeniedPage />,
       },
       {
         element: <ProtectedRoute />,

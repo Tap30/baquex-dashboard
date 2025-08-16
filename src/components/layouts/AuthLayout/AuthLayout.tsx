@@ -1,10 +1,10 @@
 import { PageLoading } from "@/components";
-import { DASHBOARD_PATH, UNAUTHORIZED_PATH } from "@/constants";
+import { DASHBOARD_PATH } from "@/constants";
 import { useAuth } from "@/contexts";
 import { Navigate, Outlet } from "react-router";
 
 export const AuthLayout: React.FC = () => {
-  const { isAuthenticated, isAuthenticating, isAccessGranted } = useAuth();
+  const { isAuthenticated, isAuthenticating } = useAuth();
 
   if (isAuthenticating) {
     return <PageLoading loading />;
@@ -16,16 +16,6 @@ export const AuthLayout: React.FC = () => {
       <main>
         <Outlet />
       </main>
-    );
-  }
-
-  // If authenticated but scope access is not granted, redirect to an unauthorized page
-  if (!isAccessGranted) {
-    return (
-      <Navigate
-        to={UNAUTHORIZED_PATH}
-        replace
-      />
     );
   }
 

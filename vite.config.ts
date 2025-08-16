@@ -12,6 +12,10 @@ const devConfig: UserConfig = {
   ...baseConfig,
   // @ts-expect-error Mkcert package exports are ridiculous
   plugins: [...baseConfig.plugins, mkcert({ savePath: ".certs" })],
+  server: {
+    port: 443,
+    open: "https://admin.baquex.com",
+  },
 };
 
 // https://vite.dev/config/

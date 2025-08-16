@@ -1,4 +1,4 @@
-import { auth, type AuthenticatedUser } from "@/services";
+import { auth, InvalidUserError, type AuthenticatedUser } from "@/services";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { AuthContext } from "./Context.ts";
 import { type AuthContextValue } from "./types.ts";
@@ -11,17 +11,43 @@ export const AuthProvider: React.FC<Props> = props => {
   const [user, setUser] = useState<AuthenticatedUser | null>(null);
   const [isInitialized, setIsInitialized] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [isAccessGranted, setIsAccessGranted] = useState(false);
   const [isAuthenticating, setIsAuthenticating] = useState(false);
 
   // Checks for an existing user and their scope access on mount
   useEffect(() => {
     const initializeAuth = async () => {
       setIsAuthenticating(true);
-      const authenticatedUser = await auth.getAuthenticatedUser();
-      const accessGranted = authenticatedUser
-        ? await auth.checkScopeAccess()
-        : false;
+
+      let authenticatedUser: AuthenticatedUser | null = null;
+
+      try {
+        authenticatedUser = await auth.getAuthenticatedUser();
+      } catch (err) {
+        // eslint-disable-next-line no-console
+        console.error(err);
+
+        authenticatedUser = null;
+      }
+
+      if (!authenticatedUser) {
+        setUser(null);
+        setIsAuthenticated(false);
+        setIsAuthenticating(false);
+        setIsInitialized(true);
+
+        throw new InvalidUserError();
+      }
+
+      const hasScopeAccess = await auth.checkScopeAccess();
+
+      if (!hasScopeAccess) {
+        setUser(null);
+        setIsAuthenticated(false);
+        setIsAuthenticating(false);
+        setIsInitialized(true);
+
+        return;
+      }
 
       if (authenticatedUser) {
         setUser(authenticatedUser);
@@ -31,7 +57,6 @@ export const AuthProvider: React.FC<Props> = props => {
         setIsAuthenticated(false);
       }
 
-      setIsAccessGranted(accessGranted);
       setIsAuthenticating(false);
       setIsInitialized(true);
     };
@@ -42,10 +67,34 @@ export const AuthProvider: React.FC<Props> = props => {
   const handleSigninRedirectCallback = useCallback(async () => {
     setIsAuthenticating(true);
 
-    const authenticatedUser = await auth.handleSigninRedirectCallback();
-    const accessGranted = authenticatedUser
-      ? await auth.checkScopeAccess()
-      : false;
+    let authenticatedUser: AuthenticatedUser | null = null;
+
+    try {
+      authenticatedUser = await auth.handleSigninRedirectCallback();
+    } catch (err) {
+      // eslint-disable-next-line no-console
+      console.error(err);
+
+      authenticatedUser = null;
+    }
+
+    if (!authenticatedUser) {
+      setUser(null);
+      setIsAuthenticated(false);
+      setIsAuthenticating(false);
+
+      throw new InvalidUserError();
+    }
+
+    const hasScopeAccess = await auth.checkScopeAccess();
+
+    if (!hasScopeAccess) {
+      setUser(null);
+      setIsAuthenticated(false);
+      setIsAuthenticating(false);
+
+      return;
+    }
 
     if (authenticatedUser) {
       setUser(authenticatedUser);
@@ -55,7 +104,6 @@ export const AuthProvider: React.FC<Props> = props => {
       setIsAuthenticated(false);
     }
 
-    setIsAccessGranted(accessGranted);
     setIsAuthenticating(false);
   }, []);
 
@@ -66,7 +114,6 @@ export const AuthProvider: React.FC<Props> = props => {
 
     setUser(null);
     setIsAuthenticated(false);
-    setIsAccessGranted(false);
     setIsAuthenticating(false);
   }, []);
 
@@ -88,7 +135,6 @@ export const AuthProvider: React.FC<Props> = props => {
       isAuthenticated,
       isInitialized,
       isAuthenticating,
-      isAccessGranted,
       signin,
       signout,
       handleSigninRedirectCallback,
@@ -99,7 +145,6 @@ export const AuthProvider: React.FC<Props> = props => {
     isAuthenticated,
     isInitialized,
     isAuthenticating,
-    isAccessGranted,
     signin,
     signout,
     handleSigninRedirectCallback,

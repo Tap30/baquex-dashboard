@@ -1,5 +1,8 @@
-import { UNAUTHORIZED_PATH } from "@/constants";
+import { toast } from "@/components";
+import { LOGIN_PATH, UNAUTHORIZED_PATH } from "@/constants";
 import { useAuth } from "@/contexts";
+import { InvalidUserError } from "@/services";
+import { strings } from "@/static-content";
 import { useEffect } from "react";
 import { useNavigate } from "react-router";
 
@@ -25,8 +28,15 @@ export const SigninCallbackPage = () => {
           case "access_denied":
             return navigate(UNAUTHORIZED_PATH, { replace: true });
 
-          default:
-            return;
+          default: {
+            if (err instanceof InvalidUserError) {
+              toast({ title: strings.errors.invalidUser, color: "negative" });
+
+              await navigate(LOGIN_PATH, { replace: true });
+            } else {
+              throw err;
+            }
+          }
         }
       }
     };

@@ -5,7 +5,6 @@ export type AuthContextValue = {
   isAuthenticated: boolean;
   isInitialized: boolean;
   isAuthenticating: boolean;
-  isAccessGranted: boolean;
   signin: (credentials?: unknown) => Promise<void>;
   signout: () => Promise<void>;
   handleSignoutRedirectCallback: () => Promise<void>;
