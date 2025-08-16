@@ -1,5 +1,5 @@
 import { Button, type ButtonProps, Flex, Icon, Text } from "@/components";
-import { useMediaQuery } from "@/utils";
+import { cn } from "@/utils";
 import { mdiBlockHelper } from "@mdi/js";
 import classes from "./styles.module.css";
 
@@ -40,20 +40,13 @@ export const Exception: React.FC<ExceptionProps> = props => {
     title,
   } = props ?? {};
 
-  const [isMobile] = useMediaQuery("(max-width: 768px)");
-
   return (
     <Flex className={classes["root"]}>
       <Flex
         gap="xxl"
         direction={{ sm: "row", fallback: "column" }}
       >
-        <div
-          className={classes["icon"]}
-          style={{
-            margin: isMobile ? "auto" : "0",
-          }}
-        >
+        <div className={cn(classes["icon"], "m-auto", "sm:m-0")}>
           {illustration}
         </div>
         <Flex
@@ -71,10 +64,13 @@ export const Exception: React.FC<ExceptionProps> = props => {
           </Text>
 
           <Text
-            className={classes["description"]}
+            className={cn(
+              classes["description"],
+              "text-center",
+              "sm:text-start",
+            )}
             variant="body1"
             color="secondary"
-            align={isMobile ? "center" : "start"}
           >
             {description}
           </Text>
