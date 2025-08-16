@@ -16,6 +16,10 @@
   }
 }
 
+html {
+  background-color: var(--color-surface-secondary);
+}
+
 body {
   background-color: var(--color-background);
   color: var(--color-foreground);
