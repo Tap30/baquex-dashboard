@@ -105,6 +105,9 @@ type GlobalStrings = {
     close: string;
     open: string;
   };
+  errors: {
+    invalidUser: string;
+  };
 };
 
 export const strings = new Localization<GlobalStrings>({
@@ -212,6 +215,9 @@ export const strings = new Localization<GlobalStrings>({
         },
       },
     },
+    errors: {
+      invalidUser: "The user does not have permission to use the app.",
+    },
   },
   [Languages.FA]: {
     appTitle: "Baquex",
@@ -317,6 +323,9 @@ export const strings = new Localization<GlobalStrings>({
       title: "خطای احراز هویت",
       description: "برای استفاده این این پنل ابتدا باید لاگین کنید.",
       backToLogin: "رفتن به لاگین",
+    },
+    errors: {
+      invalidUser: "دسترسی کاربر به این برنامه مجاز نیست!",
     },
   },
 });
