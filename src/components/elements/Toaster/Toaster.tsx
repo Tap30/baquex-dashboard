@@ -19,7 +19,6 @@ export const Toaster: React.FC<ToasterProps> = props => {
       theme="dark"
       expand
       dir={direction}
-      duration={Infinity}
       position="bottom-center"
     />
   );
