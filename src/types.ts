@@ -48,7 +48,6 @@ export type PropValueWithBreakpoints<T> = T | { [P in BreakpointStops]?: T };
 export type Language = (typeof Languages)[keyof typeof Languages];
 
 export type OidcAuthStrategyConfig = {
-  type: "oidc";
   clientId: string;
   authority: string;
   redirectAbsoluteUri: string;

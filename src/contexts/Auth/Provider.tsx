@@ -1,4 +1,9 @@
-import { auth, InvalidUserError, type AuthenticatedUser } from "@/services";
+import {
+  auth,
+  InvalidUserError,
+  type AuthenticatedUser,
+} from "@/services/auth";
+import { resolveThrowable } from "@/utils";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { AuthContext } from "./Context.ts";
 import { type AuthContextValue } from "./types.ts";
@@ -18,16 +23,14 @@ export const AuthProvider: React.FC<Props> = props => {
     const initializeAuth = async () => {
       setIsAuthenticating(true);
 
-      let authenticatedUser: AuthenticatedUser | null = null;
+      const userResult = await resolveThrowable(() =>
+        auth.getAuthenticatedUser(),
+      );
 
-      try {
-        authenticatedUser = await auth.getAuthenticatedUser();
-      } catch (err) {
-        // eslint-disable-next-line no-console
-        console.error(err);
+      // eslint-disable-next-line no-console
+      if (userResult.error) console.error(userResult.error);
 
-        authenticatedUser = null;
-      }
+      const authenticatedUser = userResult.data;
 
       if (!authenticatedUser) {
         setUser(null);
@@ -35,7 +38,7 @@ export const AuthProvider: React.FC<Props> = props => {
         setIsAuthenticating(false);
         setIsInitialized(true);
 
-        throw new InvalidUserError();
+        return;
       }
 
       const hasScopeAccess = await auth.checkScopeAccess();
@@ -67,16 +70,11 @@ export const AuthProvider: React.FC<Props> = props => {
   const handleSigninRedirectCallback = useCallback(async () => {
     setIsAuthenticating(true);
 
-    let authenticatedUser: AuthenticatedUser | null = null;
+    const signinResult = await resolveThrowable(() =>
+      auth.handleSigninRedirectCallback(),
+    );
 
-    try {
-      authenticatedUser = await auth.handleSigninRedirectCallback();
-    } catch (err) {
-      // eslint-disable-next-line no-console
-      console.error(err);
-
-      authenticatedUser = null;
-    }
+    const authenticatedUser = signinResult.data;
 
     if (!authenticatedUser) {
       setUser(null);

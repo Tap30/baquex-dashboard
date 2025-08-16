@@ -1,7 +1,8 @@
-import { DEFAULT_LANGUAGE, Languages } from "@/constants";
+import appConfig from "@/config";
+import { Languages } from "@/constants";
 import { DirectionProvider as RadixDirectionProvider } from "@radix-ui/react-direction";
 
-const dir: "ltr" | "rtl" = DEFAULT_LANGUAGE === Languages.FA ? "rtl" : "ltr";
+const dir: "ltr" | "rtl" = appConfig.language === Languages.FA ? "rtl" : "ltr";
 
 export const DirectionProvider: React.FC<{
   children: React.ReactNode;

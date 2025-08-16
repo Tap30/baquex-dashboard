@@ -1,4 +1,4 @@
-import type { DataStorage } from "@/services";
+import type { DataStorage } from "@/services/storage";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 export type UsePersistedStateStorageConfig = {

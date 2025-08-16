@@ -1,4 +1,3 @@
-import appConfig from "@/config";
 import { Languages } from "@/constants";
 import Localization from "react-localization";
 
@@ -217,7 +216,7 @@ export const strings = new Localization<GlobalStrings>({
       },
     },
     errors: {
-      invalidUser: "The user does not have permission to use the app.",
+      invalidUser: "The user is invalid.",
     },
   },
   [Languages.FA]: {
@@ -253,7 +252,7 @@ export const strings = new Localization<GlobalStrings>({
     login: {
       title: "ورود",
       description:
-        "برای ورود به برنامه، یکی از این متد‌های احراز هویت را انتخاب کنید.",
+        "برای ورود به اپلیکیشن یکی از این متد‌های احراز هویت را انتخاب کنید.",
       error: {
         title: "خطا در ورود",
         description: "مجدداً تلاش کنید.",
@@ -326,9 +325,7 @@ export const strings = new Localization<GlobalStrings>({
       backToLogin: "رفتن به لاگین",
     },
     errors: {
-      invalidUser: "دسترسی کاربر به این برنامه مجاز نیست!",
+      invalidUser: "کاربر شما نامعتبر است.",
     },
   },
 });
-
-strings.setLanguage(appConfig.language);

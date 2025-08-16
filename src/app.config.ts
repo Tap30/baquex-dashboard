@@ -1,22 +1,26 @@
 import logo from "@/assets/logo.svg";
 import { Languages, LOGIN_PATH, SIGNIN_CALLBACK_PATH } from "@/constants";
+import { strings } from "@/static-content";
+import type { AppConfig } from "@/types";
 import { getEnv } from "@/utils";
-import type { AppConfig } from "./types.ts";
+
+const host = getEnv("VITE_APP_HOSTNAME", true);
 
 const appConfig: AppConfig = {
   logo,
+  host,
   name: "Baquex",
-  host: "admin.baquex.com",
   language: Languages.FA,
   authStrategy: {
-    type: "oidc",
+    redirectAbsoluteUri: `${host}${SIGNIN_CALLBACK_PATH}`,
+    logoutRedirectAbsoluteUri: `${host}${LOGIN_PATH}`,
     authority: getEnv("VITE_OIDC_AUTHORITY", true),
     clientId: getEnv("VITE_OIDC_CLIENT_ID", true),
-    redirectAbsoluteUri: `${getEnv("VITE_APP_HOSTNAME", true)}${SIGNIN_CALLBACK_PATH}`,
-    logoutRedirectAbsoluteUri: `${getEnv("VITE_APP_HOSTNAME", true)}${LOGIN_PATH}`,
-    scope: getEnv("VITE_OIDC_SCOPE") ?? undefined,
-    clientSecret: getEnv("VITE_OIDC_CLIENT_SECRET") ?? undefined,
+    clientSecret: getEnv("VITE_OIDC_CLIENT_SECRET"),
+    scope: getEnv("VITE_OIDC_SCOPE"),
   },
 };
+
+strings.setLanguage(appConfig.language);
 
 export default appConfig;

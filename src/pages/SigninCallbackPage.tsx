@@ -1,7 +1,7 @@
 import { toast } from "@/components";
 import { LOGIN_PATH, UNAUTHORIZED_PATH } from "@/constants";
 import { useAuth } from "@/contexts";
-import { InvalidUserError } from "@/services";
+import { InvalidUserError } from "@/services/auth";
 import { strings } from "@/static-content";
 import { useEffect } from "react";
 import { useNavigate } from "react-router";

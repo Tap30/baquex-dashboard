@@ -5,11 +5,11 @@ import {
 } from "@/components";
 import { PORTAL_DESTINATION_ID } from "@/constants";
 import { DirectionProvider } from "@/contexts";
+import { QueryClientProvider } from "@/services/query-client";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { App } from "./App.tsx";
 
-import { QueryClientProvider } from "@/services";
 import "normalize.css";
 import "./main.css";
 

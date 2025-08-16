@@ -1,11 +1,13 @@
-import logoSvg from "@/assets/logo.svg";
 import { Flex, Text } from "@/components";
+import appConfig from "@/config";
 import { SIDEBAR_ITEMS } from "@/constants";
 import { strings } from "@/static-content";
 import { cn } from "@/utils";
 import { memo } from "react";
 import { Footer, Item } from "./components/index.ts";
 import classes from "./styles.module.css";
+
+const { logo, name } = appConfig;
 
 type Props = {
   className?: string;
@@ -37,14 +39,14 @@ const SidebarBase: React.FC<Props> = props => {
         gap="sm"
       >
         <img
-          src={logoSvg}
+          src={logo}
           alt="Logo"
         />
         <Text
           variant="h6"
           weight={700}
         >
-          baquex
+          {name}
         </Text>
       </Flex>
       <nav

@@ -1,8 +1,10 @@
-import logoSvg from "@/assets/logo.svg";
 import { Button, Flex, TapsiIcon, Text, toast } from "@/components";
-import { auth } from "@/services";
+import appConfig from "@/config";
+import { auth } from "@/services/auth";
 import { strings } from "@/static-content";
 import classes from "./styles.module.css";
+
+const { logo } = appConfig;
 
 export const LoginPage: React.FC = () => {
   const buttonText = [
@@ -38,7 +40,7 @@ export const LoginPage: React.FC = () => {
       >
         <img
           className={classes["logo"]}
-          src={logoSvg}
+          src={logo}
           alt="Logo"
         />
         <Text

@@ -1,5 +1,5 @@
 import appConfig from "@/config";
-import { persistedStorage } from "@/services";
+import { persistedStorage } from "@/services/storage";
 import {
   UserManager,
   WebStorageStateStore,
@@ -18,10 +18,12 @@ const {
   scope,
 } = appConfig.authStrategy;
 
+const userStore = new WebStorageStateStore({
+  store: persistedStorage,
+});
+
 const OIDC_SETTINGS = {
-  userStore: new WebStorageStateStore({
-    store: persistedStorage,
-  }),
+  userStore,
   authority,
   scope,
   client_id: clientId,
