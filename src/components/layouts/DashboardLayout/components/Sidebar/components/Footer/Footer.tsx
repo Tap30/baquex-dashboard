@@ -32,6 +32,7 @@ export const Footer: React.FC<Props> = props => {
 
   const fallbackText = username
     .split(/[. ]/)
+    .slice(0, 2)
     .map(s => s[0]?.toUpperCase() ?? "")
     .join("");
 
