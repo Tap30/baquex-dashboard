@@ -9,6 +9,7 @@ export * from "./generate-tailwind-classes-with-breakpoints.ts";
 export * from "./handle-ref.ts";
 export * from "./math.ts";
 export * from "./numbers.ts";
+export * from "./resolve-throwable.ts";
 export * from "./use-controllable-prop.ts";
 export * from "./use-forked-refs.ts";
 export * from "./use-get-latest.ts";
