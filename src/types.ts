@@ -1,5 +1,5 @@
-import type { BREAKPOINT_KEYS } from "@/constants/breakpoints";
-import type { Languages } from "@/constants/languages";
+import type { BREAKPOINT_KEYS } from "@constants/breakpoints";
+import type { Languages } from "@constants/languages";
 
 export type Overwrite<T, U> = Omit<T, keyof U> & U;
 

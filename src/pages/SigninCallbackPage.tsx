@@ -1,8 +1,8 @@
-import { toast } from "@/components/Toaster";
-import { LOGIN_PATH, UNAUTHORIZED_PATH } from "@/constants/routes";
-import { useAuth } from "@/contexts/Auth";
-import { InvalidUserError } from "@/services/auth";
-import { strings } from "@/static-content";
+import { toast } from "@components/Toaster";
+import { LOGIN_PATH, UNAUTHORIZED_PATH } from "@constants/routes";
+import { useAuth } from "@contexts/Auth";
+import { InvalidUserError } from "@services/auth";
+import { strings } from "@static-content";
 import { useEffect } from "react";
 import { useNavigate } from "react-router";
 

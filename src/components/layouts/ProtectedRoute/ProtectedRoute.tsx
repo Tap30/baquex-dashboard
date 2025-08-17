@@ -1,6 +1,6 @@
-import { PageLoading } from "@/components/PageLoading";
-import { LOGIN_PATH } from "@/constants/routes";
-import { useAuth } from "@/contexts/Auth";
+import { PageLoading } from "@components/PageLoading";
+import { LOGIN_PATH } from "@constants/routes";
+import { useAuth } from "@contexts/Auth";
 import { Navigate, Outlet } from "react-router";
 
 export const ProtectedRoute = () => {

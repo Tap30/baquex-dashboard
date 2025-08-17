@@ -1,5 +1,5 @@
-import type { MergeElementProps, WithBaseProps } from "@/types";
-import { cn } from "@/utils/cn";
+import type { MergeElementProps, WithBaseProps } from "@types";
+import { cn } from "@utils/cn";
 import type { WithColorProps } from "../../types.ts";
 import classes from "./styles.module.css";
 

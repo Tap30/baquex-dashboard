@@ -1,6 +1,6 @@
-import { IconButton, type IconButtonProps } from "@/components/IconButton";
-import type { MergeElementProps } from "@/types";
-import { cn } from "@/utils/cn";
+import { IconButton, type IconButtonProps } from "@components/IconButton";
+import type { MergeElementProps } from "@types";
+import { cn } from "@utils/cn";
 import classes from "./styles.module.css";
 
 export type SecondaryBadgeAction = Omit<

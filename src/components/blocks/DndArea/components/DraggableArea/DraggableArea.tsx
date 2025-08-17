@@ -1,11 +1,11 @@
-import { cn } from "@/utils/cn";
-import { useUniqueId } from "@/utils/use-unique-id";
 import {
   useDraggable,
   type DraggableAttributes,
   type UseDraggableArguments,
 } from "@dnd-kit/core";
 import type { SyntheticListenerMap } from "@dnd-kit/core/dist/hooks/utilities/useSyntheticListeners.js";
+import { cn } from "@utils/cn";
+import { useUniqueId } from "@utils/use-unique-id";
 import { applyTransform } from "../../utils.ts";
 import classes from "./styles.module.css";
 

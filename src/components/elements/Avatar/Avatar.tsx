@@ -1,6 +1,6 @@
-import type { WithRef } from "@/types";
-import { cn } from "@/utils/cn";
 import * as AvatarPrimitives from "@radix-ui/react-avatar";
+import type { WithRef } from "@types";
+import { cn } from "@utils/cn";
 import classes from "./styles.module.css";
 
 export type AvatarProps = WithRef<

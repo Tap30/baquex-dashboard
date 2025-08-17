@@ -1,5 +1,5 @@
-import { Languages } from "@/constants/languages";
-import { strings } from "@/static-content";
+import { Languages } from "@constants/languages";
+import { strings } from "@static-content";
 
 export const formatDate = (date: Date): string => {
   const lang = strings.getLanguage();

@@ -1,11 +1,11 @@
-import { Text } from "@/components/Text";
-import { cn } from "@/utils/cn";
+import { Text } from "@components/Text";
 import {
   type Cell as CellType,
   type RowData,
   type Table,
   flexRender,
 } from "@tanstack/react-table";
+import { cn } from "@utils/cn";
 import classes from "./styles.module.css";
 
 export type CellProps<Data extends RowData, Value = unknown> = {

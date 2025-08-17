@@ -1,5 +1,5 @@
-import appConfig from "@/config";
-import { persistedStorage } from "@/services/storage";
+import appConfig from "@config";
+import { persistedStorage } from "@services/storage";
 import {
   UserManager,
   WebStorageStateStore,

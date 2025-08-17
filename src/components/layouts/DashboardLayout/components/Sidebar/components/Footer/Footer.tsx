@@ -1,17 +1,17 @@
 import {
   dismissConfirm,
   requestConfirm,
-} from "@/components/AlertDialogController";
-import { Avatar } from "@/components/Avatar";
-import { Flex, FlexItem } from "@/components/Flex";
-import { Icon } from "@/components/Icon";
-import { IconButton } from "@/components/IconButton";
-import { Text } from "@/components/Text";
-import { SETTINGS_PATH } from "@/constants/routes";
-import { useAuth } from "@/contexts/Auth";
-import { strings } from "@/static-content";
-import { cn } from "@/utils/cn";
+} from "@components/AlertDialogController";
+import { Avatar } from "@components/Avatar";
+import { Flex, FlexItem } from "@components/Flex";
+import { Icon } from "@components/Icon";
+import { IconButton } from "@components/IconButton";
+import { Text } from "@components/Text";
+import { SETTINGS_PATH } from "@constants/routes";
+import { useAuth } from "@contexts/Auth";
 import { mdiCogs, mdiLogout } from "@mdi/js";
+import { strings } from "@static-content";
+import { cn } from "@utils/cn";
 import { Link, useLocation } from "react-router";
 import classes from "./styles.module.css";
 

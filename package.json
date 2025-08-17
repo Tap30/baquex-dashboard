@@ -16,16 +16,16 @@
   "scripts": {
     "test": "vitest run --passWithNoTests",
     "test:dev": "vitest",
-    "format:check": "prettier . --check --cache",
-    "format:write": "prettier . --write --cache",
-    "lint:ts": "tsc --project ./tsconfig.json",
-    "lint:ecma": "eslint --color --cache --config eslint.config.js --cache-location .eslintcache",
-    "lint": "run-p lint:ts lint:ecma format:check",
-    "dev": "vite",
+    "format": "prettier . --write --cache",
+    "check:format": "prettier . --check --cache",
+    "check:lint:ts": "tsc --project ./tsconfig.json",
+    "check:lint:ecma": "eslint --color --cache --config eslint.config.js --cache-location .eslintcache",
+    "check:lint": "run-p check:lint:ts check:lint:ecma check:format check:cycles",
     "check:cycles": "tsx scripts/check-cycles",
-    "toggle-host": "tsx scripts/toggle-host.ts",
+    "dev": "vite",
     "build": "tsc -b && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "toggle-host": "tsx scripts/toggle-host.ts"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",

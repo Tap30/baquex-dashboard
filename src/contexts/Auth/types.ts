@@ -1,4 +1,4 @@
-import type { AuthenticatedUser } from "@/services/auth";
+import type { AuthenticatedUser } from "@services/auth";
 
 export type AuthContextValue = {
   user: AuthenticatedUser | null;

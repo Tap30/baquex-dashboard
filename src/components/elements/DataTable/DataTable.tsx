@@ -1,9 +1,6 @@
-import { Paginator } from "@/components/Paginator";
-import { Text } from "@/components/Text";
-import { strings } from "@/static-content";
-import type { WithRef } from "@/types";
-import { cn } from "@/utils/cn";
-import { useControllableProp } from "@/utils/use-controllable-prop";
+import { Paginator } from "@components/Paginator";
+import { Text } from "@components/Text";
+import { strings } from "@static-content";
 import {
   getCoreRowModel,
   getFacetedRowModel,
@@ -15,6 +12,9 @@ import {
   type TableOptions,
   type TableState,
 } from "@tanstack/react-table";
+import type { WithRef } from "@types";
+import { cn } from "@utils/cn";
+import { useControllableProp } from "@utils/use-controllable-prop";
 import { useImperativeHandle } from "react";
 import { Cell, HeadCell } from "./components/index.ts";
 import classes from "./styles.module.css";

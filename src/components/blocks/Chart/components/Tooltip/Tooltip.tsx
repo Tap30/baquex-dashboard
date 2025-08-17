@@ -1,5 +1,5 @@
-import type { MergeElementProps } from "@/types";
-import { cn } from "@/utils/cn";
+import type { MergeElementProps } from "@types";
+import { cn } from "@utils/cn";
 import * as RechartsPrimitive from "recharts";
 import { useChart } from "../../context/index.ts";
 import { getPayloadConfigFromPayload } from "../../utils.ts";

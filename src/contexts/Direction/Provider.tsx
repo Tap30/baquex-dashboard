@@ -1,5 +1,5 @@
-import appConfig from "@/config";
-import { Languages } from "@/constants/languages";
+import appConfig from "@config";
+import { Languages } from "@constants/languages";
 import { DirectionProvider as RadixDirectionProvider } from "@radix-ui/react-direction";
 
 const dir: "ltr" | "rtl" = appConfig.language === Languages.FA ? "rtl" : "ltr";

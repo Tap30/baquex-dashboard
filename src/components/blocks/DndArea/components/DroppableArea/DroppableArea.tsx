@@ -1,7 +1,7 @@
-import type { WithBaseProps } from "@/types";
-import { cn } from "@/utils/cn";
-import { useUniqueId } from "@/utils/use-unique-id";
 import { useDroppable, type UseDroppableArguments } from "@dnd-kit/core";
+import type { WithBaseProps } from "@types";
+import { cn } from "@utils/cn";
+import { useUniqueId } from "@utils/use-unique-id";
 import classes from "./styles.module.css";
 
 export type DroppableAreaProps = UseDroppableArguments &

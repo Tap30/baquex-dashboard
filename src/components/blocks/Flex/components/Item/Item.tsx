@@ -2,9 +2,9 @@ import type {
   MergeElementProps,
   PropValueWithBreakpoints,
   WithBaseProps,
-} from "@/types";
-import { cn } from "@/utils/cn";
-import { generateTailwindClassesWithBreakpoints } from "@/utils/generate-tailwind-classes-with-breakpoints";
+} from "@types";
+import { cn } from "@utils/cn";
+import { generateTailwindClassesWithBreakpoints } from "@utils/generate-tailwind-classes-with-breakpoints";
 import * as React from "react";
 import classes from "./styles.module.css";
 

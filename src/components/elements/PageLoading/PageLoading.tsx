@@ -1,6 +1,6 @@
-import { Portal } from "@/components/Portal";
-import { strings } from "@/static-content";
-import { cn } from "@/utils/cn";
+import { Portal } from "@components/Portal";
+import { strings } from "@static-content";
+import { cn } from "@utils/cn";
 import { useEffect, useRef, useState } from "react";
 import classes from "./styles.module.css";
 

@@ -1,9 +1,5 @@
-import {
-  auth,
-  InvalidUserError,
-  type AuthenticatedUser,
-} from "@/services/auth";
-import { resolveThrowable } from "@/utils/resolve-throwable";
+import { auth, InvalidUserError, type AuthenticatedUser } from "@services/auth";
+import { resolveThrowable } from "@utils/resolve-throwable";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { AuthContext } from "./Context.ts";
 import { type AuthContextValue } from "./types.ts";

@@ -1,4 +1,4 @@
-import { Languages } from "@/constants/languages";
+import { Languages } from "@constants/languages";
 import Localization from "react-localization";
 
 type GlobalStrings = {

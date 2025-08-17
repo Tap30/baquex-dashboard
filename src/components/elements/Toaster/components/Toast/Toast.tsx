@@ -1,11 +1,11 @@
-import { Button } from "@/components/Button";
-import { Flex } from "@/components/Flex";
-import { Icon } from "@/components/Icon";
-import { IconButton } from "@/components/IconButton";
-import { Text } from "@/components/Text";
-import { strings } from "@/static-content";
-import { cn } from "@/utils/cn";
+import { Button } from "@components/Button";
+import { Flex } from "@components/Flex";
+import { Icon } from "@components/Icon";
+import { IconButton } from "@components/IconButton";
+import { Text } from "@components/Text";
 import { mdiClose } from "@mdi/js";
+import { strings } from "@static-content";
+import { cn } from "@utils/cn";
 import { useCallback } from "react";
 import { toast as sonnerToast } from "sonner";
 import classes from "./styles.module.css";

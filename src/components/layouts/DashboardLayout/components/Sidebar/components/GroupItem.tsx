@@ -1,7 +1,7 @@
-import { Flex } from "@/components/Flex";
-import { Text } from "@/components/Text";
-import { SidebarItemTypes, type SidebarGroupItem } from "@/constants/sidebar";
-import { useUniqueId } from "@/utils/use-unique-id";
+import { Flex } from "@components/Flex";
+import { Text } from "@components/Text";
+import { SidebarItemTypes, type SidebarGroupItem } from "@constants/sidebar";
+import { useUniqueId } from "@utils/use-unique-id";
 import { LeafItem } from "./LeafItem/index.ts";
 import { ParentItem } from "./ParentItem/index.ts";
 

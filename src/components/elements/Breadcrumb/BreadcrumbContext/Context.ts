@@ -1,4 +1,4 @@
-import type { BreadcrumbItem } from "@/components/Breadcrumb";
+import type { BreadcrumbItem } from "@components/Breadcrumb";
 import { createContext } from "react";
 
 export type BreadcrumbContextValue = {

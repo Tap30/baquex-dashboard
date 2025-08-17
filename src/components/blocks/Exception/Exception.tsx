@@ -1,9 +1,9 @@
-import { Button, type ButtonProps } from "@/components/Button";
-import { Flex, FlexItem } from "@/components/Flex";
-import { Icon } from "@/components/Icon";
-import { Text } from "@/components/Text";
-import { cn } from "@/utils/cn";
+import { Button, type ButtonProps } from "@components/Button";
+import { Flex, FlexItem } from "@components/Flex";
+import { Icon } from "@components/Icon";
+import { Text } from "@components/Text";
 import { mdiBlockHelper } from "@mdi/js";
+import { cn } from "@utils/cn";
 import classes from "./styles.module.css";
 
 export type ExceptionProps = {

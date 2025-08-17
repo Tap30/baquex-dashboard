@@ -1,7 +1,7 @@
 import {
   SidebarItemTypes,
   type SidebarItem as SidebarItemType,
-} from "@/constants/sidebar";
+} from "@constants/sidebar";
 import { GroupItem } from "./GroupItem.tsx";
 import { LeafItem } from "./LeafItem/index.ts";
 import { ParentItem } from "./ParentItem/index.ts";

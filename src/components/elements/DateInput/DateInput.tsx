@@ -2,24 +2,24 @@ import {
   Calendar,
   CalendarType,
   type CalendarProps,
-} from "@/components/Calendar";
-import { Icon } from "@/components/Icon";
-import { IconButton } from "@/components/IconButton";
+} from "@components/Calendar";
+import { Icon } from "@components/Icon";
+import { IconButton } from "@components/IconButton";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
   type PopoverContentProps,
-} from "@/components/Popover";
-import { Text, type TextProps } from "@/components/Text";
-import { strings } from "@/static-content";
-import type { MergeElementProps } from "@/types";
-import { cn } from "@/utils/cn";
-import { formatDate } from "@/utils/date";
-import { useControllableProp } from "@/utils/use-controllable-prop";
-import { useForkedRefs } from "@/utils/use-forked-refs";
-import { useUniqueId } from "@/utils/use-unique-id";
+} from "@components/Popover";
+import { Text, type TextProps } from "@components/Text";
 import { mdiCalendar, mdiClose } from "@mdi/js";
+import { strings } from "@static-content";
+import type { MergeElementProps } from "@types";
+import { cn } from "@utils/cn";
+import { formatDate } from "@utils/date";
+import { useControllableProp } from "@utils/use-controllable-prop";
+import { useForkedRefs } from "@utils/use-forked-refs";
+import { useUniqueId } from "@utils/use-unique-id";
 import { useEffect, useRef, useState } from "react";
 import { type DateRange } from "react-day-picker";
 import classes from "./styles.module.css";

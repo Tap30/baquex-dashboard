@@ -1,6 +1,6 @@
-import type { WithRef } from "@/types";
-import { cn } from "@/utils/cn";
 import * as ProgressPrimitives from "@radix-ui/react-progress";
+import type { WithRef } from "@types";
+import { cn } from "@utils/cn";
 import classes from "./styles.module.css";
 
 export type ProgressProps = Pick<

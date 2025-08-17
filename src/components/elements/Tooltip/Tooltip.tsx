@@ -1,8 +1,8 @@
-import { usePortalConfig } from "@/components/Portal";
-import type { WithRef } from "@/types";
-import { cn } from "@/utils/cn";
-import { useIsomorphicValue } from "@/utils/use-isomorphic-value";
+import { usePortalConfig } from "@components/Portal";
 import * as TooltipPrimitive from "@radix-ui/react-tooltip";
+import type { WithRef } from "@types";
+import { cn } from "@utils/cn";
+import { useIsomorphicValue } from "@utils/use-isomorphic-value";
 import classes from "./styles.module.css";
 
 export type TooltipProps = TooltipPrimitive.TooltipProps &

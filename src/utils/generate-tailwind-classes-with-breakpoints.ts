@@ -2,7 +2,7 @@ import type {
   BreakpointStops,
   ExcludeUndefined,
   PropValueWithBreakpoints,
-} from "@/types";
+} from "@types";
 
 const isBreakpointStopsMap = <T>(
   o: unknown,

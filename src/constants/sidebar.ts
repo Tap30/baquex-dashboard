@@ -1,4 +1,3 @@
-import { strings } from "@/static-content";
 import {
   mdiAccountGroup,
   mdiAlien,
@@ -8,6 +7,7 @@ import {
   mdiGoogleAnalytics,
   mdiTestTube,
 } from "@mdi/js";
+import { strings } from "@static-content";
 
 export const SidebarItemTypes = {
   GROUP: "GROUP",

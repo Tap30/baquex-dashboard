@@ -1,4 +1,4 @@
-import { useBreadcrumb, type BreadcrumbItem } from "@/components/Breadcrumb";
+import { useBreadcrumb, type BreadcrumbItem } from "@components/Breadcrumb";
 import { useEffect } from "react";
 import { useGetLatest } from "./use-get-latest.ts";
 

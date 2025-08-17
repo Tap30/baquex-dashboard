@@ -1,4 +1,4 @@
-import { BREAKPOINT_KEYS, BreakpointStopValue } from "@/constants/breakpoints";
+import { BREAKPOINT_KEYS, BreakpointStopValue } from "@constants/breakpoints";
 
 const convertValueToUnit = (valueInPx: number, unit: "px" | "rem") =>
   valueInPx / (unit === "px" ? 1 : 16);

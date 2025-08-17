@@ -1,9 +1,9 @@
-import { Exception } from "@/components/Exception";
-import { Icon } from "@/components/Icon";
-import { DASHBOARD_PATH, LOGIN_PATH } from "@/constants/routes";
-import { useAuth } from "@/contexts/Auth";
-import { strings } from "@/static-content";
+import { Exception } from "@components/Exception";
+import { Icon } from "@components/Icon";
+import { DASHBOARD_PATH, LOGIN_PATH } from "@constants/routes";
+import { useAuth } from "@contexts/Auth";
 import { mdiAccountCancel } from "@mdi/js";
+import { strings } from "@static-content";
 import { useNavigate } from "react-router";
 
 export const AccessDeniedPage: React.FC = () => {

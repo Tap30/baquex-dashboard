@@ -1,7 +1,7 @@
-import { BreadcrumbProvider } from "@/components/Breadcrumb";
-import { ClickableArea } from "@/components/ClickableArea";
-import { cn } from "@/utils/cn";
-import { useMediaQuery } from "@/utils/use-media-query";
+import { BreadcrumbProvider } from "@components/Breadcrumb";
+import { ClickableArea } from "@components/ClickableArea";
+import { cn } from "@utils/cn";
+import { useMediaQuery } from "@utils/use-media-query";
 import { useEffect, useRef, useState } from "react";
 import { Outlet } from "react-router";
 import { Header, Sidebar } from "./components/index.ts";

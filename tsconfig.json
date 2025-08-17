@@ -34,8 +34,8 @@
     "noUncheckedSideEffectImports": true,
 
     "paths": {
-      "@/pages/*": ["./src/pages/*/index.ts", "./src/pages/*.tsx"],
-      "@/components/*": [
+      "@pages/*": ["./src/pages/*/index.ts", "./src/pages/*.tsx"],
+      "@components/*": [
         "./src/components/blocks/*/index.ts",
         "./src/components/blocks/*.tsx",
         "./src/components/elements/*/index.ts",
@@ -43,14 +43,14 @@
         "./src/components/layouts/*/index.ts",
         "./src/components/layouts/*.tsx"
       ],
-      "@/assets/*": ["./src/assets/*"],
-      "@/contexts/*": ["./src/contexts/*/index.ts"],
-      "@/services/*": ["./src/services/*/index.ts"],
-      "@/constants/*": ["./src/constants/*.ts"],
-      "@/utils/*": ["./src/utils/*.ts"],
-      "@/static-content": ["./src/static-content.ts"],
-      "@/types": ["./src/types.ts"],
-      "@/config": ["./src/app.config.ts"]
+      "@assets/*": ["./src/assets/*"],
+      "@contexts/*": ["./src/contexts/*/index.ts"],
+      "@services/*": ["./src/services/*/index.ts"],
+      "@constants/*": ["./src/constants/*.ts"],
+      "@utils/*": ["./src/utils/*.ts"],
+      "@static-content": ["./src/static-content.ts"],
+      "@types": ["./src/types.ts"],
+      "@config": ["./src/app.config.ts"]
     }
   },
   "include": ["**/*.ts", "**/*.tsx"],

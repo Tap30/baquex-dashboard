@@ -1,9 +1,9 @@
-import { Flex } from "@/components/Flex";
-import { Text } from "@/components/Text";
-import appConfig from "@/config";
-import { SIDEBAR_ITEMS } from "@/constants/sidebar";
-import { strings } from "@/static-content";
-import { cn } from "@/utils/cn";
+import { Flex } from "@components/Flex";
+import { Text } from "@components/Text";
+import appConfig from "@config";
+import { SIDEBAR_ITEMS } from "@constants/sidebar";
+import { strings } from "@static-content";
+import { cn } from "@utils/cn";
 import { memo } from "react";
 import { Footer, Item } from "./components/index.ts";
 import classes from "./styles.module.css";

@@ -1,5 +1,5 @@
-import { Languages } from "@/constants/languages";
-import { strings } from "@/static-content";
+import { Languages } from "@constants/languages";
+import { strings } from "@static-content";
 import {
   type DateArg,
   format as formatGregorian,

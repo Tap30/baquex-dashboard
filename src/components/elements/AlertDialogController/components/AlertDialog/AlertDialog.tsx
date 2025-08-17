@@ -1,9 +1,9 @@
-import { Button } from "@/components/Button";
-import { usePortalConfig } from "@/components/Portal";
-import { strings } from "@/static-content";
-import type { WithRef } from "@/types";
-import { useIsomorphicValue } from "@/utils/use-isomorphic-value";
+import { Button } from "@components/Button";
+import { usePortalConfig } from "@components/Portal";
 import * as AlertDialogPrimitive from "@radix-ui/react-alert-dialog";
+import { strings } from "@static-content";
+import type { WithRef } from "@types";
+import { useIsomorphicValue } from "@utils/use-isomorphic-value";
 import { useEffect, useRef } from "react";
 import classes from "./styles.module.css";
 

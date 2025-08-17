@@ -1,16 +1,16 @@
-import { ClickableArea } from "@/components/ClickableArea";
-import { Flex } from "@/components/Flex";
-import { Icon } from "@/components/Icon";
-import { Text } from "@/components/Text";
-import { strings } from "@/static-content";
-import { cn } from "@/utils/cn";
+import { ClickableArea } from "@components/ClickableArea";
+import { Flex } from "@components/Flex";
+import { Icon } from "@components/Icon";
+import { Text } from "@components/Text";
 import { mdiArrowDown, mdiArrowUp, mdiSwapVertical } from "@mdi/js";
+import { strings } from "@static-content";
 import {
   flexRender,
   type Header,
   type RowData,
   type Table,
 } from "@tanstack/react-table";
+import { cn } from "@utils/cn";
 import classes from "./styles.module.css";
 
 export type HeadCellProps<Data extends RowData, Value = unknown> = {

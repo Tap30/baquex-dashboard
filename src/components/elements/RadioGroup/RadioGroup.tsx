@@ -1,11 +1,11 @@
-import { Icon } from "@/components/Icon";
-import { Text, type TextProps } from "@/components/Text";
-import type { MergeElementProps } from "@/types";
-import { cn } from "@/utils/cn";
-import { useControllableProp } from "@/utils/use-controllable-prop";
-import { useUniqueId } from "@/utils/use-unique-id";
+import { Icon } from "@components/Icon";
+import { Text, type TextProps } from "@components/Text";
 import { mdiCircleMedium } from "@mdi/js";
 import * as RadioGroupPrimitive from "@radix-ui/react-radio-group";
+import type { MergeElementProps } from "@types";
+import { cn } from "@utils/cn";
+import { useControllableProp } from "@utils/use-controllable-prop";
+import { useUniqueId } from "@utils/use-unique-id";
 import { useEffect, useState } from "react";
 import classes from "./styles.module.css";
 

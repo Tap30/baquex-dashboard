@@ -1,5 +1,5 @@
-import type { MergeElementProps, WithBaseProps } from "@/types";
-import { cn } from "@/utils/cn";
+import type { MergeElementProps, WithBaseProps } from "@types";
+import { cn } from "@utils/cn";
 import classes from "./styles.module.css";
 
 export type ClickableAreaProps = MergeElementProps<

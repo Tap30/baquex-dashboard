@@ -1,4 +1,4 @@
-import { cn } from "@/utils/cn";
+import { cn } from "@utils/cn";
 import classes from "./styles.module.css";
 
 export type CommandShortcutProps = React.ComponentPropsWithRef<"span">;

@@ -1,9 +1,9 @@
-import { Icon } from "@/components/Icon";
-import { Text } from "@/components/Text";
-import type { SidebarParentNodeItem } from "@/constants/sidebar";
-import { useLazyInitializedValue } from "@/utils/use-lazy-initialized-value";
+import { Icon } from "@components/Icon";
+import { Text } from "@components/Text";
+import type { SidebarParentNodeItem } from "@constants/sidebar";
 import { mdiChevronDown } from "@mdi/js";
 import * as CollapsiblePrimitive from "@radix-ui/react-collapsible";
+import { useLazyInitializedValue } from "@utils/use-lazy-initialized-value";
 import { useLocation } from "react-router";
 import { LeafItem } from "../LeafItem/index.ts";
 import classes from "./styles.module.css";

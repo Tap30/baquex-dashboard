@@ -1,12 +1,12 @@
-import { Icon } from "@/components/Icon";
-import { IconButton } from "@/components/IconButton";
-import { SelectInput, type SelectItem } from "@/components/SelectInput";
-import { useDirection } from "@/contexts/Direction";
-import { strings } from "@/static-content";
-import { type Overwrite } from "@/types";
-import { cn } from "@/utils/cn";
-import { formatNumber, normalizeNumbers } from "@/utils/numbers";
+import { Icon } from "@components/Icon";
+import { IconButton } from "@components/IconButton";
+import { SelectInput, type SelectItem } from "@components/SelectInput";
+import { useDirection } from "@contexts/Direction";
 import { mdiChevronLeft, mdiChevronRight } from "@mdi/js";
+import { strings } from "@static-content";
+import { type Overwrite } from "@types";
+import { cn } from "@utils/cn";
+import { formatNumber, normalizeNumbers } from "@utils/numbers";
 import { useMemo } from "react";
 import {
   getDefaultClassNames,

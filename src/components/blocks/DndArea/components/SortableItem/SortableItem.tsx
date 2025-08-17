@@ -1,8 +1,8 @@
-import { cn } from "@/utils/cn";
-import { useUniqueId } from "@/utils/use-unique-id";
 import type { DraggableAttributes } from "@dnd-kit/core";
 import type { SyntheticListenerMap } from "@dnd-kit/core/dist/hooks/utilities/useSyntheticListeners.js";
 import { useSortable, type UseSortableArguments } from "@dnd-kit/sortable";
+import { cn } from "@utils/cn";
+import { useUniqueId } from "@utils/use-unique-id";
 import classes from "./styles.module.css";
 
 export type SortableItemRenderProps = {

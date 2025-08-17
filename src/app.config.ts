@@ -1,8 +1,8 @@
-import logo from "@/assets/logo.svg";
-import { Languages } from "@/constants/languages";
-import { LOGIN_PATH, SIGNIN_CALLBACK_PATH } from "@/constants/routes";
-import type { AppConfig } from "@/types";
-import { getEnv } from "@/utils/env";
+import logo from "@assets/logo.svg";
+import { Languages } from "@constants/languages";
+import { LOGIN_PATH, SIGNIN_CALLBACK_PATH } from "@constants/routes";
+import type { AppConfig } from "@types";
+import { getEnv } from "@utils/env";
 
 const host = getEnv("VITE_APP_HOSTNAME", true);
 

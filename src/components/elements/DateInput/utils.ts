@@ -1,4 +1,4 @@
-import { strings } from "@/static-content";
+import { strings } from "@static-content";
 import type { DateRange } from "react-day-picker";
 
 export const getValueDisplay = (
