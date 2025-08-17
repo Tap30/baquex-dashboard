@@ -4,7 +4,7 @@ import { auth } from "@/services/auth";
 import { strings } from "@/static-content";
 import classes from "./styles.module.css";
 
-const { logo } = appConfig;
+const { logo, name } = appConfig;
 
 export const LoginPage: React.FC = () => {
   const buttonText = [
@@ -49,7 +49,7 @@ export const LoginPage: React.FC = () => {
           variant="h6"
           align="center"
         >
-          {strings.appTitle}
+          {name}
         </Text>
         <Text
           className={classes["description"]}

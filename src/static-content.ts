@@ -2,7 +2,6 @@ import { Languages } from "@/constants";
 import Localization from "react-localization";
 
 type GlobalStrings = {
-  appTitle: string;
   pageLoading: string;
   logoutButton: string;
   from: string;
@@ -60,10 +59,6 @@ type GlobalStrings = {
       nextMonth: string;
       previousMonth: string;
     };
-    dateInput: {
-      selectDate: string;
-      selectDateRange: string;
-    };
     button: {
       pending: string;
     };
@@ -78,25 +73,33 @@ type GlobalStrings = {
       multipleSelected: string;
     };
   };
+  sidebar: string;
   pages: {
     settings: {
       title: string;
     };
-  };
-  sidebar: {
-    title: string;
-    dashboard: string;
-    analytics: string;
+    dashboard: {
+      title: string;
+    };
+    analytics: {
+      title: string;
+    };
     team: {
       title: string;
-      dev: string;
-      qa: string;
-    };
-    groups: {
-      documents: {
+      dev: {
         title: string;
-        dataLib: string;
-        reports: string;
+      };
+      qa: {
+        title: string;
+      };
+    };
+    documents: {
+      title: string;
+      dataLib: {
+        title: string;
+      };
+      reports: {
+        title: string;
       };
     };
   };
@@ -112,7 +115,6 @@ type GlobalStrings = {
 
 export const strings = new Localization<GlobalStrings>({
   [Languages.EN]: {
-    appTitle: "Baquex",
     pageLoading: "The page is loading",
     from: "from",
     to: "to",
@@ -160,10 +162,6 @@ export const strings = new Localization<GlobalStrings>({
         nextMonth: "Next Month",
         previousMonth: "Previous Month",
       },
-      dateInput: {
-        selectDate: "Select date",
-        selectDateRange: "Select a date range",
-      },
       paginator: {
         nextPage: "Go to the next page",
         prevPage: "Go to the previous page",
@@ -173,11 +171,6 @@ export const strings = new Localization<GlobalStrings>({
       },
       fileInput: {
         multipleSelected: "{0} files selected.",
-      },
-    },
-    pages: {
-      settings: {
-        title: "Settings",
       },
     },
     accessDenied: {
@@ -198,20 +191,33 @@ export const strings = new Localization<GlobalStrings>({
       backToLogin: "Back to Login",
       backToDashboard: "Back to Dashboard",
     },
-    sidebar: {
-      title: "Main sidebar navigation",
-      dashboard: "Dashboard",
-      analytics: "Analytics",
+    sidebar: "Main sidebar navigation",
+    pages: {
+      settings: {
+        title: "Settings",
+      },
+      dashboard: {
+        title: "Dashboard",
+      },
+      analytics: {
+        title: "Analytics",
+      },
       team: {
         title: "Team",
-        dev: "Developers",
-        qa: "Q/A",
+        dev: {
+          title: "Developers",
+        },
+        qa: {
+          title: "Q/A",
+        },
       },
-      groups: {
-        documents: {
-          title: "Documents",
-          dataLib: "Data Library",
-          reports: "Reports",
+      documents: {
+        title: "Documents",
+        dataLib: {
+          title: "Data Library",
+        },
+        reports: {
+          title: "Reports",
         },
       },
     },
@@ -220,7 +226,6 @@ export const strings = new Localization<GlobalStrings>({
     },
   },
   [Languages.FA]: {
-    appTitle: "Baquex",
     pageLoading: "در حال آماده‌سازی صفحه",
     from: "از",
     comma: "،",
@@ -276,10 +281,6 @@ export const strings = new Localization<GlobalStrings>({
         nextMonth: "ماه بعد",
         previousMonth: "ماه قبل",
       },
-      dateInput: {
-        selectDate: "یک تاریخ انتخاب کنید",
-        selectDateRange: "یک بازه تاریخ انتخاب کنید",
-      },
       paginator: {
         nextPage: "صفحه بعدی",
         prevPage: "صفحه قبلی",
@@ -291,37 +292,45 @@ export const strings = new Localization<GlobalStrings>({
         multipleSelected: "{0} فایل انتخاب شد.",
       },
     },
-    pages: {
-      settings: {
-        title: "تنظیمات",
-      },
-    },
     accessDenied: {
       title: "خطا در دسترسی",
       description:
         "شما اجازه مشاهده این صفحه را ندارید. اگر فکر می‌کنید اشتباهی رخ داده، لطفاً با مدیر سیستم خود تماس بگیرید.",
       backToDashboard: "بازگشت به صفحه اصلی",
     },
-    sidebar: {
-      title: "نقشه اصلی",
-      dashboard: "داشبورد",
-      analytics: "آمار",
+    pages: {
+      settings: {
+        title: "تنظیمات",
+      },
+      dashboard: {
+        title: "داشبورد",
+      },
+      analytics: {
+        title: "آمار",
+      },
       team: {
         title: "تیم",
-        dev: "توسعه‌دهندگان",
-        qa: "تست‌کنندگان",
+        dev: {
+          title: "توسعه‌دهندگان",
+        },
+        qa: {
+          title: "تست‌کنندگان",
+        },
       },
-      groups: {
-        documents: {
-          title: "اسناد",
-          dataLib: "داده‌ها",
-          reports: "گزارشات",
+      documents: {
+        title: "اسناد",
+        dataLib: {
+          title: "داده‌ها",
+        },
+        reports: {
+          title: "گزارشات",
         },
       },
     },
+    sidebar: "نقشه اصلی",
     notAuthenticated: {
       title: "خطای احراز هویت",
-      description: "برای استفاده این این پنل ابتدا باید لاگین کنید.",
+      description: "برای استفاده از این پنل ابتدا باید لاگین کنید.",
       backToLogin: "رفتن به لاگین",
     },
     errors: {

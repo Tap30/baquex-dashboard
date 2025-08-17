@@ -41,18 +41,18 @@ export type SidebarParentNodeItem = {
 type SidebarNodeItem = SidebarLeafNodeItem | SidebarParentNodeItem;
 export type SidebarItem = SidebarNodeItem | SidebarGroupItem;
 
-const str = strings.sidebar;
+const str = strings.pages;
 
 export const SIDEBAR_ITEMS = [
   {
     type: SidebarItemTypes.LEAF_NODE,
-    title: str.dashboard,
+    title: str.dashboard.title,
     iconData: mdiGauge,
     href: "/",
   },
   {
     type: SidebarItemTypes.LEAF_NODE,
-    title: str.analytics,
+    title: str.analytics.title,
     iconData: mdiGoogleAnalytics,
     href: "",
   },
@@ -63,13 +63,13 @@ export const SIDEBAR_ITEMS = [
     items: [
       {
         type: SidebarItemTypes.LEAF_NODE,
-        title: str.team.dev,
+        title: str.team.dev.title,
         iconData: mdiAlien,
         href: "",
       },
       {
         type: SidebarItemTypes.LEAF_NODE,
-        title: str.team.qa,
+        title: str.team.qa.title,
         iconData: mdiTestTube,
         href: "",
       },
@@ -77,17 +77,17 @@ export const SIDEBAR_ITEMS = [
   },
   {
     type: SidebarItemTypes.GROUP,
-    title: str.groups.documents.title,
+    title: str.documents.title,
     items: [
       {
         type: SidebarItemTypes.LEAF_NODE,
-        title: str.groups.documents.dataLib,
+        title: str.documents.dataLib.title,
         iconData: mdiDatabase,
         href: "",
       },
       {
         type: SidebarItemTypes.LEAF_NODE,
-        title: str.groups.documents.reports,
+        title: str.documents.reports.title,
         iconData: mdiFileChart,
         href: "",
       },

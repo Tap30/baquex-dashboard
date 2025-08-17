@@ -51,7 +51,7 @@ const SidebarBase: React.FC<Props> = props => {
       </Flex>
       <nav
         className={classes["nav"]}
-        aria-label={strings.sidebar.title}
+        aria-label={strings.sidebar}
       >
         <Flex
           direction="column"
