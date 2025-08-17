@@ -3,7 +3,8 @@ import type {
   PropValueWithBreakpoints,
   WithBaseProps,
 } from "@/types";
-import { cn, generateTailwindClassesWithBreakpoints } from "@/utils";
+import { cn } from "@/utils/cn";
+import { generateTailwindClassesWithBreakpoints } from "@/utils/generate-tailwind-classes-with-breakpoints";
 import * as React from "react";
 import classes from "./styles.module.css";
 

@@ -1,8 +1,13 @@
-import { Button, Icon, IconButton } from "@/components";
-import { useDirection } from "@/contexts";
+import { Button } from "@/components/Button";
+import { Icon } from "@/components/Icon";
+import { IconButton } from "@/components/IconButton";
+import { useDirection } from "@/contexts/Direction";
 import { strings } from "@/static-content";
 import type { WithRef } from "@/types";
-import { clamp, cn, formatNumber, useControllableProp } from "@/utils";
+import { cn } from "@/utils/cn";
+import { clamp } from "@/utils/math";
+import { formatNumber } from "@/utils/numbers";
+import { useControllableProp } from "@/utils/use-controllable-prop";
 import { mdiChevronLeft, mdiChevronRight } from "@mdi/js";
 import { PaginatorActionTypes } from "./constants.ts";
 import classes from "./styles.module.css";

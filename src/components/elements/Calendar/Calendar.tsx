@@ -1,14 +1,11 @@
-import {
-  CalendarType,
-  Icon,
-  IconButton,
-  SelectInput,
-  type SelectItem,
-} from "@/components";
-import { useDirection } from "@/contexts";
+import { Icon } from "@/components/Icon";
+import { IconButton } from "@/components/IconButton";
+import { SelectInput, type SelectItem } from "@/components/SelectInput";
+import { useDirection } from "@/contexts/Direction";
 import { strings } from "@/static-content";
 import { type Overwrite } from "@/types";
-import { cn, formatNumber, normalizeNumbers } from "@/utils";
+import { cn } from "@/utils/cn";
+import { formatNumber, normalizeNumbers } from "@/utils/numbers";
 import { mdiChevronLeft, mdiChevronRight } from "@mdi/js";
 import { useMemo } from "react";
 import {
@@ -20,6 +17,7 @@ import {
   type PropsRangeRequired,
   type PropsSingleRequired,
 } from "react-day-picker";
+import { CalendarType } from "./constants.ts";
 import classes from "./styles.module.css";
 import { resolveCalendar } from "./utils.ts";
 

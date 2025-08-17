@@ -1,6 +1,8 @@
-import { Flex, Text } from "@/components";
+import { Flex } from "@/components/Flex";
+import { Text } from "@/components/Text";
 import type { WithBaseProps } from "@/types";
-import { cn, useUniqueId } from "@/utils";
+import { cn } from "@/utils/cn";
+import { useUniqueId } from "@/utils/use-unique-id";
 import classes from "./styles.module.css";
 
 export type PanelCardProps = WithBaseProps<{

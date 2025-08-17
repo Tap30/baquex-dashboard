@@ -1,5 +1,5 @@
 import type { ExcludeUndefined } from "@/types";
-import { formatNumber } from "@/utils";
+import { formatNumber } from "@/utils/numbers";
 import type { DefaultTooltipContent } from "recharts";
 import classes from "./styles.module.css";
 

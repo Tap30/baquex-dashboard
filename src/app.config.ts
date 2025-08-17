@@ -1,8 +1,8 @@
 import logo from "@/assets/logo.svg";
-import { Languages, LOGIN_PATH, SIGNIN_CALLBACK_PATH } from "@/constants";
-import { strings } from "@/static-content";
+import { Languages } from "@/constants/languages";
+import { LOGIN_PATH, SIGNIN_CALLBACK_PATH } from "@/constants/routes";
 import type { AppConfig } from "@/types";
-import { getEnv } from "@/utils";
+import { getEnv } from "@/utils/env";
 
 const host = getEnv("VITE_APP_HOSTNAME", true);
 
@@ -20,7 +20,5 @@ const appConfig: AppConfig = {
     scope: getEnv("VITE_OIDC_SCOPE"),
   },
 };
-
-strings.setLanguage(appConfig.language);
 
 export default appConfig;

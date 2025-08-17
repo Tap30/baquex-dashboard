@@ -1,4 +1,4 @@
-import { Icon, type IconProps } from "@/components";
+import { Icon, type IconProps } from "@/components/Icon";
 
 export type TapsiIconProps = Omit<IconProps, "data">;
 

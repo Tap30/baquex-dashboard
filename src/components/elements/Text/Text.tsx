@@ -1,5 +1,5 @@
 import type { PolymorphicProps, WithBaseProps } from "@/types";
-import { cn } from "@/utils";
+import { cn } from "@/utils/cn";
 import type { WithColorProps } from "../../types.ts";
 import classes from "./Text.module.css";
 

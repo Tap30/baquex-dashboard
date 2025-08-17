@@ -1,6 +1,9 @@
-import { CheckBox, Text, type TextProps } from "@/components";
+import { CheckBox } from "@/components/CheckBox";
+import { Text, type TextProps } from "@/components/Text";
 import type { MergeElementProps } from "@/types";
-import { cn, useControllableProp, useUniqueId } from "@/utils";
+import { cn } from "@/utils/cn";
+import { useControllableProp } from "@/utils/use-controllable-prop";
+import { useUniqueId } from "@/utils/use-unique-id";
 import { useEffect, useState } from "react";
 import classes from "./styles.module.css";
 

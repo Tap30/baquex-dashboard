@@ -1,5 +1,5 @@
 import type { WithRef } from "@/types";
-import { cn } from "@/utils";
+import { cn } from "@/utils/cn";
 import * as ProgressPrimitives from "@radix-ui/react-progress";
 import classes from "./styles.module.css";
 

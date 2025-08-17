@@ -1,4 +1,4 @@
-import { cn } from "@/utils";
+import { cn } from "@/utils/cn";
 import { Command as CommandPrimitive } from "cmdk";
 import { useCallback } from "react";
 import classes from "./styles.module.css";

@@ -1,6 +1,7 @@
-import { Exception, Icon } from "@/components";
-import { DASHBOARD_PATH, LOGIN_PATH } from "@/constants";
-import { useAuth } from "@/contexts";
+import { Exception } from "@/components/Exception";
+import { Icon } from "@/components/Icon";
+import { DASHBOARD_PATH, LOGIN_PATH } from "@/constants/routes";
+import { useAuth } from "@/contexts/Auth";
 import { strings } from "@/static-content";
 import { mdiGoogleDownasaur } from "@mdi/js";
 import { useNavigate } from "react-router";

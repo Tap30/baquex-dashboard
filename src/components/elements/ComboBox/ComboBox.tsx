@@ -1,23 +1,27 @@
+import { Badge } from "@/components/Badge";
 import {
-  Badge,
   Command,
   CommandEmpty,
   CommandGroup,
   CommandInput,
   CommandItem,
   CommandList,
-  Icon,
-  IconButton,
+} from "@/components/Command";
+import { Icon } from "@/components/Icon";
+import { IconButton } from "@/components/IconButton";
+import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-  Text,
   type PopoverContentProps,
-  type TextProps,
-} from "@/components";
+} from "@/components/Popover";
+import { Text, type TextProps } from "@/components/Text";
 import { strings } from "@/static-content";
 import type { MergeElementProps } from "@/types";
-import { cn, useControllableProp, useForkedRefs, useUniqueId } from "@/utils";
+import { cn } from "@/utils/cn";
+import { useControllableProp } from "@/utils/use-controllable-prop";
+import { useForkedRefs } from "@/utils/use-forked-refs";
+import { useUniqueId } from "@/utils/use-unique-id";
 import { mdiCheck, mdiClose } from "@mdi/js";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import classes from "./styles.module.css";

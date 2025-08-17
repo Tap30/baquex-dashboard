@@ -1,5 +1,5 @@
-import { Icon } from "@/components";
-import { cn } from "@/utils";
+import { Icon } from "@/components/Icon";
+import { cn } from "@/utils/cn";
 import { mdiMagnify } from "@mdi/js";
 import { Command as CommandPrimitive } from "cmdk";
 import classes from "./styles.module.css";

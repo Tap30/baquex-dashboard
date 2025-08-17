@@ -1,5 +1,5 @@
 import type { MergeElementProps } from "@/types";
-import { cn } from "@/utils";
+import { cn } from "@/utils/cn";
 import type { WithColorProps } from "../../types.ts";
 import { SIZE } from "./constants.ts";
 import classes from "./styles.module.css";

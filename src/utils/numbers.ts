@@ -1,4 +1,4 @@
-import { Languages } from "@/constants";
+import { Languages } from "@/constants/languages";
 import { strings } from "@/static-content";
 
 export const formatNumber = (n: number): string => {

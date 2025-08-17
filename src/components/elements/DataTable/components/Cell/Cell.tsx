@@ -1,5 +1,5 @@
-import { Text } from "@/components";
-import { cn } from "@/utils";
+import { Text } from "@/components/Text";
+import { cn } from "@/utils/cn";
 import {
   type Cell as CellType,
   type RowData,

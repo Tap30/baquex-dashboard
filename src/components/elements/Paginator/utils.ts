@@ -1,4 +1,4 @@
-import { clamp } from "@/utils";
+import { clamp } from "@/utils/math";
 
 /**
  * Generates an array of page numbers to display in a pagination component.

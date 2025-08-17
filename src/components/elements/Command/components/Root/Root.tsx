@@ -1,5 +1,5 @@
 import type { Overwrite } from "@/types";
-import { cn } from "@/utils";
+import { cn } from "@/utils/cn";
 import { Command as CommandPrimitive } from "cmdk";
 import classes from "./styles.module.css";
 

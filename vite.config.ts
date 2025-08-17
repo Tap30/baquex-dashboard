@@ -17,7 +17,7 @@ const config = defineConfig(({ mode }) => {
     plugins: [...baseConfig.plugins, mkcert({ savePath: ".certs" })],
     server: {
       port: 443,
-      open: `https://${env.VITE_APP_HOSTNAME}`,
+      open: env.VITE_APP_HOSTNAME,
     },
   };
 

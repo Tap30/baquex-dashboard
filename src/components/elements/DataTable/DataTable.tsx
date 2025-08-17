@@ -1,7 +1,9 @@
-import { Paginator, Text } from "@/components";
+import { Paginator } from "@/components/Paginator";
+import { Text } from "@/components/Text";
 import { strings } from "@/static-content";
 import type { WithRef } from "@/types";
-import { cn, useControllableProp } from "@/utils";
+import { cn } from "@/utils/cn";
+import { useControllableProp } from "@/utils/use-controllable-prop";
 import {
   getCoreRowModel,
   getFacetedRowModel,

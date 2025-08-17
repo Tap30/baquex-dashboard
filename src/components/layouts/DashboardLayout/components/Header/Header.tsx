@@ -1,6 +1,8 @@
-import { Breadcrumb, Icon, IconButton, useBreadcrumb } from "@/components";
+import { Breadcrumb, useBreadcrumb } from "@/components/Breadcrumb";
+import { Icon } from "@/components/Icon";
+import { IconButton } from "@/components/IconButton";
 import { strings } from "@/static-content";
-import { cn } from "@/utils";
+import { cn } from "@/utils/cn";
 import { mdiMenuClose, mdiMenuOpen } from "@mdi/js";
 import classes from "./styles.module.css";
 

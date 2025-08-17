@@ -1,4 +1,4 @@
-import { useDirection } from "@/contexts";
+import { useDirection } from "@/contexts/Direction";
 import type { WithRef } from "@/types";
 import { Toaster as Sonner, type ToasterProps as SonnerProps } from "sonner";
 

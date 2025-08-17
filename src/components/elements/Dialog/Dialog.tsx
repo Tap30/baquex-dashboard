@@ -1,12 +1,11 @@
-import {
-  Button,
-  Icon,
-  IconButton,
-  usePortalConfig,
-  type ButtonProps,
-} from "@/components";
+import { Button, type ButtonProps } from "@/components/Button";
+import { Icon } from "@/components/Icon";
+import { IconButton } from "@/components/IconButton";
+import { usePortalConfig } from "@/components/Portal";
 import type { WithRef } from "@/types";
-import { cn, useIsomorphicValue, useUniqueId } from "@/utils";
+import { cn } from "@/utils/cn";
+import { useIsomorphicValue } from "@/utils/use-isomorphic-value";
+import { useUniqueId } from "@/utils/use-unique-id";
 import { mdiClose } from "@mdi/js";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { useEffect, useRef } from "react";

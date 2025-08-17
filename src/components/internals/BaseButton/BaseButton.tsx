@@ -1,6 +1,8 @@
 import { strings } from "@/static-content";
 import type { MergeElementProps, WithBaseProps } from "@/types";
-import { cn, useForkedRefs, useIsomorphicLayoutEffect } from "@/utils";
+import { cn } from "@/utils/cn";
+import { useForkedRefs } from "@/utils/use-forked-refs";
+import { useIsomorphicLayoutEffect } from "@/utils/use-isomorphic-layout-effect";
 import { useRef } from "react";
 import classes from "./styles.module.css";
 

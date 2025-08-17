@@ -1,12 +1,12 @@
-import { Icon, Text, usePortalConfig, type TextProps } from "@/components";
+import { Icon } from "@/components/Icon";
+import { usePortalConfig } from "@/components/Portal";
+import { Text, type TextProps } from "@/components/Text";
 import type { MergeElementProps } from "@/types";
-import {
-  cn,
-  useControllableProp,
-  useForkedRefs,
-  useIsomorphicValue,
-  useUniqueId,
-} from "@/utils";
+import { cn } from "@/utils/cn";
+import { useControllableProp } from "@/utils/use-controllable-prop";
+import { useForkedRefs } from "@/utils/use-forked-refs";
+import { useIsomorphicValue } from "@/utils/use-isomorphic-value";
+import { useUniqueId } from "@/utils/use-unique-id";
 import { mdiCheck, mdiChevronDown, mdiChevronUp } from "@mdi/js";
 import * as SelectPrimitive from "@radix-ui/react-select";
 import { useCallback, useEffect, useRef, useState } from "react";

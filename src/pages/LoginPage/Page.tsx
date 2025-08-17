@@ -1,4 +1,8 @@
-import { Button, Flex, TapsiIcon, Text, toast } from "@/components";
+import { Button } from "@/components/Button";
+import { Flex } from "@/components/Flex";
+import { TapsiIcon } from "@/components/TapsiIcon";
+import { Text } from "@/components/Text";
+import { toast } from "@/components/Toaster";
 import appConfig from "@/config";
 import { auth } from "@/services/auth";
 import { strings } from "@/static-content";

@@ -1,4 +1,5 @@
-import { cn, useUniqueId } from "@/utils";
+import { cn } from "@/utils/cn";
+import { useUniqueId } from "@/utils/use-unique-id";
 import {
   useDraggable,
   type DraggableAttributes,

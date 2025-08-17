@@ -1,7 +1,12 @@
-import { Icon, IconButton, Text, type TextProps } from "@/components";
+import { Icon } from "@/components/Icon";
+import { IconButton } from "@/components/IconButton";
+import { Text, type TextProps } from "@/components/Text";
 import { strings } from "@/static-content";
 import type { MergeElementProps } from "@/types";
-import { cn, formatNumber, useForkedRefs, useUniqueId } from "@/utils";
+import { cn } from "@/utils/cn";
+import { formatNumber } from "@/utils/numbers";
+import { useForkedRefs } from "@/utils/use-forked-refs";
+import { useUniqueId } from "@/utils/use-unique-id";
 import { mdiClose } from "@mdi/js";
 import { useEffect, useRef, useState } from "react";
 import classes from "./styles.module.css";

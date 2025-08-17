@@ -1,5 +1,5 @@
-import { Spinner } from "@/components";
-import { cn } from "@/utils";
+import { Spinner } from "@/components/Spinner";
+import { cn } from "@/utils/cn";
 import { BaseButton, type BaseButtonProps } from "../../internals/index.ts";
 import classes from "./styles.module.css";
 

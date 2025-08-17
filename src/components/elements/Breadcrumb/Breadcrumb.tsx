@@ -1,6 +1,6 @@
-import { Text } from "@/components";
+import { Text } from "@/components/Text";
 import type { WithRef } from "@/types";
-import { cn } from "@/utils";
+import { cn } from "@/utils/cn";
 import { Link } from "react-router";
 import classes from "./styles.module.css";
 

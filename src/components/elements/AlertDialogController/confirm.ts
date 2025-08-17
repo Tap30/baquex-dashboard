@@ -1,4 +1,4 @@
-import { ClientIdGenerator } from "@/utils";
+import { ClientIdGenerator } from "@/utils/ClientIdGenerator";
 import { Container, useValue } from "react-containerized-state";
 import type { AlertDialogProps } from "./components/index.ts";
 

@@ -1,5 +1,5 @@
-import type { BreadcrumbItem } from "@/components";
 import { useCallback, useMemo, useState } from "react";
+import type { BreadcrumbItem } from "../Breadcrumb.tsx";
 import { BreadcrumbContext, type BreadcrumbContextValue } from "./Context.ts";
 
 type Props = {

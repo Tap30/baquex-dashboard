@@ -1,6 +1,7 @@
-import { Flex, Text } from "@/components";
+import { Flex } from "@/components/Flex";
+import { Text } from "@/components/Text";
 import type { WithRef } from "@/types";
-import { cn } from "@/utils";
+import { cn } from "@/utils/cn";
 import classes from "./styles.module.css";
 
 export type AlertProps = WithRef<

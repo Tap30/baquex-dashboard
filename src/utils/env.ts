@@ -1,4 +1,4 @@
-import { Env } from "@/constants";
+import { Env } from "@/constants/env";
 
 export const getEnv = <T extends keyof ImportMetaEnv>(
   name: T,

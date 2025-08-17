@@ -1,24 +1,19 @@
-import {
-  AuthLayout,
-  DashboardLayout,
-  MainLayout,
-  ProtectedRoute,
-} from "@/components";
+import { AuthLayout } from "@/components/AuthLayout";
+import { DashboardLayout } from "@/components/DashboardLayout";
+import { MainLayout } from "@/components/MainLayout";
+import { ProtectedRoute } from "@/components/ProtectedRoute";
 import {
   DASHBOARD_PATH,
   LOGIN_PATH,
   SIGNIN_CALLBACK_PATH,
   UNAUTHORIZED_PATH,
-} from "@/constants";
-import { AuthProvider } from "@/contexts";
-import {
-  AccessDeniedPage,
-  dashboardLoader,
-  DashboardPage,
-  LoginPage,
-  NotFoundPage,
-  SigninCallbackPage,
-} from "@/pages";
+} from "@/constants/routes";
+import { AuthProvider } from "@/contexts/Auth";
+import { AccessDeniedPage } from "@/pages/AccessDeniedPage";
+import { dashboardLoader, DashboardPage } from "@/pages/DashboardPage";
+import { LoginPage } from "@/pages/LoginPage";
+import { NotFoundPage } from "@/pages/NotFoundPage";
+import { SigninCallbackPage } from "@/pages/SigninCallbackPage";
 import { createBrowserRouter, RouterProvider } from "react-router";
 
 const router = createBrowserRouter([

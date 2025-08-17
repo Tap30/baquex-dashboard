@@ -1,5 +1,8 @@
-import { Button, type ButtonProps, Flex, Icon, Text } from "@/components";
-import { cn } from "@/utils";
+import { Button, type ButtonProps } from "@/components/Button";
+import { Flex, FlexItem } from "@/components/Flex";
+import { Icon } from "@/components/Icon";
+import { Text } from "@/components/Text";
+import { cn } from "@/utils/cn";
 import { mdiBlockHelper } from "@mdi/js";
 import classes from "./styles.module.css";
 
@@ -41,7 +44,7 @@ export const Exception: React.FC<ExceptionProps> = props => {
   } = props ?? {};
 
   return (
-    <Flex className={classes["root"]}>
+    <FlexItem className={classes["root"]}>
       <Flex
         gap="xxl"
         direction={{ sm: "row", fallback: "column" }}
@@ -78,6 +81,6 @@ export const Exception: React.FC<ExceptionProps> = props => {
           <Button {...action} />
         </Flex>
       </Flex>
-    </Flex>
+    </FlexItem>
   );
 };

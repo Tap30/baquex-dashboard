@@ -1,6 +1,7 @@
-import { usePortalConfig } from "@/components";
+import { usePortalConfig } from "@/components/Portal";
 import type { WithRef } from "@/types";
-import { cn, useIsomorphicValue } from "@/utils";
+import { cn } from "@/utils/cn";
+import { useIsomorphicValue } from "@/utils/use-isomorphic-value";
 import * as PopoverPrimitive from "@radix-ui/react-popover";
 import classes from "./styles.module.css";
 

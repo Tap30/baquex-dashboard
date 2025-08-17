@@ -1,6 +1,9 @@
-import { Icon, Text, type TextProps } from "@/components";
+import { Icon } from "@/components/Icon";
+import { Text, type TextProps } from "@/components/Text";
 import type { MergeElementProps } from "@/types";
-import { cn, useForkedRefs, useUniqueId } from "@/utils";
+import { cn } from "@/utils/cn";
+import { useForkedRefs } from "@/utils/use-forked-refs";
+import { useUniqueId } from "@/utils/use-unique-id";
 import { mdiClock } from "@mdi/js";
 import { useEffect, useRef, useState } from "react";
 import classes from "./styles.module.css";

@@ -1,5 +1,6 @@
 import type { MergeElementProps } from "@/types";
-import { cn, useUniqueId } from "@/utils";
+import { cn } from "@/utils/cn";
+import { useUniqueId } from "@/utils/use-unique-id";
 import * as RechartsPrimitive from "recharts";
 import { ChartProvider } from "../../context/index.ts";
 import type { ChartConfig } from "../../types.ts";

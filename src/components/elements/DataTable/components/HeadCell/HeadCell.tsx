@@ -1,6 +1,9 @@
-import { ClickableArea, Flex, Icon, Text } from "@/components";
+import { ClickableArea } from "@/components/ClickableArea";
+import { Flex } from "@/components/Flex";
+import { Icon } from "@/components/Icon";
+import { Text } from "@/components/Text";
 import { strings } from "@/static-content";
-import { cn } from "@/utils";
+import { cn } from "@/utils/cn";
 import { mdiArrowDown, mdiArrowUp, mdiSwapVertical } from "@mdi/js";
 import {
   flexRender,
