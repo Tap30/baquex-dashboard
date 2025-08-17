@@ -4,7 +4,7 @@ import classes from "./styles.module.css";
 
 export const DashboardPage: React.FC = () => {
   usePageBreadcrumb({
-    title: strings.sidebar.dashboard,
+    title: strings.pages.dashboard.title,
     href: "/",
   });
 
