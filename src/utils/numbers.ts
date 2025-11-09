@@ -1,12 +1,25 @@
+import appConfig from "@config";
 import { Languages } from "@constants/languages";
-import { strings } from "@static-content";
 
-export const formatNumber = (n: number): string => {
-  const lang = strings.getLanguage();
+export const formatNumber = (
+  n: number,
+  options: Intl.NumberFormatOptions = {},
+): string => {
+  const {
+    useGrouping = false,
+    maximumFractionDigits = 2,
+    ...otherOpts
+  } = options;
+
+  const { language } = appConfig;
 
   const formatter = new Intl.NumberFormat(
-    lang === Languages.FA ? "fa-IR" : "en-US",
-    { useGrouping: false },
+    language === Languages.FA ? "fa-IR" : "en-US",
+    {
+      ...otherOpts,
+      useGrouping,
+      maximumFractionDigits,
+    },
   );
 
   return formatter.format(n);

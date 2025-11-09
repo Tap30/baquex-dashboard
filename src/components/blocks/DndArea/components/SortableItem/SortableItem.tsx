@@ -18,12 +18,10 @@ export type SortableItemProps = UseSortableArguments & {
 
   /**
    * The content to be rendered inside the component.
-   * This can be a standard React node or a function that receives
-   * `SortableItemRenderProps` to create custom drag handles.
+   * This has to be a function that receives `SortableItemRenderProps` to create
+   * custom drag handles.
    */
-  children:
-    | React.ReactNode
-    | ((renderProps: SortableItemRenderProps) => React.ReactNode);
+  children: (renderProps: SortableItemRenderProps) => React.ReactNode;
 };
 
 export const SortableItem: React.FC<SortableItemProps> = props => {
@@ -39,13 +37,10 @@ export const SortableItem: React.FC<SortableItemProps> = props => {
 
   const sortable = useSortable({ ...hookProps, id: sortableId });
 
-  const children =
-    childrenProp instanceof Function
-      ? childrenProp({
-          listeners: sortable.listeners,
-          attributes: sortable.attributes,
-        })
-      : childrenProp;
+  const children = childrenProp({
+    listeners: sortable.listeners,
+    attributes: sortable.attributes,
+  });
 
   const { x, y, scaleX, scaleY } = sortable.transform ?? {};
 

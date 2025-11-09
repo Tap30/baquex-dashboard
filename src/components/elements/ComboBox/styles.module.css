@@ -65,7 +65,7 @@
   align-items: center;
 
   font-size: var(--combobox-control-font-size);
-  height: var(--combobox-control-height);
+  min-height: var(--combobox-control-height);
   color: var(--combobox-control-color);
 
   cursor: pointer;
@@ -89,6 +89,7 @@
   color: inherit;
 
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: var(--spacing-sm);
 
@@ -98,7 +99,7 @@
   cursor: pointer;
 
   border-radius: inherit;
-  padding-inline: var(--spacing-xs);
+  padding: var(--spacing-xs);
 }
 
 .input:focus-visible {
@@ -107,9 +108,9 @@
 
 .start-slot,
 .end-slot {
-  height: 100%;
   display: inline-flex;
   align-items: center;
+  align-self: flex-start;
 
   flex-shrink: 0;
 
@@ -139,26 +140,42 @@
   max-height: var(--combobox-control-icon-size);
 }
 
-.select-icon {
+.chevron {
+  width: var(--combobox-control-height);
+  height: var(--combobox-control-height);
+  max-width: var(--combobox-control-height);
+  max-height: var(--combobox-control-height);
+
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
 
-  margin-inline-start: auto;
+  margin-inline-start: calc(-1 * var(--spacing-sm));
+}
+
+.chevron > svg {
+  width: var(--combobox-control-icon-size);
+  height: var(--combobox-control-icon-size);
+  max-width: var(--combobox-control-icon-size);
+  max-height: var(--combobox-control-icon-size);
 }
 
 .content {
-  width: var(--combobox-content-width);
   margin-inline-start: calc(-1 * var(--spacing-xs));
   padding: 0 !important;
 }
 
+.content.full-width {
+  width: var(--combobox-content-width);
+}
+
 .content[data-side="top"] {
-  margin-bottom: calc(var(--spacing-xs) + 1px);
+  margin-bottom: 0.0625rem;
 }
 
 .content[data-side="bottom"] {
-  margin-top: calc(var(--spacing-xs) + 1px);
+  margin-top: 0.0625rem;
 }
 
 .item[data-disabled="true"] {
@@ -213,4 +230,16 @@
 .root.sm .badge {
   border-radius: 0;
   height: calc(1.5rem - 0.25rem);
+}
+
+.content:not(.searchable) .searchbox {
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  position: absolute;
+  overflow: hidden;
 }

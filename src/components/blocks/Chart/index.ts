@@ -1,2 +1,2 @@
-export * from "./components/index.ts";
+export * from "./components/index.internal.ts";
 export type * from "./types.ts";

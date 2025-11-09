@@ -1,4 +1,5 @@
 import type { DataStorage } from "@services/storage";
+import { useIsServerHandoffCompleted } from "@utils/use-is-server-handoff-completed";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 export type UsePersistedStateStorageConfig = {
@@ -40,15 +41,28 @@ export const usePersistedState = <T>(
     );
   }
 
-  const [state, setState] = useState(initialValue);
   const initialRenderCompleted = useRef(false);
+
+  const initializeState = () => {
+    const init = storage.getItem<T>(name) ?? initialValue;
+    const initialState = init instanceof Function ? init() : init;
+
+    initialRenderCompleted.current = true;
+
+    return initialState;
+  };
+
+  const isClientReady = useIsServerHandoffCompleted();
+
+  const [state, setState] = useState(
+    !isClientReady ? initialValue : initializeState,
+  );
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     if (initialRenderCompleted.current) return;
 
-    const init = storage.getItem<T>(name) ?? initialValue;
-    const initialState = init instanceof Function ? init() : init;
+    const initialState = initializeState();
 
     if (state !== initialState) setState(initialState);
 

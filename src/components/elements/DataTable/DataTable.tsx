@@ -16,7 +16,7 @@ import type { WithRef } from "@types";
 import { cn } from "@utils/cn";
 import { useControllableProp } from "@utils/use-controllable-prop";
 import { useImperativeHandle } from "react";
-import { Cell, HeadCell } from "./components/index.ts";
+import { Cell, HeadCell } from "./components/index.internal.ts";
 import classes from "./styles.module.css";
 
 export type DataTableState = TableState;
@@ -34,6 +34,25 @@ export type DataTableProps<Data extends RowData, Value = unknown> = WithRef<
      * The className applied to the component.
      */
     className?: string;
+
+    /**
+     * The classnames of the component.
+     */
+    classNames?: Partial<
+      Record<
+        | "root"
+        | "table"
+        | "caption"
+        | "heading"
+        | "body"
+        | "row"
+        | "headCell"
+        | "cell"
+        | "paginator"
+        | "emptyStatement",
+        string
+      >
+    >;
 
     /**
      * The caption of the table.
@@ -122,6 +141,13 @@ export type DataTableProps<Data extends RowData, Value = unknown> = WithRef<
      * @default true
      */
     enablePagination?: boolean;
+
+    /**
+     * Whether to disable the table interactions.
+     *
+     * @default false
+     */
+    disabled?: boolean;
   },
   "table"
 >;
@@ -131,6 +157,7 @@ export const DataTable = <Data extends RowData, Value = unknown>(
 ) => {
   const {
     className,
+    classNames,
     dataTableInstanceRef,
     columnsDef,
     data,
@@ -141,6 +168,7 @@ export const DataTable = <Data extends RowData, Value = unknown>(
     enableRowSelection = false,
     enableMultiRowSelection = false,
     enablePagination = true,
+    disabled = false,
     onStateChange,
     onPaginationChange,
     onRowSelectionChange,
@@ -233,14 +261,14 @@ export const DataTable = <Data extends RowData, Value = unknown>(
           key={header.id}
           header={header}
           table={table}
-          className={classes["head-cell"]}
+          className={cn(classes["head-cell"], classNames?.headCell)}
         />
       ));
 
       return (
         <tr
           key={headerGroup.id}
-          className={classes["row"]}
+          className={cn(classes["row"], classNames?.row)}
         >
           {headerCells}
         </tr>
@@ -255,14 +283,14 @@ export const DataTable = <Data extends RowData, Value = unknown>(
           key={cell.id}
           cell={cell}
           table={table}
-          className={classes["cell"]}
+          className={cn(classes["cell"], classNames?.cell)}
         />
       ));
 
       return (
         <tr
           key={row.id}
-          className={classes["row"]}
+          className={cn(classes["row"], classNames?.row)}
           data-state={row.getIsSelected() ? "selected" : "unselected"}
         >
           {cells}
@@ -278,7 +306,7 @@ export const DataTable = <Data extends RowData, Value = unknown>(
         as="p"
         align="center"
         color="tertiary"
-        className={classes["empty-statement"]}
+        className={cn(classes["empty-statement"], classNames?.emptyStatement)}
       >
         {strings.emptyStatement.table}
       </Text>
@@ -286,23 +314,37 @@ export const DataTable = <Data extends RowData, Value = unknown>(
   }
 
   return (
-    <div className={cn(classes["root"], className)}>
-      <table className={classes["table"]}>
+    <div
+      className={cn(classes["root"], className, classNames?.root, {
+        [classes["disabled"]!]: disabled,
+      })}
+      inert={disabled}
+      data-rows-count={data.length}
+      data-page-count={pageCount}
+      data-pagination-enabled={enablePagination}
+      data-row-selection-enabled={enableRowSelection}
+      data-disabled={disabled}
+    >
+      <table className={cn(classes["table"], classNames?.table)}>
         <Text
           as="caption"
           variant="body2"
           color="tertiary"
-          className={classes["caption"]}
+          className={cn(classes["caption"], classNames?.caption)}
         >
           {caption}
         </Text>
-        <thead className={classes["heading"]}>{renderHeading()}</thead>
-        <tbody className={classes["body"]}>{renderBody()}</tbody>
+        <thead className={cn(classes["heading"], classNames?.heading)}>
+          {renderHeading()}
+        </thead>
+        <tbody className={cn(classes["body"], classNames?.body)}>
+          {renderBody()}
+        </tbody>
       </table>
       <Paginator
         pageCount={pageCount}
         screenReaderLabel="Table pagination"
-        className={classes["paginator"]}
+        className={cn(classes["paginator"], classNames?.paginator)}
         onPageChange={handlePageChange}
         disabled={!enablePagination}
         page={tableState.pagination.pageIndex + 1}

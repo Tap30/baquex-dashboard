@@ -1,14 +1,20 @@
-import { PageLoading } from "@components/PageLoading";
-import { DASHBOARD_PATH } from "@constants/routes";
-import { useAuth } from "@contexts/Auth";
+import {
+  DASHBOARD_PATH,
+  LOGIN_PATH,
+  RETURN_URL_SEARCH_PARAM_KEY,
+} from "@constants/routes";
+import { useAuth } from "@services/auth";
+import { useReturnUrl } from "@utils/use-return-url";
 import { Navigate, Outlet } from "react-router";
 
 export const AuthLayout: React.FC = () => {
-  const { isAuthenticated, isAuthenticating } = useAuth();
+  const { isAuthenticated } = useAuth();
 
-  if (isAuthenticating) {
-    return <PageLoading loading />;
-  }
+  const returnUrl = useReturnUrl({
+    dashboardRoutePath: DASHBOARD_PATH,
+    loginRoutePath: LOGIN_PATH,
+    searchParamKey: RETURN_URL_SEARCH_PARAM_KEY,
+  });
 
   // If not authenticated, render the login page
   if (!isAuthenticated) {
@@ -22,7 +28,7 @@ export const AuthLayout: React.FC = () => {
   // If authenticated and scope access is granted, redirect to the dashboard page
   return (
     <Navigate
-      to={DASHBOARD_PATH}
+      to={returnUrl.getUrl()}
       replace
     />
   );

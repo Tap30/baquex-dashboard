@@ -51,6 +51,25 @@ export type RadioGroupProps = Omit<
       orientation?: "horizontal" | "vertical";
 
       /**
+       * The classnames of the component.
+       */
+      classNames?: Partial<
+        Record<
+          | "root"
+          | "label"
+          | "description"
+          | "group"
+          | "control"
+          | "radio"
+          | "indicator"
+          | "radioIcon"
+          | "radioLabel"
+          | "feedback",
+          string
+        >
+      >;
+
+      /**
        * The array of items.
        */
       items: RadioItem[];
@@ -142,6 +161,7 @@ export type RadioGroupProps = Omit<
 export const RadioGroup: React.FC<RadioGroupProps> = props => {
   const {
     className,
+    classNames,
     id: idProp,
     value: valueProp,
     defaultValue,
@@ -220,7 +240,7 @@ export const RadioGroup: React.FC<RadioGroupProps> = props => {
         id={labelId}
         htmlFor={groupId}
         variant={labelVariant}
-        className={classes["label"]}
+        className={cn(classes["label"], classNames?.label)}
       >
         {label}
       </Text>
@@ -242,7 +262,7 @@ export const RadioGroup: React.FC<RadioGroupProps> = props => {
         as="p"
         variant={descVariant}
         color="secondary"
-        className={classes["description"]}
+        className={cn(classes["description"], classNames?.description)}
       >
         {description}
       </Text>
@@ -273,7 +293,7 @@ export const RadioGroup: React.FC<RadioGroupProps> = props => {
         role={role}
         variant={feedbackVariant}
         color={hasErrorText ? "negative" : "tertiary"}
-        className={classes["feedback"]}
+        className={cn(classes["feedback"], classNames?.feedback)}
       >
         {feedbackOrErrorText}
       </Text>
@@ -286,7 +306,7 @@ export const RadioGroup: React.FC<RadioGroupProps> = props => {
     return (
       <div
         aria-hidden
-        className={classes["radio-icon"]}
+        className={cn(classes["radio-icon"], classNames?.radioIcon)}
       >
         <Icon data={mdiCircleMedium} />
       </div>
@@ -310,16 +330,18 @@ export const RadioGroup: React.FC<RadioGroupProps> = props => {
       return (
         <div
           key={radioKey}
-          className={cn(classes["control"], {
+          className={cn(classes["control"], classNames?.control, {
             [classes["checked"]!]: isChecked,
           })}
         >
           <RadioGroupPrimitive.Item
             id={radioId}
             value={item.value}
-            className={classes["radio"]}
+            className={cn(classes["radio"], classNames?.radio)}
           >
-            <RadioGroupPrimitive.Indicator className={classes["indicator"]}>
+            <RadioGroupPrimitive.Indicator
+              className={cn(classes["indicator"], classNames?.indicator)}
+            >
               {renderIndicatorIcon()}
             </RadioGroupPrimitive.Indicator>
           </RadioGroupPrimitive.Item>
@@ -327,7 +349,7 @@ export const RadioGroup: React.FC<RadioGroupProps> = props => {
             as="label"
             htmlFor={radioId}
             variant={labelVariant}
-            className={classes["radio-label"]}
+            className={cn(classes["radio-label"], classNames?.radioLabel)}
           >
             {item.label}
           </Text>
@@ -348,12 +370,19 @@ export const RadioGroup: React.FC<RadioGroupProps> = props => {
         classes[size],
         classes[orientation],
         className,
+        classNames?.root,
         {
           [classes["has-error"]!]: hasError,
           [classes["disabled"]!]: disabled,
           [classes["readonly"]!]: readOnly,
         },
       )}
+      data-size={size}
+      data-orientation={orientation}
+      data-error={hasError}
+      data-disabled={disabled}
+      data-readonly={readOnly}
+      data-items-count={items.length}
     >
       {renderLabel()}
       {renderDescription()}
@@ -368,7 +397,7 @@ export const RadioGroup: React.FC<RadioGroupProps> = props => {
         aria-invalid={ariaInvalid}
         aria-label={ariaLabel}
         aria-describedby={ariaDescribedBy}
-        className={classes["group"]}
+        className={cn(classes["group"], classNames?.group)}
       >
         {renderItems()}
       </RadioGroupPrimitive.Root>

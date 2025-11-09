@@ -24,6 +24,14 @@ export type BreadcrumbProps = WithRef<
     screenReaderLabel: string;
 
     /**
+     * The classnames of the component.
+     */
+    classNames?: Record<
+      "root" | "item" | "itemTitle" | "separator" | "list",
+      string
+    >;
+
+    /**
      * The className applied to the component.
      */
     className?: string;
@@ -42,7 +50,14 @@ export type BreadcrumbProps = WithRef<
 >;
 
 export const Breadcrumb: React.FC<BreadcrumbProps> = props => {
-  const { items, screenReaderLabel, className, ref, separatorSymbol } = props;
+  const {
+    items,
+    screenReaderLabel,
+    className,
+    classNames,
+    ref,
+    separatorSymbol,
+  } = props;
 
   const renderItems = () => {
     return items.reduce<React.JSX.Element[]>((result, item, idx) => {
@@ -52,10 +67,10 @@ export const Breadcrumb: React.FC<BreadcrumbProps> = props => {
       result.push(
         <li
           key={key}
-          className={classes["item"]}
+          className={cn(classes["item"], classNames?.item)}
         >
           <Text
-            className={classes["item-title"]}
+            className={cn(classes["item-title"], classNames?.itemTitle)}
             variant="subheading1"
             as={Link}
             to={item.href}
@@ -71,7 +86,7 @@ export const Breadcrumb: React.FC<BreadcrumbProps> = props => {
           <li
             role="separator"
             key={key + "separator"}
-            className={classes["separator"]}
+            className={cn(classes["separator"], classNames?.separator)}
           >
             {separatorSymbol}
           </li>,
@@ -85,11 +100,11 @@ export const Breadcrumb: React.FC<BreadcrumbProps> = props => {
   return (
     <nav
       ref={ref}
-      className={cn(classes["root"], className)}
+      className={cn(classes["root"], className, classNames?.root)}
       aria-label={screenReaderLabel}
     >
       <ol
-        className={classes["list"]}
+        className={cn(classes["list"], classNames?.list)}
         tabIndex={-1}
       >
         {renderItems()}

@@ -14,9 +14,8 @@ import {
 import { Text, type TextProps } from "@components/Text";
 import { mdiCalendar, mdiClose } from "@mdi/js";
 import { strings } from "@static-content";
-import type { MergeElementProps } from "@types";
+import type { MergeElementPropsWithOmitted } from "@types";
 import { cn } from "@utils/cn";
-import { formatDate } from "@utils/date";
 import { useControllableProp } from "@utils/use-controllable-prop";
 import { useForkedRefs } from "@utils/use-forked-refs";
 import { useUniqueId } from "@utils/use-unique-id";
@@ -29,185 +28,212 @@ import "react-day-picker/style.css";
 
 export type DateValue = Date | Date[] | DateRange | null;
 
-export type DateInputProps = Omit<
-  MergeElementProps<
-    "button",
-    Pick<
-      PopoverContentProps,
-      | "onEscapeKeyDown"
-      | "onPointerDownOutside"
-      | "avoidCollisions"
-      | "collisionBoundary"
-      | "collisionPadding"
-    > & {
-      /**
-       * The label of the input.
-       */
-      label: string;
-
-      /**
-       * Whether to hide the label or not.
-       *
-       * @default false
-       */
-      hideLabel?: boolean;
-
-      /**
-       * The text to display as a description.
-       */
-      description?: string;
-
-      /**
-       * Conveys additional information below the text input, such as how it should
-       * be used.
-       */
-      feedback?: string;
-
-      /**
-       * The placeholder text to display when no item is selected.
-       */
-      placeholder?: string;
-
-      /**
-       * Gets or sets whether or not the text input is in a visually invalid state.
-       *
-       * This error state overrides the error state controlled by
-       * `reportValidity()`.
-       *
-       * @default false
-       */
-      hasError?: boolean;
-
-      /**
-       * The error message that replaces feedback when `error` is true. If
-       * `errorText` is an empty string, then the feedback will continue to
-       * show.
-       */
-      errorText?: string;
-
-      /**
-       * The size of the input.
-       *
-       * @default "md"
-       */
-      size?: "sm" | "md" | "lg";
-
-      /**
-       * The name of the input.
-       * Submitted with its owning form as part of a name/value pair.
-       */
-      name?: string;
-
-      /**
-       * Indicates whether or not a user should be able to edit the date input's
-       * value.
-       *
-       * @default false
-       */
-      readOnly?: boolean;
-
-      /**
-       * Whether or not the element is disabled.
-       *
-       * @default false
-       */
-      disabled?: boolean;
-
-      /**
-       * Indicates that the element should be focused on mount.
-       *
-       * @default false
-       */
-      autoFocus?: boolean;
-
-      /**
-       * The slot used for element placed at the start.
-       */
-      startSlot?: React.ReactNode;
-
-      /**
-       * The slot used for element placed at the end.
-       */
-      endSlot?: React.ReactNode;
-
-      /**
-       * The open state of the input when it is initially rendered.
-       * Use when you do not need to control its open state.
-       */
-      defaultOpen?: boolean;
-
-      /**
-       * The controlled open state of the input.
-       * Must be used in conjunction with `onOpenChange`.
-       */
-      open?: boolean;
-
-      /**
-       * Event handler called when the open state of the select changes.
-       */
-      onOpenChange?: (open: boolean) => void;
-    } & (
-        | {
-            /**
-             * Enable the selection of a single day, multiple days, or a range of days.
-             *
-             * @see https://daypicker.dev/docs/selection-modes
-             */
-            mode: "single";
-
-            /**
-             * Calendar properties.
-             *
-             * @see https://daypicker.dev/
-             */
-            calendarProps?: Omit<CalendarProps<"single">, "mode">;
-
-            /**
-             * The controlled value of the calendar.
-             * Should be used in conjunction with `onChange`.
-             */
-            value?: Date | null;
-
-            /**
-             * The value of the input when initially rendered.
-             * Use when you do not need to control the state of the calendar.
-             */
-            defaultValue?: Date | null;
-
-            /**
-             * Event handler called when the value changes.
-             */
-            onChange?: (value: Date | null) => void;
-          }
-        | {
-            mode: "multiple";
-            calendarProps?: Omit<CalendarProps<"multiple">, "mode">;
-            value?: Date[];
-            defaultValue?: Date[];
-            onChange?: (value: Date[]) => void;
-          }
-        | {
-            mode: "range";
-            calendarProps?: Omit<CalendarProps<"range">, "mode">;
-            value?: DateRange | null;
-            defaultValue?: DateRange | null;
-            onChange?: (value: DateRange | null) => void;
-          }
-      )
-  >,
+export type DateInputProps = MergeElementPropsWithOmitted<
+  "button",
   | "children"
-  | "checked"
   | "defaultChecked"
   | "aria-invalid"
   | "aria-describedby"
   | "aria-label"
-  | "aria-labelledby"
+  | "aria-labelledby",
+  Pick<
+    PopoverContentProps,
+    | "onEscapeKeyDown"
+    | "onPointerDownOutside"
+    | "avoidCollisions"
+    | "collisionBoundary"
+    | "collisionPadding"
+  > & {
+    /**
+     * The label of the input.
+     */
+    label: string;
+
+    /**
+     * Whether to hide the label or not.
+     *
+     * @default false
+     */
+    hideLabel?: boolean;
+
+    /**
+     * Whether to make the input clearable or not (when a value is selected).
+     *
+     * @default false
+     */
+    clearable?: boolean;
+
+    /**
+     * The text to display as a description.
+     */
+    description?: string;
+
+    /**
+     * Conveys additional information below the text input, such as how it should
+     * be used.
+     */
+    feedback?: string;
+
+    /**
+     * The placeholder text to display when no item is selected.
+     */
+    placeholder?: string;
+
+    /**
+     * Gets or sets whether or not the text input is in a visually invalid state.
+     *
+     * This error state overrides the error state controlled by
+     * `reportValidity()`.
+     *
+     * @default false
+     */
+    hasError?: boolean;
+
+    /**
+     * The error message that replaces feedback when `error` is true. If
+     * `errorText` is an empty string, then the feedback will continue to
+     * show.
+     */
+    errorText?: string;
+
+    /**
+     * The size of the input.
+     *
+     * @default "md"
+     */
+    size?: "sm" | "md" | "lg";
+
+    /**
+     * The name of the input.
+     * Submitted with its owning form as part of a name/value pair.
+     */
+    name?: string;
+
+    /**
+     * Indicates whether or not a user should be able to edit the date input's
+     * value.
+     *
+     * @default false
+     */
+    readOnly?: boolean;
+
+    /**
+     * Whether or not the element is disabled.
+     *
+     * @default false
+     */
+    disabled?: boolean;
+
+    /**
+     * Indicates that the element should be focused on mount.
+     *
+     * @default false
+     */
+    autoFocus?: boolean;
+
+    /**
+     * The slot used for element placed at the start.
+     */
+    startSlot?: React.ReactNode;
+
+    /**
+     * The slot used for element placed at the end.
+     */
+    endSlot?: React.ReactNode;
+
+    /**
+     * The classnames of the component.
+     */
+    classNames?: Partial<
+      Record<
+        | "root"
+        | "label"
+        | "description"
+        | "control"
+        | "input"
+        | "startSlot"
+        | "endSlot"
+        | "clearButton"
+        | "calendarIcon"
+        | "content"
+        | "placeholder"
+        | "value"
+        | "feedback",
+        string
+      >
+    >;
+
+    /**
+     * The open state of the input when it is initially rendered.
+     * Use when you do not need to control its open state.
+     */
+    defaultOpen?: boolean;
+
+    /**
+     * The controlled open state of the input.
+     * Must be used in conjunction with `onOpenChange`.
+     */
+    open?: boolean;
+
+    /**
+     * Event handler called when the open state of the select changes.
+     */
+    onOpenChange?: (open: boolean) => void;
+  } & (
+      | {
+          /**
+           * Enable the selection of a single day, multiple days, or a range of days.
+           *
+           * @see https://daypicker.dev/docs/selection-modes
+           */
+          mode: "single";
+
+          /**
+           * Calendar properties.
+           *
+           * @see https://daypicker.dev/
+           */
+          calendarProps?: Partial<Omit<CalendarProps<"single">, "mode">>;
+
+          /**
+           * The controlled value of the calendar.
+           * Should be used in conjunction with `onChange`.
+           */
+          value?: Date | null;
+
+          /**
+           * The value of the input when initially rendered.
+           * Use when you do not need to control the state of the calendar.
+           */
+          defaultValue?: Date | null;
+
+          /**
+           * Event handler called when the value changes.
+           */
+          onChange?: (value: Date | null) => void;
+        }
+      | {
+          mode: "multiple";
+          calendarProps?: Partial<Omit<CalendarProps<"multiple">, "mode">>;
+          value?: Date[];
+          defaultValue?: Date[];
+          onChange?: (value: Date[]) => void;
+        }
+      | {
+          mode: "range";
+          calendarProps?: Partial<Omit<CalendarProps<"range">, "mode">>;
+          value?: DateRange | null;
+          defaultValue?: DateRange | null;
+          onChange?: (value: DateRange | null) => void;
+        }
+    )
 >;
 
 export const DateInput: React.FC<DateInputProps> = props => {
   const {
     ref,
     className,
+    classNames,
     id: idProp,
     startSlot,
     label,
@@ -232,6 +258,7 @@ export const DateInput: React.FC<DateInputProps> = props => {
     autoFocus = false,
     hasError = false,
     hideLabel = false,
+    clearable = false,
     disabled = false,
     readOnly = false,
     endSlot = <Icon data={mdiCalendar} />,
@@ -324,7 +351,7 @@ export const DateInput: React.FC<DateInputProps> = props => {
         id={labelId}
         htmlFor={inputId}
         variant={labelVariant}
-        className={classes["label"]}
+        className={cn(classes["label"], classNames?.label)}
       >
         {label}
       </Text>
@@ -346,7 +373,7 @@ export const DateInput: React.FC<DateInputProps> = props => {
         as="p"
         variant={descVariant}
         color="secondary"
-        className={classes["description"]}
+        className={cn(classes["description"], classNames?.description)}
       >
         {description}
       </Text>
@@ -373,7 +400,7 @@ export const DateInput: React.FC<DateInputProps> = props => {
         role={role}
         variant={feedbackVariant}
         color={hasErrorText ? "negative" : "tertiary"}
-        className={classes["feedback"]}
+        className={cn(classes["feedback"], classNames?.feedback)}
       >
         {feedbackOrErrorText}
       </Text>
@@ -383,23 +410,29 @@ export const DateInput: React.FC<DateInputProps> = props => {
   const renderStartSlot = () => {
     if (!startSlot) return null;
 
-    return <div className={classes["start-slot"]}>{startSlot}</div>;
+    return (
+      <div className={cn(classes["start-slot"], classNames?.startSlot)}>
+        {startSlot}
+      </div>
+    );
   };
 
   const renderEndSlot = () => {
     const valueDisplay = getValueDisplay(value);
-    const shouldRenderClear = !readOnly && !disabled && valueDisplay.length > 0;
+    const shouldRenderClear =
+      !readOnly && !disabled && valueDisplay.length > 0 && clearable;
 
     if (!endSlot && !shouldRenderClear) return null;
 
     return (
-      <div className={classes["end-slot"]}>
+      <div className={cn(classes["end-slot"], classNames?.endSlot)}>
         {shouldRenderClear && (
           <IconButton
             aria-label={strings.clearValue}
             size={size === "sm" ? "sm" : "md"}
             icon={<Icon data={mdiClose} />}
             variant="ghost"
+            className={cn(classNames?.clearButton)}
             onClick={handleClear}
           />
         )}
@@ -429,18 +462,25 @@ export const DateInput: React.FC<DateInputProps> = props => {
   };
 
   const renderValue = () => {
-    const valueDisplay = getValueDisplay(value, formatDate);
+    const valueDisplay = getValueDisplay(value);
 
     if (valueDisplay.length === 0) {
-      return <span className={classes["placeholder"]}>{placeholder}</span>;
+      return (
+        <span className={cn(classes["placeholder"], classNames?.placeholder)}>
+          {placeholder}
+        </span>
+      );
     }
 
-    return <span className={classes["value"]}>{valueDisplay}</span>;
+    return (
+      <span className={cn(classes["value"], classNames?.value)}>
+        {valueDisplay}
+      </span>
+    );
   };
 
   const renderHiddenInput = () => {
     if (!name) return null;
-    if (!value) return null;
 
     const valueDisplay = getValueDisplay(value);
 
@@ -461,11 +501,23 @@ export const DateInput: React.FC<DateInputProps> = props => {
   return (
     <div
       id={rootId}
-      className={cn(classes["root"], classes[size], className, {
-        [classes["has-error"]!]: hasError,
-        [classes["disabled"]!]: disabled,
-        [classes["readonly"]!]: readOnly,
-      })}
+      className={cn(
+        classes["root"],
+        classes[size],
+        className,
+        classNames?.root,
+        {
+          [classes["has-error"]!]: hasError,
+          [classes["disabled"]!]: disabled,
+          [classes["readonly"]!]: readOnly,
+        },
+      )}
+      data-size={size}
+      data-mode={mode}
+      data-error={hasError}
+      data-disabled={disabled}
+      data-readonly={readOnly}
+      data-open={open}
     >
       {renderHiddenInput()}
       {renderLabel()}
@@ -476,7 +528,7 @@ export const DateInput: React.FC<DateInputProps> = props => {
       >
         <div
           id={controlId}
-          className={classes["control"]}
+          className={cn(classes["control"], classNames?.control)}
           tabIndex={-1}
           onClick={handleControlClick}
           inert={disabled}
@@ -488,7 +540,7 @@ export const DateInput: React.FC<DateInputProps> = props => {
             ref={handleRef}
             disabled={disabled}
             autoFocus={autoFocus}
-            className={classes["input"]}
+            className={cn(classes["input"], classNames?.input)}
             aria-describedby={ariaDescribedBy}
             aria-readonly={readOnly}
             aria-label={ariaLabel}
@@ -506,7 +558,7 @@ export const DateInput: React.FC<DateInputProps> = props => {
           collisionBoundary={collisionBoundary}
           collisionPadding={collisionPadding}
           side="bottom"
-          className={classes["content"]}
+          className={cn(classes["content"], classNames?.content)}
         >
           <Calendar
             {...otherCalendarProps}

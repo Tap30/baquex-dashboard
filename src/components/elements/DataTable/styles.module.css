@@ -6,6 +6,10 @@
   flex-direction: column;
 }
 
+.root.disabled {
+  opacity: 0.5;
+}
+
 .table {
   flex-grow: 1;
   flex-shrink: 0;

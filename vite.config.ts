@@ -3,9 +3,15 @@ import reactPlugin from "@vitejs/plugin-react-swc";
 import { defineConfig, loadEnv, type UserConfig } from "vite";
 import mkcert from "vite-plugin-mkcert";
 import tsconfigPathsPlugin from "vite-tsconfig-paths";
+import type { AppEnv } from "./src/utils/env.ts";
 
 const config = defineConfig(({ mode }) => {
-  const env = loadEnv(mode, import.meta.dirname) as unknown as ImportMetaEnv;
+  const env = loadEnv(mode, import.meta.dirname) as unknown as AppEnv;
+
+  const domain = env["VITE_APP_HOSTNAME"] || "https://e8t.tapsi.tech";
+
+  // Remove any leading protocol (e.g., http://, https://)
+  const certHost = domain.replace(/^(https?:\/\/)/, "");
 
   const baseConfig = {
     plugins: [tailwindPlugin(), tsconfigPathsPlugin(), reactPlugin()],
@@ -13,11 +19,13 @@ const config = defineConfig(({ mode }) => {
 
   const devConfig: UserConfig = {
     ...baseConfig,
-    // @ts-expect-error Mkcert package exports are ridiculous
-    plugins: [...baseConfig.plugins, mkcert({ savePath: ".certs" })],
+    plugins: [
+      ...baseConfig.plugins,
+      mkcert({ savePath: ".certs", hosts: [certHost] }),
+    ],
     server: {
       port: 443,
-      open: env.VITE_APP_HOSTNAME,
+      open: domain,
     },
   };
 

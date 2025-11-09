@@ -61,18 +61,45 @@ export const TooltipItem: React.FC<Props> = props => {
       );
     }
 
+    const renderValue = () => {
+      if (typeof item.value === "undefined") return null;
+
+      let value: React.ReactNode;
+      const userFormattedValue = format();
+
+      if (userFormattedValue) {
+        value = userFormattedValue;
+      } else {
+        if (typeof item.value === "number") {
+          value = formatNumber(Number(item.value), {
+            useGrouping: true,
+          });
+        } else if (typeof item.value === "string") {
+          value = item.value;
+        } else {
+          value = item.value
+            .map(v =>
+              typeof v === "number"
+                ? formatNumber(Number(v), {
+                    useGrouping: true,
+                  })
+                : v,
+            )
+            .join(", ");
+        }
+      }
+
+      return <strong className={classes["value"]}>{value}</strong>;
+    };
+
     return (
       <div className={classes["content"]}>
         {indicator}
         <span className={classes["label"]}>{itemLabel || item.name}</span>
-        {item.value && (
-          <strong className={classes["value"]}>
-            {formatNumber(Number(item.value.toLocaleString()))}
-          </strong>
-        )}
+        {renderValue()}
       </div>
     );
   };
 
-  return <div className={className}>{format() ?? renderRow()}</div>;
+  return <div className={className}>{renderRow()}</div>;
 };

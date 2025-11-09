@@ -24,11 +24,7 @@
 }
 
 .root.brand {
-  --toast-background: color-mix(
-    in oklab,
-    var(--color-brand) 12.5%,
-    transparent
-  );
+  --toast-background: color-mix(in oklab, var(--color-brand) 50%, transparent);
   --toast-border-color: var(--color-brand);
   --toast-title-color: var(--color-neutral-text);
   --toast-description-color: var(--color-neutral-text-secondary);
@@ -37,7 +33,7 @@
 .root.positive {
   --toast-background: color-mix(
     in oklab,
-    var(--color-positive) 12.5%,
+    var(--color-positive) 50%,
     transparent
   );
   --toast-border-color: var(--color-positive);
@@ -48,7 +44,7 @@
 .root.negative {
   --toast-background: color-mix(
     in oklab,
-    var(--color-negative) 12.5%,
+    var(--color-negative) 50%,
     transparent
   );
   --toast-border-color: var(--color-negative);
@@ -57,14 +53,14 @@
 }
 
 .root.info {
-  --toast-background: color-mix(in oklab, var(--color-info) 12.5%, transparent);
+  --toast-background: color-mix(in oklab, var(--color-info) 50%, transparent);
   --toast-border-color: var(--color-info);
   --toast-title-color: var(--color-neutral-text);
   --toast-description-color: var(--color-neutral-text-secondary);
 }
 
 .root.warn {
-  --toast-background: color-mix(in oklab, var(--color-warn) 12.5%, transparent);
+  --toast-background: color-mix(in oklab, var(--color-warn) 50%, transparent);
   --toast-border-color: var(--color-warn);
   --toast-title-color: var(--color-neutral-text);
   --toast-description-color: var(--color-neutral-text-secondary);

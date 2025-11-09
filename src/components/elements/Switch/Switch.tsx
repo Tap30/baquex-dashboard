@@ -12,6 +12,16 @@ export type SwitchProps = Omit<
     "button",
     {
       /**
+       * The classnames of the component.
+       */
+      classNames?: Partial<
+        Record<
+          "root" | "control" | "label" | "input" | "thumb" | "feedback",
+          string
+        >
+      >;
+
+      /**
        * The controlled checked state of the switch.
        * Must be used in conjunction with `onChange`.
        */
@@ -121,6 +131,7 @@ export type SwitchProps = Omit<
 export const Switch: React.FC<SwitchProps> = props => {
   const {
     className,
+    classNames,
     id: idProp,
     checked: checkedProp,
     defaultChecked,
@@ -197,7 +208,7 @@ export const Switch: React.FC<SwitchProps> = props => {
         id={labelId}
         htmlFor={inputId}
         variant={labelVariant}
-        className={classes["label"]}
+        className={cn(classes["label"], classNames?.label)}
       >
         {label}
       </Text>
@@ -237,7 +248,7 @@ export const Switch: React.FC<SwitchProps> = props => {
           role={role}
           variant={feedbackVariant}
           color={hasErrorText ? "negative" : "tertiary"}
-          className={classes["feedback"]}
+          className={cn(classes["feedback"], classNames?.feedback)}
         >
           {feedbackOrErrorText}
         </Text>
@@ -252,13 +263,24 @@ export const Switch: React.FC<SwitchProps> = props => {
   return (
     <div
       id={rootId}
-      className={cn(classes["root"], classes[size], className, {
-        [classes["has-error"]!]: hasError,
-        [classes["disabled"]!]: disabled,
-        [classes["readonly"]!]: readOnly,
-      })}
+      className={cn(
+        classes["root"],
+        classes[size],
+        className,
+        classNames?.root,
+        {
+          [classes["has-error"]!]: hasError,
+          [classes["disabled"]!]: disabled,
+          [classes["readonly"]!]: readOnly,
+        },
+      )}
+      data-error={hasError}
+      data-disabled={disabled}
+      data-readonly={readOnly}
+      data-checked={checked}
+      data-size={size}
     >
-      <div className={classes["control"]}>
+      <div className={cn(classes["control"], classNames?.control)}>
         {renderLabel()}
         <SwitchPrimitive.Root
           {...otherProps}
@@ -271,9 +293,11 @@ export const Switch: React.FC<SwitchProps> = props => {
           aria-invalid={ariaInvalid}
           aria-label={ariaLabel}
           aria-describedby={ariaDescribedBy}
-          className={classes["input"]}
+          className={cn(classes["input"], classNames?.input)}
         >
-          <SwitchPrimitive.Thumb className={classes["thumb"]} />
+          <SwitchPrimitive.Thumb
+            className={cn(classes["thumb"], classNames?.thumb)}
+          />
         </SwitchPrimitive.Root>
       </div>
       {renderFeedback()}

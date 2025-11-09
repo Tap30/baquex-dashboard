@@ -1,5 +1,5 @@
 import { toast as sonnerToast } from "sonner";
-import { Toast, type ToastProps } from "./components/index.ts";
+import { Toast, type ToastProps } from "./components/index.internal.ts";
 
 export const toast = (props: Omit<ToastProps, "id">) => {
   return sonnerToast.custom(id => (
@@ -9,3 +9,5 @@ export const toast = (props: Omit<ToastProps, "id">) => {
     />
   ));
 };
+
+export const { dismiss: dismissToast } = sonnerToast;

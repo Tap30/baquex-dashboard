@@ -29,6 +29,13 @@ export type FileInputProps = Omit<
       hideLabel?: boolean;
 
       /**
+       * Whether to make the input clearable or not (when a value is selected).
+       *
+       * @default false
+       */
+      clearable?: boolean;
+
+      /**
        * The text to display as a description.
        */
       description?: string;
@@ -94,6 +101,25 @@ export type FileInputProps = Omit<
        * The slot used for element placed at the end.
        */
       endSlot?: React.ReactNode;
+
+      /**
+       * The classnames of the component.
+       */
+      classNames?: Partial<
+        Record<
+          | "root"
+          | "label"
+          | "description"
+          | "control"
+          | "valueDisplay"
+          | "input"
+          | "startSlot"
+          | "endSlot"
+          | "clearButton"
+          | "feedback",
+          string
+        >
+      >;
     }
   >,
   | "children"
@@ -112,6 +138,7 @@ export const FileInput: React.FC<FileInputProps> = props => {
   const {
     ref,
     className,
+    classNames,
     id: idProp,
     startSlot,
     endSlot,
@@ -125,6 +152,7 @@ export const FileInput: React.FC<FileInputProps> = props => {
     autoFocus = false,
     hasError = false,
     hideLabel = false,
+    clearable = false,
     disabled = false,
     readOnly = false,
     onChange,
@@ -240,7 +268,7 @@ export const FileInput: React.FC<FileInputProps> = props => {
         id={labelId}
         htmlFor={inputId}
         variant={labelVariant}
-        className={classes["label"]}
+        className={cn(classes["label"], classNames?.label)}
       >
         {label}
       </Text>
@@ -262,7 +290,7 @@ export const FileInput: React.FC<FileInputProps> = props => {
         as="p"
         variant={descVariant}
         color="secondary"
-        className={classes["description"]}
+        className={cn(classes["description"], classNames?.description)}
       >
         {description}
       </Text>
@@ -293,7 +321,7 @@ export const FileInput: React.FC<FileInputProps> = props => {
         role={role}
         variant={feedbackVariant}
         color={hasErrorText ? "negative" : "tertiary"}
-        className={classes["feedback"]}
+        className={cn(classes["feedback"], classNames?.feedback)}
       >
         {feedbackOrErrorText}
       </Text>
@@ -303,17 +331,21 @@ export const FileInput: React.FC<FileInputProps> = props => {
   const renderStartSlot = () => {
     if (!startSlot) return null;
 
-    return <div className={classes["start-slot"]}>{startSlot}</div>;
+    return (
+      <div className={cn(classes["start-slot"], classNames?.startSlot)}>
+        {startSlot}
+      </div>
+    );
   };
 
   const renderEndSlot = () => {
     const shouldRenderClear =
-      !readOnly && !disabled && selectedFiles.length > 0;
+      !readOnly && !disabled && selectedFiles.length > 0 && clearable;
 
     if (!endSlot && !shouldRenderClear) return null;
 
     return (
-      <div className={classes["end-slot"]}>
+      <div className={cn(classes["end-slot"], classNames?.endSlot)}>
         {shouldRenderClear && (
           <IconButton
             tabIndex={-1}
@@ -322,6 +354,7 @@ export const FileInput: React.FC<FileInputProps> = props => {
             aria-label={strings.clearValue}
             icon={<Icon data={mdiClose} />}
             variant="ghost"
+            className={cn(classNames?.clearButton)}
             onClick={handleClear}
           />
         )}
@@ -347,16 +380,27 @@ export const FileInput: React.FC<FileInputProps> = props => {
   return (
     <div
       id={rootId}
-      className={cn(classes["root"], classes[size], className, {
-        [classes["has-error"]!]: hasError,
-        [classes["disabled"]!]: disabled,
-        [classes["readonly"]!]: readOnly,
-      })}
+      className={cn(
+        classes["root"],
+        classes[size],
+        className,
+        classNames?.root,
+        {
+          [classes["has-error"]!]: hasError,
+          [classes["disabled"]!]: disabled,
+          [classes["readonly"]!]: readOnly,
+        },
+      )}
+      data-size={size}
+      data-error={hasError}
+      data-disabled={disabled}
+      data-readonly={readOnly}
+      data-files-count={selectedFiles.length}
     >
       {renderLabel()}
       {renderDescription()}
       <div
-        className={classes["control"]}
+        className={cn(classes["control"], classNames?.control)}
         tabIndex={-1}
         onClick={handleClick}
         inert={disabled}
@@ -366,7 +410,7 @@ export const FileInput: React.FC<FileInputProps> = props => {
       >
         {renderStartSlot()}
         <div
-          className={cn(classes["value-display"], {
+          className={cn(classes["value-display"], classNames?.valueDisplay, {
             [classes["placeholder"]!]: selectedFiles.length === 0,
           })}
         >
@@ -385,7 +429,7 @@ export const FileInput: React.FC<FileInputProps> = props => {
           aria-invalid={ariaInvalid}
           aria-label={ariaLabel}
           aria-describedby={ariaDescribedBy}
-          className={classes["input"]}
+          className={cn(classes["input"], classNames?.input)}
           onChange={handleChange}
         />
         {renderEndSlot()}

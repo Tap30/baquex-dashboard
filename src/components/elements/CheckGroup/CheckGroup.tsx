@@ -24,6 +24,23 @@ export type CheckGroupProps = Omit<
     "div",
     {
       /**
+       * The classnames of the component.
+       */
+      classNames?: Partial<
+        Record<
+          | "root"
+          | "label"
+          | "description"
+          | "group"
+          | "control"
+          | "checkbox"
+          | "checkboxLabel"
+          | "feedback",
+          string
+        >
+      >;
+
+      /**
        * The controlled value of the check item to check.
        * Should be used in conjunction with `onChange`.
        */
@@ -140,6 +157,7 @@ export type CheckGroupProps = Omit<
 export const CheckGroup: React.FC<CheckGroupProps> = props => {
   const {
     className,
+    classNames,
     id: idProp,
     value: valueProp,
     name,
@@ -222,7 +240,7 @@ export const CheckGroup: React.FC<CheckGroupProps> = props => {
         id={labelId}
         htmlFor={groupId}
         variant={labelVariant}
-        className={classes["label"]}
+        className={cn(classes["label"], classNames?.label)}
       >
         {label}
       </Text>
@@ -244,7 +262,7 @@ export const CheckGroup: React.FC<CheckGroupProps> = props => {
         as="p"
         variant={descVariant}
         color="secondary"
-        className={classes["description"]}
+        className={cn(classes["description"], classNames?.description)}
       >
         {description}
       </Text>
@@ -275,7 +293,7 @@ export const CheckGroup: React.FC<CheckGroupProps> = props => {
         role={role}
         variant={feedbackVariant}
         color={hasErrorText ? "negative" : "tertiary"}
-        className={classes["feedback"]}
+        className={cn(classes["feedback"], classNames?.feedback)}
       >
         {feedbackOrErrorText}
       </Text>
@@ -299,7 +317,7 @@ export const CheckGroup: React.FC<CheckGroupProps> = props => {
       return (
         <div
           key={checkKey}
-          className={cn(classes["control"], {
+          className={cn(classes["control"], classNames?.control, {
             [classes["checked"]!]: isChecked,
           })}
         >
@@ -313,14 +331,14 @@ export const CheckGroup: React.FC<CheckGroupProps> = props => {
             disabled={disabled}
             readOnly={readOnly}
             size={size}
-            className={classes["checkbox"]}
+            className={cn(classes["checkbox"], classNames?.checkbox)}
             onChange={() => handleChange(!isChecked, item.value)}
           />
           <Text
             as="label"
             htmlFor={checkId}
             variant={labelVariant}
-            className={classes["checkbox-label"]}
+            className={cn(classes["checkbox-label"], classNames?.checkboxLabel)}
           >
             {item.label}
           </Text>
@@ -341,12 +359,19 @@ export const CheckGroup: React.FC<CheckGroupProps> = props => {
         classes[size],
         classes[orientation],
         className,
+        classNames?.root,
         {
           [classes["has-error"]!]: hasError,
           [classes["disabled"]!]: disabled,
           [classes["readonly"]!]: readOnly,
         },
       )}
+      data-size={size}
+      data-orientation={orientation}
+      data-error={hasError}
+      data-disabled={disabled}
+      data-readonly={readOnly}
+      data-items-count={items.length}
     >
       {renderLabel()}
       {renderDescription()}
@@ -361,7 +386,7 @@ export const CheckGroup: React.FC<CheckGroupProps> = props => {
         aria-invalid={ariaInvalid}
         aria-label={ariaLabel}
         aria-describedby={ariaDescribedBy}
-        className={classes["group"]}
+        className={cn(classes["group"], classNames?.group)}
       >
         {renderItems()}
       </div>

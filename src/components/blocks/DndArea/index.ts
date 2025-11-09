@@ -5,4 +5,4 @@ export {
   rectSwappingStrategy,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
-export * from "./components/index.ts";
+export * from "./components/index.internal.ts";

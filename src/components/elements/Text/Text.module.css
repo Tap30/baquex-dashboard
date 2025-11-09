@@ -2,20 +2,6 @@
   overflow: hidden;
 }
 
-a.root {
-  text-decoration: none;
-}
-
-p.root,
-h1.root,
-h2.root,
-h3.root,
-h4.root,
-h5.root,
-h6.root {
-  margin: unset;
-}
-
 .root.clip {
   text-overflow: clip;
 }

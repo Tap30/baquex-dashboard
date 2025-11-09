@@ -3,11 +3,11 @@
   --button-background: transparent;
   --button-border-color: transparent;
   --button-height: 2rem;
-  --button-horizontal-padding: var(--spacing-sm);
   --button-font-size: var(--text-body2);
   --button-font-weight: 500;
   --button-leading: var(--leading-body2);
   --button-icon-size: 0.875rem;
+  --button-horizontal-padding: 0;
 
   position: relative;
 
@@ -35,8 +35,8 @@
 
   box-shadow: 0 0 0 0.0625rem var(--button-border-color);
   background-color: var(--button-background);
-
   padding-inline: var(--button-horizontal-padding);
+
   border-radius: inherit;
 
   cursor: pointer;
@@ -61,7 +61,6 @@
 
 .root.lg {
   --button-height: 2.5rem;
-  --button-horizontal-padding: var(--spacing-sm);
   --button-font-size: var(--text-body1);
   --button-leading: var(--leading-body1);
   --button-icon-size: 1.25rem;
@@ -69,7 +68,6 @@
 
 .root.md {
   --button-height: 2rem;
-  --button-horizontal-padding: var(--spacing-sm);
   --button-font-size: var(--text-body2);
   --button-leading: var(--leading-body2);
   --button-icon-size: 1rem;
@@ -77,7 +75,6 @@
 
 .root.sm {
   --button-height: 1.5rem;
-  --button-horizontal-padding: var(--spacing-sm);
   --button-font-size: var(--text-body2);
   --button-leading: var(--leading-body2);
   --button-icon-size: 0.875rem;

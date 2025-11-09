@@ -34,6 +34,7 @@ export const PageLoading: React.FC<PageLoadingProps> = props => {
 
   useEffect(() => {
     if (loading) {
+      setWidth(0);
       setIsVisible(true);
 
       step.current = 0;
@@ -63,15 +64,6 @@ export const PageLoading: React.FC<PageLoadingProps> = props => {
       }
 
       setWidth(100);
-
-      const timeout = window.setTimeout(() => {
-        setIsVisible(false);
-        setWidth(0);
-      }, 400);
-
-      return () => {
-        window.clearTimeout(timeout);
-      };
     }
 
     return () => {
@@ -100,6 +92,24 @@ export const PageLoading: React.FC<PageLoadingProps> = props => {
     };
   }, [isVisible]);
 
+  useEffect(() => {
+    if (width >= 100 && isVisible) {
+      setIsVisible(false);
+    }
+  }, [isVisible, width]);
+
+  const handleTransitionEnd: React.TransitionEventHandler = event => {
+    if (
+      (event.propertyName === "visibility" ||
+        event.propertyName === "opacity") &&
+      !isVisible
+    ) {
+      setWidth(0);
+    } else if (event.propertyName === "width" && width >= 100 && isVisible) {
+      setIsVisible(false);
+    }
+  };
+
   return (
     <Portal>
       <div
@@ -108,6 +118,7 @@ export const PageLoading: React.FC<PageLoadingProps> = props => {
         aria-hidden={!isVisible}
         aria-label={strings.components.button.pending}
         role="progressbar"
+        onTransitionEnd={handleTransitionEnd}
         className={cn(classes["root"], className, {
           [classes["visible"]!]: isVisible,
         })}

@@ -84,6 +84,8 @@ strong.title.title {
 
 p.description.description {
   color: var(--alert-description-color);
+
+  white-space: pre-line;
 }
 
 .icon {

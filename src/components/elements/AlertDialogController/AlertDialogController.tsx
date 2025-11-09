@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { AlertDialog } from "./components/index.ts";
+import { AlertDialog } from "./components/index.internal.ts";
 import { dismissConfirm, useConfirmState } from "./confirm.ts";
 
 export const AlertDialogController = () => {
@@ -14,5 +14,10 @@ export const AlertDialogController = () => {
 
   if (!confirmState) return null;
 
-  return <AlertDialog {...confirmState} />;
+  return (
+    <AlertDialog
+      {...confirmState}
+      onEscapeKeyDown={confirmState.onCancel}
+    />
+  );
 };

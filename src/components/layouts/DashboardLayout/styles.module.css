@@ -3,23 +3,27 @@
   --dashboard-sidebar-length: 17rem;
   --dashboard-sidebar-background-color: transparent;
   --dashboard-sidebar-box-shadow: none;
-  --dashboard-content-offset: var(--spacing-md);
+  --dashboard-content-width: calc(100dvw - (2 * var(--spacing-md)));
+  --dashboard-content-offset: 0;
 
   display: flex;
   background-color: var(--color-surface-secondary);
 
-  width: 100%;
+  width: 100dvw;
+  padding: var(--spacing-md);
 }
 
 .root.nav-open {
   --dashboard-sidebar-position: 0;
-  --dashboard-content-offset: calc(
-    var(--dashboard-sidebar-length) + var(--spacing-md)
+  --dashboard-content-offset: calc(var(--dashboard-sidebar-length));
+  --dashboard-content-width: calc(
+    100dvw - ((2 * var(--spacing-md)) + var(--dashboard-sidebar-length))
   );
 }
 
 .root.mobile {
-  --dashboard-content-offset: var(--spacing-md);
+  --dashboard-content-offset: 0;
+  --dashboard-content-width: calc(100dvw - (2 * var(--spacing-md)));
   --dashboard-sidebar-background-color: var(--color-surface-secondary);
 }
 
@@ -48,22 +52,22 @@
 .content {
   background-color: var(--color-surface-base);
 
-  margin-inline-end: var(--spacing-md);
-  margin: var(--spacing-md);
+  margin-inline-start: var(--dashboard-content-offset);
   padding: var(--spacing-md);
   border-radius: var(--radius-lg);
 
-  height: calc(100dvh - (2 * var(--spacing-md)));
+  min-height: calc(100dvh - (2 * var(--spacing-md)));
 
   flex-grow: 1;
   flex-shrink: 1;
 
   display: flex;
   flex-direction: column;
+  position: relative;
 
   gap: var(--spacing-md);
 
-  margin-inline-start: var(--dashboard-content-offset);
+  max-width: var(--dashboard-content-width);
 }
 
 .header {

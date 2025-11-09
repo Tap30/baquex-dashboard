@@ -14,12 +14,6 @@
   overflow: auto;
 }
 
-.root.open {
-}
-
-.root:not(.open) {
-}
-
 .nav {
   padding-top: var(--spacing-md);
   margin-top: var(--spacing-md);

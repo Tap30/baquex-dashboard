@@ -39,5 +39,10 @@
   background-color: var(--sidebar-active-item-background);
 }
 
-.account {
+.avatar {
+  flex-shrink: 0;
+}
+
+.content {
+  overflow: hidden;
 }

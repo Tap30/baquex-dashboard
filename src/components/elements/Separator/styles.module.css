@@ -1,0 +1,16 @@
+.root {
+  flex-shrink: 0;
+  background-color: var(--color-border-secondary);
+}
+
+.root.horizontal {
+  height: 0.0625rem;
+  width: 100%;
+}
+
+.root.vertical {
+  width: 0.0625rem;
+  min-height: 2rem;
+  margin-top: auto;
+  margin-bottom: auto;
+}

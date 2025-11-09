@@ -15,7 +15,7 @@ import { loadEnv } from "vite";
  * ```
  *
  * The domain is read from the `VITE_APP_HOSTNAME` environment variable.
- * It defaults to "admin.baquex.com" if the environment variable is not set.
+ * It defaults to "e8t.tapsi.tech" if the environment variable is not set.
  *
  * The script will:
  * - Uncomment the entry if it's commented out.
@@ -26,14 +26,18 @@ import { loadEnv } from "vite";
 try {
   // Define constants
   const FIXED_IP = "127.0.0.1";
-  const DEFAULT_DOMAIN = "admin.baquex.com";
+  const DEFAULT_DOMAIN = "e8t.tapsi.tech";
   const HOSTS_FILE_PATH = "/etc/hosts";
   const BACKUP_FILE_PATH = `${HOSTS_FILE_PATH}.bak`;
   const TEMP_FILE_PATH = "/tmp/hosts.tmp";
 
   const env = loadEnv("development", resolve(import.meta.dirname, ".."));
 
-  const domain = env["VITE_APP_HOSTNAME"] || DEFAULT_DOMAIN;
+  let domain = env["VITE_APP_HOSTNAME"] || DEFAULT_DOMAIN;
+
+  // Remove any leading protocol (e.g., http://, https://)
+  domain = domain.replace(/^(https?:\/\/)/, "");
+
   const hostEntry = `${FIXED_IP} ${domain}`;
   const commentedEntry = `# ${hostEntry}`;
 

@@ -93,6 +93,12 @@ export const Text = <E extends React.ElementType = "span">(
           [classes[display!]!]: !!display,
         },
       )}
+      data-variant={variant}
+      data-color={color}
+      data-no-wrap={noWrap}
+      data-align={align}
+      data-weight={weight}
+      data-display={display}
     >
       {children}
     </Root>

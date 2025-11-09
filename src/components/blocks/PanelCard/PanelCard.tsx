@@ -1,4 +1,5 @@
 import { Flex } from "@components/Flex";
+import { Spinner } from "@components/Spinner";
 import { Text } from "@components/Text";
 import type { WithBaseProps } from "@types";
 import { cn } from "@utils/cn";
@@ -20,10 +21,24 @@ export type PanelCardProps = WithBaseProps<{
    * The slot to extend heading part.
    */
   headingSlot?: React.ReactNode;
+
+  /**
+   * Whether the card is pending.
+   *
+   * @default false
+   */
+  pending?: boolean;
 }>;
 
 export const PanelCard: React.FC<PanelCardProps> = props => {
-  const { subtitle, title, headingSlot, className, children } = props;
+  const {
+    subtitle,
+    title,
+    headingSlot,
+    className,
+    children,
+    pending = false,
+  } = props;
 
   const nodeId = useUniqueId();
   const titleId = `TITLE_${nodeId}`;
@@ -32,8 +47,15 @@ export const PanelCard: React.FC<PanelCardProps> = props => {
     <div
       role="region"
       aria-labelledby={titleId}
-      className={cn(classes["root"], className)}
+      aria-busy={pending}
+      inert={pending}
+      className={cn(classes["root"], className, {
+        [classes["pending"]!]: pending,
+      })}
     >
+      <div className={classes["pending-overlay"]}>
+        <Spinner size={20} />
+      </div>
       <header className={classes["heading"]}>
         <Flex
           direction="column"

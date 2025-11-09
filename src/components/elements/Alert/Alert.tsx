@@ -12,6 +12,11 @@ export type AlertProps = WithRef<
     className?: string;
 
     /**
+     * The classnames of the component.
+     */
+    classNames?: Record<"root" | "title" | "description" | "icon", string>;
+
+    /**
      * The title of the alert.
      */
     title: string;
@@ -37,7 +42,15 @@ export type AlertProps = WithRef<
 >;
 
 export const Alert: React.FC<AlertProps> = props => {
-  const { description, title, className, icon, color = "neutral", ref } = props;
+  const {
+    description,
+    title,
+    classNames,
+    className,
+    icon,
+    color = "neutral",
+    ref,
+  } = props;
 
   const renderIcon = () => {
     if (!icon) return null;
@@ -45,7 +58,7 @@ export const Alert: React.FC<AlertProps> = props => {
     return (
       <div
         aria-hidden
-        className={classes["icon"]}
+        className={cn(classes["icon"], classNames?.icon)}
       >
         {icon}
       </div>
@@ -56,7 +69,13 @@ export const Alert: React.FC<AlertProps> = props => {
     <div
       ref={ref}
       role="alert"
-      className={cn(classes["root"], classes[color], className)}
+      className={cn(
+        classes["root"],
+        classes[color],
+        className,
+        classNames?.root,
+      )}
+      data-color={color}
     >
       {renderIcon()}
       <Flex
@@ -66,14 +85,14 @@ export const Alert: React.FC<AlertProps> = props => {
         <Text
           as="strong"
           variant="subheading2"
-          className={classes["title"]}
+          className={cn(classes["title"], classNames?.title)}
         >
           {title}
         </Text>
         <Text
           as="p"
           variant="body2"
-          className={classes["description"]}
+          className={cn(classes["description"], classNames?.description)}
         >
           {description}
         </Text>

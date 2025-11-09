@@ -1,6 +1,6 @@
 import { useIsomorphicValue } from "@utils/use-isomorphic-value";
 import { createPortal } from "react-dom";
-import { usePortalConfig } from "./context/index.ts";
+import { usePortalConfig } from "./context/index.internal.ts";
 
 export type PortalProps = {
   /**

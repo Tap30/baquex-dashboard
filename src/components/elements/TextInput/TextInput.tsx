@@ -10,6 +10,23 @@ export type TextInputProps = Omit<
     "input",
     {
       /**
+       * The classnames of the component.
+       */
+      classNames?: Partial<
+        Record<
+          | "root"
+          | "label"
+          | "description"
+          | "control"
+          | "input"
+          | "startSlot"
+          | "endSlot"
+          | "feedback",
+          string
+        >
+      >;
+
+      /**
        * The `<input>` type to use. The type greatly changes how
        * the text field behaves.
        *
@@ -124,6 +141,7 @@ export type TextInputProps = Omit<
 export const TextInput: React.FC<TextInputProps> = props => {
   const {
     className,
+    classNames,
     id: idProp,
     startSlot,
     endSlot,
@@ -187,7 +205,7 @@ export const TextInput: React.FC<TextInputProps> = props => {
         id={labelId}
         htmlFor={inputId}
         variant={labelVariant}
-        className={classes["label"]}
+        className={cn(classes["label"], classNames?.label)}
       >
         {label}
       </Text>
@@ -209,7 +227,7 @@ export const TextInput: React.FC<TextInputProps> = props => {
         as="p"
         variant={descVariant}
         color="secondary"
-        className={classes["description"]}
+        className={cn(classes["description"], classNames?.description)}
       >
         {description}
       </Text>
@@ -240,7 +258,7 @@ export const TextInput: React.FC<TextInputProps> = props => {
         role={role}
         variant={feedbackVariant}
         color={hasErrorText ? "negative" : "tertiary"}
-        className={classes["feedback"]}
+        className={cn(classes["feedback"], classNames?.feedback)}
       >
         {feedbackOrErrorText}
       </Text>
@@ -250,13 +268,21 @@ export const TextInput: React.FC<TextInputProps> = props => {
   const renderStartSlot = () => {
     if (!startSlot) return null;
 
-    return <div className={classes["start-slot"]}>{startSlot}</div>;
+    return (
+      <div className={cn(classes["start-slot"], classNames?.startSlot)}>
+        {startSlot}
+      </div>
+    );
   };
 
   const renderEndSlot = () => {
     if (!endSlot) return null;
 
-    return <div className={classes["end-slot"]}>{endSlot}</div>;
+    return (
+      <div className={cn(classes["end-slot"], classNames?.endSlot)}>
+        {endSlot}
+      </div>
+    );
   };
 
   const ariaLabel = hideLabel ? label : undefined;
@@ -266,15 +292,25 @@ export const TextInput: React.FC<TextInputProps> = props => {
   return (
     <div
       id={rootId}
-      className={cn(classes["root"], classes[size], className, {
-        [classes["has-error"]!]: hasError,
-        [classes["disabled"]!]: disabled,
-        [classes["readonly"]!]: readOnly,
-      })}
+      className={cn(
+        classes["root"],
+        classes[size],
+        className,
+        classNames?.root,
+        {
+          [classes["has-error"]!]: hasError,
+          [classes["disabled"]!]: disabled,
+          [classes["readonly"]!]: readOnly,
+        },
+      )}
+      data-error={hasError}
+      data-disabled={disabled}
+      data-readonly={readOnly}
+      data-size={size}
     >
       {renderLabel()}
       {renderDescription()}
-      <div className={classes["control"]}>
+      <div className={cn(classes["control"], classNames?.control)}>
         {renderStartSlot()}
         <input
           {...otherProps}
@@ -287,7 +323,7 @@ export const TextInput: React.FC<TextInputProps> = props => {
           aria-invalid={ariaInvalid}
           aria-label={ariaLabel}
           aria-describedby={ariaDescribedBy}
-          className={classes["input"]}
+          className={cn(classes["input"], classNames?.input)}
         />
         {renderEndSlot()}
       </div>

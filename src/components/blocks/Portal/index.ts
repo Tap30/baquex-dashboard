@@ -1,2 +1,2 @@
-export * from "./context/index.ts";
+export * from "./context/index.internal.ts";
 export * from "./Portal.tsx";

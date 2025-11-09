@@ -1,26 +1,33 @@
+.root {
+  min-width: var(--button-min-width);
+}
+
 .root.root:has(.icon) {
   min-width: auto;
 }
 
-.root:not(:has(.icon)) > :is(button, a) {
+.root:not(:has(.icon)) > :is(button, a, [role="button"]) {
   justify-content: center;
 }
 
-.root > :is(button, a) {
+.root > :is(button, a, [role="button"]) {
   width: 100%;
   height: var(--button-height);
 }
 
 .root[data-size="lg"] {
-  min-width: 4rem;
+  --button-horizontal-padding: var(--spacing-md);
+  --button-min-width: 4rem;
 }
 
 .root[data-size="md"] {
-  min-width: 3.5rem;
+  --button-horizontal-padding: var(--spacing-sm);
+  --button-min-width: 3.5rem;
 }
 
 .root[data-size="sm"] {
-  min-width: 3rem;
+  --button-horizontal-padding: var(--spacing-sm);
+  --button-min-width: 3rem;
 }
 
 .root.fluid {
@@ -32,6 +39,9 @@
   font-size: var(--button-font-size);
   font-weight: var(--button-font-weight);
   line-height: var(--button-leading);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .icon {
@@ -50,8 +60,10 @@
 
 .start-icon {
   margin-inline-end: var(--spacing-sm);
+  margin-inline-start: calc(-1 * var(--spacing-xs));
 }
 
 .end-icon {
   margin-inline-start: var(--spacing-lg);
+  margin-inline-end: calc(-1 * var(--spacing-xs));
 }

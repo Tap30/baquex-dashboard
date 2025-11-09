@@ -1,38 +1,23 @@
 import { Flex } from "@components/Flex";
 import { Text } from "@components/Text";
 import appConfig from "@config";
-import { SIDEBAR_ITEMS } from "@constants/sidebar";
 import { strings } from "@static-content";
 import { cn } from "@utils/cn";
 import { memo } from "react";
-import { Footer, Item } from "./components/index.ts";
+import { Footer, Items } from "./components/index.internal.ts";
 import classes from "./styles.module.css";
 
 const { logo, name } = appConfig;
 
 type Props = {
   className?: string;
-  open: boolean;
 };
 
 const SidebarBase: React.FC<Props> = props => {
-  const { className, open } = props;
-
-  const renderItems = () => {
-    return SIDEBAR_ITEMS.map(item => (
-      <Item
-        key={item.title + item.type}
-        item={item}
-      />
-    ));
-  };
+  const { className } = props;
 
   return (
-    <aside
-      className={cn(classes["root"], className, {
-        [classes["open"]!]: open,
-      })}
-    >
+    <aside className={cn(classes["root"], className)}>
       <Flex
         aria-hidden
         className={classes["logo"]}
@@ -58,7 +43,7 @@ const SidebarBase: React.FC<Props> = props => {
           direction="column"
           gap="sm"
         >
-          {renderItems()}
+          <Items />
         </Flex>
       </nav>
       <Footer className={classes["footer"]} />

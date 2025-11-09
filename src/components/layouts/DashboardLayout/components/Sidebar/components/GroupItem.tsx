@@ -1,15 +1,17 @@
 import { Flex } from "@components/Flex";
 import { Text } from "@components/Text";
-import { SidebarItemTypes, type SidebarGroupItem } from "@constants/sidebar";
+import { SidebarItemTypes } from "@constants/sidebar";
+import type { SidebarGroupItem } from "@types";
 import { useUniqueId } from "@utils/use-unique-id";
-import { LeafItem } from "./LeafItem/index.ts";
-import { ParentItem } from "./ParentItem/index.ts";
+import { memo } from "react";
+import { LeafItem } from "./LeafItem/index.internal.ts";
+import { ParentItem } from "./ParentItem/index.internal.ts";
 
 type Props = {
   item: SidebarGroupItem;
 };
 
-export const GroupItem: React.FC<Props> = props => {
+const GroupItemImpl: React.FC<Props> = props => {
   const { item } = props;
   const { title, items } = item;
 
@@ -64,3 +66,5 @@ export const GroupItem: React.FC<Props> = props => {
     </Flex>
   );
 };
+
+export const GroupItem = memo(GroupItemImpl);

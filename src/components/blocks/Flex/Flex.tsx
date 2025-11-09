@@ -125,12 +125,12 @@ export const Flex = <E extends React.ElementType = "div">(
 
   /**
    * GENERATED CLASSES:
-   * - "nowrap", "wrap", "wrap-reverse"
-   * - "xs:nowrap", "xs:wrap", "xs:wrap-reverse"
-   * - "sm:nowrap", "sm:wrap", "sm:wrap-reverse"
-   * - "md:nowrap", "md:wrap", "md:wrap-reverse"
-   * - "lg:nowrap", "lg:wrap", "lg:wrap-reverse"
-   * - "xl:nowrap", "xl:wrap", "xl:wrap-reverse"
+   * - "flex-nowrap", "flex-wrap", "flex-wrap-reverse"
+   * - "xs:flex-nowrap", "xs:flex-wrap", "xs:flex-wrap-reverse"
+   * - "sm:flex-nowrap", "sm:flex-wrap", "sm:flex-wrap-reverse"
+   * - "md:flex-nowrap", "md:flex-wrap", "md:flex-wrap-reverse"
+   * - "lg:flex-nowrap", "lg:flex-wrap", "lg:flex-wrap-reverse"
+   * - "xl:flex-nowrap", "xl:flex-wrap", "xl:flex-wrap-reverse"
    */
   const wrapModeClasses = generateTailwindClassesWithBreakpoints(
     "flex",

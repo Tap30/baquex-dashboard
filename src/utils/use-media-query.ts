@@ -1,5 +1,5 @@
+import { useIsomorphicLayoutEffect } from "@utils/use-isomorphic-layout-effect";
 import { useState } from "react";
-import { useIsomorphicLayoutEffect } from "./use-isomorphic-layout-effect.ts";
 
 const isSupported = typeof window !== "undefined" && "matchMedia" in window;
 

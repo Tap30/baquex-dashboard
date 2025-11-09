@@ -11,6 +11,11 @@ export type AvatarProps = WithRef<
     className?: string;
 
     /**
+     * The classnames of the component.
+     */
+    classNames?: Record<"root" | "image" | "fallback", string>;
+
+    /**
      * The image URL.
      */
     src: string;
@@ -36,19 +41,27 @@ export type AvatarProps = WithRef<
 >;
 
 export const Avatar: React.FC<AvatarProps> = props => {
-  const { alt, src, className, fallback, size = "md", ref } = props;
+  const { alt, src, className, classNames, fallback, size = "md", ref } = props;
 
   return (
     <AvatarPrimitives.Root
       ref={ref}
-      className={cn(classes["root"], classes[size], className)}
+      className={cn(
+        classes["root"],
+        classes[size],
+        className,
+        classNames?.root,
+      )}
+      data-size={size}
     >
       <AvatarPrimitives.Image
-        className={classes["image"]}
+        className={cn(classes["image"], classNames?.image)}
         src={src}
         alt={alt}
       />
-      <AvatarPrimitives.Fallback className={classes["fallback"]}>
+      <AvatarPrimitives.Fallback
+        className={cn(classes["fallback"], classNames?.fallback)}
+      >
         {fallback}
       </AvatarPrimitives.Fallback>
     </AvatarPrimitives.Root>

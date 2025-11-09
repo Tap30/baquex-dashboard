@@ -3,8 +3,8 @@ import type { MergeElementProps } from "@types";
 import { cn } from "@utils/cn";
 import classes from "./styles.module.css";
 
-export type SecondaryBadgeAction = Omit<
-  IconButtonProps,
+export type BadgeAction<E extends React.ElementType = "button"> = Omit<
+  IconButtonProps<E>,
   "aria-label" | "aria-labelledby"
 > & {
   /**
@@ -13,10 +13,15 @@ export type SecondaryBadgeAction = Omit<
   label: string;
 };
 
-export type BadgeProps = Omit<
+export type BadgeProps<E extends React.ElementType = "button"> = Omit<
   MergeElementProps<
     "div",
     {
+      /**
+       * The classnames of the component.
+       */
+      classNames?: Record<"root" | "icon" | "text" | "action", string>;
+
       /**
        * The content of the badge.
        */
@@ -28,9 +33,9 @@ export type BadgeProps = Omit<
       icon?: React.ReactNode;
 
       /**
-       * The secondary action button used in the badge.
+       * The action button used in the badge.
        */
-      secondaryAction?: SecondaryBadgeAction;
+      action?: BadgeAction<E>;
 
       /**
        * The color scheme of the badge.
@@ -44,22 +49,23 @@ export type BadgeProps = Omit<
   | "aria-label"
   | "aria-labelledby"
   | "aria-describedby"
-  | "value"
   | "defaultValue"
-  | "checked"
   | "defaultChecked"
 >;
 
-export const Badge: React.FC<BadgeProps> = props => {
+export const Badge = <E extends React.ElementType = "button">(
+  props: BadgeProps<E>,
+) => {
   const {
     ref,
     className,
+    classNames,
     text,
     icon,
-    secondaryAction,
+    action: secondaryAction,
     color = "neutral",
     ...otherProps
-  } = props;
+  } = props as BadgeProps<"button">;
 
   const renderIcon = () => {
     if (!icon) return null;
@@ -67,7 +73,7 @@ export const Badge: React.FC<BadgeProps> = props => {
     return (
       <div
         aria-hidden
-        className={classes["icon"]}
+        className={cn(classes["icon"], classNames?.icon)}
       >
         {icon}
       </div>
@@ -84,7 +90,7 @@ export const Badge: React.FC<BadgeProps> = props => {
         {...etc}
         size="sm"
         variant="ghost"
-        className={classes["action"]}
+        className={cn(classes["action"], classNames?.action)}
         aria-label={label}
       />
     );
@@ -94,10 +100,16 @@ export const Badge: React.FC<BadgeProps> = props => {
     <div
       {...otherProps}
       ref={ref}
-      className={cn(classes["root"], classes[color], className)}
+      className={cn(
+        classes["root"],
+        classes[color],
+        className,
+        classNames?.root,
+      )}
+      data-color={color}
     >
       {renderIcon()}
-      <span className={classes["text"]}>{text}</span>
+      <span className={cn(classes["text"], classNames?.text)}>{text}</span>
       {renderAction()}
     </div>
   );

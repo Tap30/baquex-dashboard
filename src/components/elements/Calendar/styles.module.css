@@ -3,6 +3,8 @@
   --calendar-cells-gap: var(--spacing-xs);
   --calendar-cell-size: 2.125rem;
   --calendar-cell-font-size: var(--text-body2);
+  --calendar-header-margin: 2rem;
+  --calendar-header-padding: 0.5rem;
 
   width: fit-content;
   background: var(--color-background);
@@ -143,6 +145,8 @@ button.day-button:focus-visible {
   line-height: 1;
 
   outline: none;
+
+  border-radius: var(--radius-sm);
 }
 
 .disabled {
@@ -156,4 +160,10 @@ button.day-button:focus-visible {
 
 .dropdown .control {
   margin-top: 0;
+}
+
+.dropdowns {
+  width: 100%;
+  margin: 0 var(--calendar-header-margin);
+  padding: 0 var(--calendar-header-padding);
 }

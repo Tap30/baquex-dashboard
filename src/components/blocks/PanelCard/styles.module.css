@@ -1,13 +1,38 @@
 .root {
+  --panelcard-overlay-visibility: hidden;
+  --panelcard-overlay-opacity: 0;
+
   padding: var(--spacing-md);
   border-radius: var(--radius-lg);
   background-color: var(--color-surface-secondary);
   box-shadow: 0 0 0 1px var(--color-border-tertiary);
+  position: relative;
+}
+
+.root.pending {
+  --panelcard-overlay-visibility: visible;
+  --panelcard-overlay-opacity: 1;
 }
 
 .heading {
   display: flex;
   align-items: center;
 
-  margin-bottom: var(--spacing-md);
+  margin-bottom: var(--spacing-xxl);
+}
+
+.pending-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-md);
+
+  backdrop-filter: blur(8px) saturate(0);
+
+  visibility: var(--panelcard-overlay-visibility);
+  opacity: var(--panelcard-overlay-opacity);
 }

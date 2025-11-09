@@ -8,7 +8,7 @@ import classes from "./styles.module.css";
 
 export type ExceptionProps = {
   /**
-   * Optional illustration or icon displayed to the left or above the text content.
+   * Optional illustration or icon displayed near the text content.
    * If not provided, defaults to a negative-colored block helper icon.
    */
   illustration?: React.ReactNode;

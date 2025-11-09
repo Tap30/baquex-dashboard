@@ -1,11 +1,11 @@
 import { Icon } from "@components/Icon";
 import { Text } from "@components/Text";
-import type { SidebarParentNodeItem } from "@constants/sidebar";
 import { mdiChevronDown } from "@mdi/js";
 import * as CollapsiblePrimitive from "@radix-ui/react-collapsible";
-import { useLazyInitializedValue } from "@utils/use-lazy-initialized-value";
+import type { SidebarParentNodeItem } from "@types";
+import { useInitOnce } from "@utils/use-init-once";
 import { useLocation } from "react-router";
-import { LeafItem } from "../LeafItem/index.ts";
+import { LeafItem } from "../LeafItem/index.internal.ts";
 import classes from "./styles.module.css";
 
 type Props = {
@@ -18,7 +18,7 @@ export const ParentItem: React.FC<Props> = props => {
 
   const { pathname } = useLocation();
 
-  const isExpanded = useLazyInitializedValue(() => {
+  const isExpanded = useInitOnce(() => {
     return items.some(item => item.href === pathname);
   });
 

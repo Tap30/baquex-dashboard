@@ -16,9 +16,9 @@ import {
   type PopoverContentProps,
 } from "@components/Popover";
 import { Text, type TextProps } from "@components/Text";
-import { mdiCheck, mdiClose } from "@mdi/js";
+import { mdiCheck, mdiChevronDown, mdiClose } from "@mdi/js";
 import { strings } from "@static-content";
-import type { MergeElementProps } from "@types";
+import type { MergeElementPropsWithOmitted } from "@types";
 import { cn } from "@utils/cn";
 import { useControllableProp } from "@utils/use-controllable-prop";
 import { useForkedRefs } from "@utils/use-forked-refs";
@@ -70,185 +70,225 @@ export type ComboBoxGroup = {
 
 export type ComboBoxItem = ComboBoxOption | ComboBoxGroup;
 
-export type ComboBoxProps = Omit<
-  MergeElementProps<
-    "button",
-    Pick<
-      PopoverContentProps,
-      | "onEscapeKeyDown"
-      | "onPointerDownOutside"
-      | "avoidCollisions"
-      | "collisionBoundary"
-      | "collisionPadding"
-    > &
-      (
-        | {
-            /**
-             * The select mode of the items.
-             *
-             * @default "single"
-             */
-            selectMode: "multiple";
-
-            /**
-             * The controlled value of the select.
-             * Should be used in conjunction with `onChange`.
-             */
-            value?: string[];
-
-            /**
-             * The value of the select when initially rendered.
-             * Use when you do not need to control the state of the select.
-             */
-            defaultValue?: string[];
-
-            /**
-             * Event handler called when the value changes.
-             */
-            onChange?: (value: string[]) => void;
-          }
-        | {
-            selectMode: "single";
-            value?: string;
-            defaultValue?: string;
-            onChange?: (value: string) => void;
-          }
-      ) & {
-        /**
-         * The label of the input.
-         */
-        label: string;
-
-        /**
-         * The combobox items.
-         */
-        items: ComboBoxItem[];
-
-        /**
-         * The open state of the select when it is initially rendered.
-         * Use when you do not need to control its open state.
-         */
-        defaultOpen?: boolean;
-
-        /**
-         * The controlled open state of the select.
-         * Must be used in conjunction with `onOpenChange`.
-         */
-        open?: boolean;
-
-        /**
-         * The name of the select.
-         * Submitted with its owning form as part of a name/value pair.
-         */
-        name?: string;
-
-        /**
-         * Whether to hide the label or not.
-         *
-         * @default false
-         */
-        hideLabel?: boolean;
-
-        /**
-         * When `true`, indicates that the user must select an option before the
-         * owning form can be submitted.
-         *
-         * @default false
-         */
-        required?: boolean;
-
-        /**
-         * The text to display as a description.
-         */
-        description?: string;
-
-        /**
-         * The placeholder text to display when no item is selected.
-         */
-        placeholder?: string;
-
-        /**
-         * Conveys additional information below the text input, such as how it should
-         * be used.
-         */
-        feedback?: string;
-
-        /**
-         * Gets or sets whether or not the text input is in a visually invalid state.
-         *
-         * This error state overrides the error state controlled by
-         * `reportValidity()`.
-         *
-         * @default false
-         */
-        hasError?: boolean;
-
-        /**
-         * The error message that replaces feedback when `error` is true. If
-         * `errorText` is an empty string, then the feedback will continue to
-         * show.
-         */
-        errorText?: string;
-
-        /**
-         * The size of the input.
-         *
-         * @default "md"
-         */
-        size?: "sm" | "md" | "lg";
-
-        /**
-         * Indicates whether or not a user should be able to edit the text input's
-         * value.
-         *
-         * @default false
-         */
-        readOnly?: boolean;
-
-        /**
-         * Whether or not the element is disabled.
-         *
-         * @default false
-         */
-        disabled?: boolean;
-
-        /**
-         * Indicates that the element should be focused on mount.
-         *
-         * @default false
-         */
-        autoFocus?: boolean;
-
-        /**
-         * The slot used for element placed at the start.
-         */
-        startSlot?: React.ReactNode;
-
-        /**
-         * The slot used for element placed at the end.
-         */
-        endSlot?: React.ReactNode;
-
-        /**
-         * Event handler called when the open state of the select changes.
-         */
-        onOpenChange?: (open: boolean) => void;
-      }
-  >,
+export type ComboBoxProps = MergeElementPropsWithOmitted<
+  "button",
   | "onSelect"
   | "children"
   | "type"
-  | "checked"
   | "defaultChecked"
   | "aria-invalid"
   | "aria-describedby"
   | "aria-label"
-  | "aria-labelledby"
+  | "aria-labelledby",
+  Pick<
+    PopoverContentProps,
+    | "onEscapeKeyDown"
+    | "onPointerDownOutside"
+    | "avoidCollisions"
+    | "collisionBoundary"
+    | "collisionPadding"
+  > &
+    (
+      | {
+          /**
+           * The select mode of the items.
+           *
+           * @default "single"
+           */
+          selectMode: "multiple";
+
+          /**
+           * The controlled value of the select.
+           * Should be used in conjunction with `onChange`.
+           */
+          value?: string[];
+
+          /**
+           * The value of the select when initially rendered.
+           * Use when you do not need to control the state of the select.
+           */
+          defaultValue?: string[];
+
+          /**
+           * Event handler called when the value changes.
+           */
+          onChange?: (value: string[]) => void;
+        }
+      | {
+          selectMode: "single";
+          value?: string;
+          defaultValue?: string;
+          onChange?: (value: string) => void;
+        }
+    ) & {
+      /**
+       * The classnames of the component.
+       */
+      classNames?: Partial<
+        Record<
+          | "root"
+          | "label"
+          | "description"
+          | "trigger"
+          | "control"
+          | "input"
+          | "chevron"
+          | "startSlot"
+          | "endSlot"
+          | "clearButton"
+          | "content"
+          | "feedback",
+          string
+        >
+      >;
+
+      /**
+       * The label of the input.
+       */
+      label: string;
+
+      /**
+       * The combobox items.
+       */
+      items: ComboBoxItem[];
+
+      /**
+       * The open state of the select when it is initially rendered.
+       * Use when you do not need to control its open state.
+       */
+      defaultOpen?: boolean;
+
+      /**
+       * The controlled open state of the select.
+       * Must be used in conjunction with `onOpenChange`.
+       */
+      open?: boolean;
+
+      /**
+       * The name of the select.
+       * Submitted with its owning form as part of a name/value pair.
+       */
+      name?: string;
+
+      /**
+       * Whether to hide the label or not.
+       *
+       * @default false
+       */
+      hideLabel?: boolean;
+
+      /**
+       * Whether to make the input clearable or not (when a value is selected).
+       *
+       * @default true
+       */
+      clearable?: boolean;
+
+      /**
+       * Whether to make the input searchable or not.
+       *
+       * @default true
+       */
+      searchable?: boolean;
+
+      /**
+       * When `true`, indicates that the user must select an option before the
+       * owning form can be submitted.
+       *
+       * @default false
+       */
+      required?: boolean;
+
+      /**
+       * The text to display as a description.
+       */
+      description?: string;
+
+      /**
+       * The placeholder text to display when no item is selected.
+       */
+      placeholder?: string;
+
+      /**
+       * Conveys additional information below the text input, such as how it should
+       * be used.
+       */
+      feedback?: string;
+
+      /**
+       * Gets or sets whether or not the text input is in a visually invalid state.
+       *
+       * This error state overrides the error state controlled by
+       * `reportValidity()`.
+       *
+       * @default false
+       */
+      hasError?: boolean;
+
+      /**
+       * The error message that replaces feedback when `error` is true. If
+       * `errorText` is an empty string, then the feedback will continue to
+       * show.
+       */
+      errorText?: string;
+
+      /**
+       * The size of the input.
+       *
+       * @default "md"
+       */
+      size?: "sm" | "md" | "lg";
+
+      /**
+       * Indicates whether or not a user should be able to edit the text input's
+       * value.
+       *
+       * @default false
+       */
+      readOnly?: boolean;
+
+      /**
+       * Whether or not the element is disabled.
+       *
+       * @default false
+       */
+      disabled?: boolean;
+
+      /**
+       * Whether or not the combo box contents was full width relative to the input.
+       *
+       * @default false
+       */
+      fullWidthContents?: boolean;
+
+      /**
+       * Indicates that the element should be focused on mount.
+       *
+       * @default false
+       */
+      autoFocus?: boolean;
+
+      /**
+       * The slot used for element placed at the start.
+       */
+      startSlot?: React.ReactNode;
+
+      /**
+       * The slot used for element placed at the end.
+       */
+      endSlot?: React.ReactNode;
+
+      /**
+       * Event handler called when the open state of the select changes.
+       */
+      onOpenChange?: (open: boolean) => void;
+    }
 >;
 
 export const ComboBox: React.FC<ComboBoxProps> = props => {
   const {
     ref,
+    classNames,
     open: openProp,
     defaultOpen,
     value: valueProp,
@@ -273,6 +313,9 @@ export const ComboBox: React.FC<ComboBoxProps> = props => {
     autoFocus = false,
     hasError = false,
     hideLabel = false,
+    clearable = true,
+    searchable = true,
+    fullWidthContents = false,
     disabled = false,
     readOnly = false,
     onEscapeKeyDown,
@@ -482,7 +525,7 @@ export const ComboBox: React.FC<ComboBoxProps> = props => {
         id={labelId}
         htmlFor={inputId}
         variant={labelVariant}
-        className={classes["label"]}
+        className={cn(classes["label"], classNames?.label)}
       >
         {label}
       </Text>
@@ -504,7 +547,7 @@ export const ComboBox: React.FC<ComboBoxProps> = props => {
         as="p"
         variant={descVariant}
         color="secondary"
-        className={classes["description"]}
+        className={cn(classes["description"], classNames?.description)}
       >
         {description}
       </Text>
@@ -535,7 +578,7 @@ export const ComboBox: React.FC<ComboBoxProps> = props => {
         role={role}
         variant={feedbackVariant}
         color={hasErrorText ? "negative" : "tertiary"}
-        className={classes["feedback"]}
+        className={cn(classes["feedback"], classNames?.feedback)}
       >
         {feedbackOrErrorText}
       </Text>
@@ -545,17 +588,21 @@ export const ComboBox: React.FC<ComboBoxProps> = props => {
   const renderStartSlot = () => {
     if (!startSlot) return null;
 
-    return <div className={classes["start-slot"]}>{startSlot}</div>;
+    return (
+      <div className={cn(classes["start-slot"], classNames?.startSlot)}>
+        {startSlot}
+      </div>
+    );
   };
 
   const renderEndSlot = () => {
     const values = normalizeValues(value);
-    const shouldRenderClear = !readOnly && !disabled && values.length > 0;
-
-    if (!endSlot && !shouldRenderClear) return null;
+    const shouldRenderClear =
+      !readOnly && !disabled && values.length > 0 && clearable;
 
     return (
-      <div className={classes["end-slot"]}>
+      <div className={cn(classes["end-slot"], classNames?.endSlot)}>
+        {endSlot}
         {shouldRenderClear && (
           <IconButton
             tabIndex={-1}
@@ -564,10 +611,10 @@ export const ComboBox: React.FC<ComboBoxProps> = props => {
             size={size === "sm" ? "sm" : "md"}
             icon={<Icon data={mdiClose} />}
             variant="ghost"
+            className={cn(classNames?.clearButton)}
             onClick={handleClear}
           />
         )}
-        {endSlot}
       </div>
     );
   };
@@ -585,6 +632,7 @@ export const ComboBox: React.FC<ComboBoxProps> = props => {
           value={option.value}
           disabled={option.disabled}
           onSelect={handleItemSelect}
+          keywords={[option.label]}
           explicitlySelected={values.includes(option.value)}
         >
           <span className={classes["item-text"]}>{option.label}</span>
@@ -647,10 +695,10 @@ export const ComboBox: React.FC<ComboBoxProps> = props => {
           key={v + idx}
           text={titleMap.get(v) ?? ""}
           className={classes["badge"]}
-          secondaryAction={{
-            href: "",
+          action={{
             icon: <Icon data={mdiClose} />,
             tabIndex: -1,
+            as: "div",
             label: strings.close,
             onClick: handleClick,
           }}
@@ -661,8 +709,6 @@ export const ComboBox: React.FC<ComboBoxProps> = props => {
 
   const renderHiddenInput = () => {
     if (!name) return null;
-
-    if (value.length === 0) return null;
 
     const renderOptions = () => {
       if (selectMode === "single") return <option value={value as string} />;
@@ -701,11 +747,23 @@ export const ComboBox: React.FC<ComboBoxProps> = props => {
   return (
     <div
       id={rootId}
-      className={cn(classes["root"], classes[size], className, {
-        [classes["has-error"]!]: hasError,
-        [classes["disabled"]!]: disabled,
-        [classes["readonly"]!]: readOnly,
-      })}
+      className={cn(
+        classes["root"],
+        classes[size],
+        className,
+        classNames?.root,
+        {
+          [classes["has-error"]!]: hasError,
+          [classes["disabled"]!]: disabled,
+          [classes["readonly"]!]: readOnly,
+        },
+      )}
+      data-size={size}
+      data-error={hasError}
+      data-disabled={disabled}
+      data-readonly={readOnly}
+      data-open={open}
+      data-select-mode={selectMode}
     >
       {renderHiddenInput()}
       {renderLabel()}
@@ -716,7 +774,7 @@ export const ComboBox: React.FC<ComboBoxProps> = props => {
       >
         <div
           id={controlId}
-          className={classes["control"]}
+          className={cn(classes["control"], classNames?.control)}
           tabIndex={-1}
           onClick={handleControlClick}
           inert={disabled}
@@ -728,7 +786,7 @@ export const ComboBox: React.FC<ComboBoxProps> = props => {
             ref={handleRef}
             disabled={disabled}
             autoFocus={autoFocus}
-            className={classes["input"]}
+            className={cn(classes["input"], classNames?.input)}
             aria-readonly={readOnly}
             aria-label={ariaLabel}
             aria-invalid={ariaInvalid}
@@ -737,6 +795,15 @@ export const ComboBox: React.FC<ComboBoxProps> = props => {
             <button>{renderValue()}</button>
           </PopoverTrigger>
           {renderEndSlot()}
+          <div
+            className={cn(
+              open ? "rotate-180" : "rotate-0",
+              classes["chevron"],
+              classNames?.chevron,
+            )}
+          >
+            <Icon data={mdiChevronDown} />
+          </div>
         </div>
         <PopoverContent
           ref={contentRefCallback}
@@ -747,10 +814,23 @@ export const ComboBox: React.FC<ComboBoxProps> = props => {
           collisionBoundary={collisionBoundary}
           collisionPadding={collisionPadding}
           side="bottom"
-          className={classes["content"]}
+          className={cn(classes["content"], classNames?.content, {
+            [classes["full-width"]!]: fullWidthContents,
+            [classes["searchable"]!]: searchable,
+          })}
         >
-          <Command label={label}>
+          <Command
+            label={label}
+            shouldFilter={searchable}
+            filter={(_, search, keywords) => {
+              const searchTerms = (keywords ?? []).join(" ").toLowerCase();
+
+              if (searchTerms.includes(search.toLowerCase())) return 1;
+              return 0;
+            }}
+          >
             <CommandInput
+              className={classes["searchbox"]}
               placeholder={strings.search}
               onKeyDown={handleInputKeyDown}
             />

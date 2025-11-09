@@ -24,6 +24,11 @@ export type PaginatorProps = WithRef<
     className?: string;
 
     /**
+     * The classnames of the component.
+     */
+    classNames?: Partial<Record<"root" | "page" | "dot", string>>;
+
+    /**
      * The total number of pages.
      */
     pageCount: number;
@@ -74,6 +79,7 @@ export const Paginator: React.FC<PaginatorProps> = props => {
   const {
     ref,
     className,
+    classNames,
     pageCount,
     screenReaderLabel,
     page: controlledPage,
@@ -178,7 +184,7 @@ export const Paginator: React.FC<PaginatorProps> = props => {
             color="neutral"
             disabled={disabled}
             text={"..."}
-            className={classes["dot"]}
+            className={cn(classes["dot"], classNames?.dot)}
             aria-label={isPrevDots ? prev5Label : next5Label}
             onClick={() => updatePage(pageNumber)}
           />
@@ -200,7 +206,7 @@ export const Paginator: React.FC<PaginatorProps> = props => {
           {...(isSelected
             ? { variant: "filled", color: "brand" }
             : { variant: "ghost", color: "neutral" })}
-          className={classes["page"]}
+          className={cn(classes["page"], classNames?.page)}
           key={String(pageInfo) + String(idx)}
           aria-current={isSelected ? "true" : undefined}
           disabled={disabled}
@@ -220,9 +226,12 @@ export const Paginator: React.FC<PaginatorProps> = props => {
       inert={disabled}
       aria-disabled={disabled}
       aria-label={screenReaderLabel}
-      className={cn(className, classes["root"], {
+      className={cn(className, classes["root"], classNames?.root, {
         [classes["disabled"]!]: disabled,
       })}
+      data-page={page}
+      data-page-count={pageCount}
+      data-disabled={disabled}
     >
       {renderGoPrevious()}
       {renderPages()}

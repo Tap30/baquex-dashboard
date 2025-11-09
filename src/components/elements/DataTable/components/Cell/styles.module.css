@@ -1,3 +1,7 @@
 .root {
   padding: var(--spacing-sm);
 }
+
+.root.center {
+  text-align: center;
+}

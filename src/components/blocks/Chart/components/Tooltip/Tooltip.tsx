@@ -1,7 +1,7 @@
 import type { MergeElementProps } from "@types";
 import { cn } from "@utils/cn";
 import * as RechartsPrimitive from "recharts";
-import { useChart } from "../../context/index.ts";
+import { useChart } from "../../context/index.internal.ts";
 import { getPayloadConfigFromPayload } from "../../utils.ts";
 import { TooltipItem } from "./Item.tsx";
 import classes from "./styles.module.css";
@@ -30,9 +30,7 @@ export const ChartTooltipContent: React.FC<
 
   const { config } = useChart();
 
-  if (!active || !payload?.length) {
-    return null;
-  }
+  if (!active || !payload?.length) return null;
 
   const renderItems = () => {
     return payload.map((item, idx) => {

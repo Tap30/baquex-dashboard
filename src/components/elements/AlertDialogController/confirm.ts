@@ -1,6 +1,6 @@
 import { ClientIdGenerator } from "@utils/ClientIdGenerator";
 import { Container, useValue } from "react-containerized-state";
-import type { AlertDialogProps } from "./components/index.ts";
+import type { AlertDialogProps } from "./components/index.internal.ts";
 
 type State = Omit<
   AlertDialogProps,

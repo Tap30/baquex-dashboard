@@ -1,0 +1,101 @@
+.root {
+  --radio-icon-color: transparent;
+  --radio-label-color: transparent;
+  --radio-background: transparent;
+  --radio-border-color: transparent;
+  --radio-size: 0;
+
+  position: relative;
+  vertical-align: middle;
+  display: inline-flex;
+  flex-direction: column;
+}
+
+.root:not(.disabled) .control:not(.checked) {
+  --radio-border-color: var(--color-border-primary);
+  --radio-label-color: var(--color-neutral-text);
+}
+
+.root:not(.disabled) .control.checked {
+  --radio-icon-color: var(--color-on-neutral);
+  --radio-label-color: var(--color-on-neutral);
+  --radio-border-color: transparent;
+  --radio-background: var(--color-neutral);
+}
+
+.root.disabled .control {
+  --radio-icon-color: var(--color-neutral-text-tertiary);
+  --radio-label-color: var(--color-neutral-text-tertiary);
+  --radio-border-color: var(--color-border-secondary);
+  --radio-background: var(--color-surface-secondary);
+
+  opacity: 0.5;
+}
+
+.root:not(.disabled).has-error .control:not(.checked) {
+  --radio-border-color: var(--color-negative-text);
+}
+
+.root:not(.disabled).has-error .control.checked {
+  --radio-icon-color: var(--color-on-negative);
+  --radio-label-color: var(--color-on-negative);
+  --radio-background: var(--color-negative);
+}
+
+.root.lg {
+  --radio-size: 1.25rem;
+}
+
+.root.md {
+  --radio-size: 1rem;
+}
+
+.root.sm {
+  --radio-size: 0.875rem;
+}
+
+.feedback.feedback {
+  margin-top: var(--spacing-sm);
+}
+
+button.input:focus-visible {
+  outline-style: solid;
+  outline-width: var(--token-focus-ring-stroke);
+  outline-color: var(--token-focus-ring-color);
+  outline-offset: var(--token-focus-ring-offset);
+}
+
+.control {
+  vertical-align: middle;
+  display: inline-flex;
+  align-items: center;
+
+  gap: var(--spacing-md);
+}
+
+.input {
+  border-radius: var(--radius-full);
+  box-shadow: 0 0 0 0.0625rem var(--radio-border-color);
+  background-color: var(--radio-background);
+
+  width: var(--radio-size);
+  height: var(--radio-size);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: var(--radio-icon-color);
+}
+
+.label {
+  color: var(--radio-label-color);
+}

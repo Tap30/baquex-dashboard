@@ -1,7 +1,7 @@
 import { Flex } from "@components/Flex";
 import { Icon } from "@components/Icon";
 import { Text } from "@components/Text";
-import type { SidebarLeafNodeItem } from "@constants/sidebar";
+import type { SidebarLeafNodeItem } from "@types";
 import { cn } from "@utils/cn";
 import { Link, useLocation } from "react-router";
 import classes from "./styles.module.css";

@@ -89,6 +89,16 @@ export type TextAreaProps = Omit<
        * @default false
        */
       autoFocus?: boolean;
+
+      /**
+       * The classnames of the component.
+       */
+      classNames?: Partial<
+        Record<
+          "root" | "label" | "description" | "control" | "input" | "feedback",
+          string
+        >
+      >;
     }
   >,
   | "children"
@@ -103,6 +113,7 @@ export type TextAreaProps = Omit<
 export const TextArea: React.FC<TextAreaProps> = props => {
   const {
     className,
+    classNames,
     id: idProp,
     label,
     description,
@@ -163,7 +174,7 @@ export const TextArea: React.FC<TextAreaProps> = props => {
         id={labelId}
         htmlFor={inputId}
         variant={labelVariant}
-        className={classes["label"]}
+        className={cn(classes["label"], classNames?.label)}
       >
         {label}
       </Text>
@@ -185,7 +196,7 @@ export const TextArea: React.FC<TextAreaProps> = props => {
         as="p"
         variant={descVariant}
         color="secondary"
-        className={classes["description"]}
+        className={cn(classes["description"], classNames?.description)}
       >
         {description}
       </Text>
@@ -216,7 +227,7 @@ export const TextArea: React.FC<TextAreaProps> = props => {
         role={role}
         variant={feedbackVariant}
         color={hasErrorText ? "negative" : "tertiary"}
-        className={classes["feedback"]}
+        className={cn(classes["feedback"], classNames?.feedback)}
       >
         {feedbackOrErrorText}
       </Text>
@@ -230,15 +241,25 @@ export const TextArea: React.FC<TextAreaProps> = props => {
   return (
     <div
       id={rootId}
-      className={cn(classes["root"], classes[size], className, {
-        [classes["has-error"]!]: hasError,
-        [classes["disabled"]!]: disabled,
-        [classes["readonly"]!]: readOnly,
-      })}
+      className={cn(
+        classes["root"],
+        classes[size],
+        className,
+        classNames?.root,
+        {
+          [classes["has-error"]!]: hasError,
+          [classes["disabled"]!]: disabled,
+          [classes["readonly"]!]: readOnly,
+        },
+      )}
+      data-size={size}
+      data-error={hasError}
+      data-disabled={disabled}
+      data-readonly={readOnly}
     >
       {renderLabel()}
       {renderDescription()}
-      <div className={classes["control"]}>
+      <div className={cn(classes["control"], classNames?.control)}>
         <textarea
           {...otherProps}
           autoFocus={autoFocus}
@@ -249,7 +270,7 @@ export const TextArea: React.FC<TextAreaProps> = props => {
           aria-invalid={ariaInvalid}
           aria-label={ariaLabel}
           aria-describedby={ariaDescribedBy}
-          className={classes["input"]}
+          className={cn(classes["input"], classNames?.input)}
         />
       </div>
       {renderFeedback()}

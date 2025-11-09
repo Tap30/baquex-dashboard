@@ -2,8 +2,6 @@
   display: flex;
   justify-content: center;
 
-  aspect-ratio: 16 / 9;
-
   font-size: var(--text-caption);
   line-height: var(--leading-caption);
 }

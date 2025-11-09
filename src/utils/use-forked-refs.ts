@@ -1,5 +1,5 @@
+import { handleRef } from "@utils/handle-ref";
 import { useCallback } from "react";
-import { handleRef } from "./handle-ref.ts";
 
 export const useForkedRefs = <T>(
   ...refs: (React.Ref<T> | undefined)[]

@@ -1,6 +1,7 @@
 import { Breadcrumb, useBreadcrumb } from "@components/Breadcrumb";
 import { Icon } from "@components/Icon";
 import { IconButton } from "@components/IconButton";
+import { useDirection } from "@contexts/Direction";
 import { mdiMenuClose, mdiMenuOpen } from "@mdi/js";
 import { strings } from "@static-content";
 import { cn } from "@utils/cn";
@@ -16,9 +17,17 @@ export const Header: React.FC<Props> = props => {
   const { className, isNavOpen, toggleNav } = props;
 
   const { crumbs } = useBreadcrumb();
+  const dir = useDirection();
 
   const label = isNavOpen ? strings.navButton.close : strings.navButton.open;
-  const icon = isNavOpen ? mdiMenuClose : mdiMenuOpen;
+
+  const icon = isNavOpen
+    ? dir === "rtl"
+      ? mdiMenuClose
+      : mdiMenuOpen
+    : dir === "rtl"
+      ? mdiMenuOpen
+      : mdiMenuClose;
 
   const handleNavOpenClick = () => {
     toggleNav();

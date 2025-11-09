@@ -51,6 +51,26 @@ export type DialogProps = WithRef<
     className?: string;
 
     /**
+     * The classnames of the component.
+     */
+    classNames?: Partial<
+      Record<
+        | "root"
+        | "overlay"
+        | "content"
+        | "header"
+        | "title"
+        | "closeButton"
+        | "body"
+        | "description"
+        | "actions"
+        | "cancelButton"
+        | "okButton",
+        string
+      >
+    >;
+
+    /**
      * The title of the dialog.
      */
     title: string;
@@ -89,6 +109,7 @@ export const Dialog: React.FC<DialogProps> = props => {
     ref,
     open,
     className,
+    classNames,
     onClose,
     modal = true,
     hideHeading = false,
@@ -147,6 +168,7 @@ export const Dialog: React.FC<DialogProps> = props => {
         id={cancelBtnId}
         variant="ghost"
         color="neutral"
+        className={classNames?.cancelButton}
         onClick={handleCancel}
       />
     );
@@ -160,6 +182,7 @@ export const Dialog: React.FC<DialogProps> = props => {
         {...okAction}
         variant="filled"
         color="neutral"
+        className={classNames?.okButton}
       />
     );
   };
@@ -168,7 +191,7 @@ export const Dialog: React.FC<DialogProps> = props => {
     if (!okAction && !cancelAction) return null;
 
     return (
-      <div className={classes["actions"]}>
+      <div className={cn(classes["actions"], classNames?.actions)}>
         {renderOk()}
         {renderCancel()}
       </div>
@@ -180,7 +203,9 @@ export const Dialog: React.FC<DialogProps> = props => {
 
     if (hasTextDescription) {
       return (
-        <DialogPrimitive.Description className={classes["description"]}>
+        <DialogPrimitive.Description
+          className={cn(classes["description"], classNames?.description)}
+        >
           {content}
         </DialogPrimitive.Description>
       );
@@ -201,13 +226,18 @@ export const Dialog: React.FC<DialogProps> = props => {
           ref={ref}
           tabIndex={-1}
           aria-hidden={!open}
-          className={cn(classes["root"], className)}
+          className={cn(classes["root"], className, classNames?.root)}
+          data-open={open}
+          data-modal={modal}
+          data-hide-heading={hideHeading}
         >
-          <DialogPrimitive.Overlay className={classes["overlay"]} />
+          <DialogPrimitive.Overlay
+            className={cn(classes["overlay"], classNames?.overlay)}
+          />
           <DialogPrimitive.Content
             {...(hasTextDescription ? {} : { "aria-describedby": undefined })}
             data-no-heading={hideHeading ? "" : undefined}
-            className={classes["content"]}
+            className={cn(classes["content"], classNames?.content)}
             onCloseAutoFocus={handleCloseAutoFocus}
             onOpenAutoFocus={onOpenAutoFocus}
             onEscapeKeyDown={onEscapeKeyDown}
@@ -215,13 +245,17 @@ export const Dialog: React.FC<DialogProps> = props => {
             onPointerDownOutside={onPointerDownOutside}
           >
             <header
-              className={cn(classes["header"], { "sr-only": hideHeading })}
+              className={cn(classes["header"], classNames?.header, {
+                "sr-only": hideHeading,
+              })}
             >
-              <DialogPrimitive.Title className={classes["title"]}>
+              <DialogPrimitive.Title
+                className={cn(classes["title"], classNames?.title)}
+              >
                 {title}
               </DialogPrimitive.Title>
               <IconButton
-                className={classes["close"]}
+                className={cn(classes["close"], classNames?.closeButton)}
                 aria-labelledby={cancelBtnId}
                 icon={<Icon data={mdiClose} />}
                 variant="ghost"
@@ -229,7 +263,9 @@ export const Dialog: React.FC<DialogProps> = props => {
                 onClick={onClose}
               />
             </header>
-            <div className={classes["body"]}>{renderBody()}</div>
+            <div className={cn(classes["body"], classNames?.body)}>
+              {renderBody()}
+            </div>
             {renderActions()}
           </DialogPrimitive.Content>
         </div>

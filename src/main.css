@@ -14,6 +14,20 @@
     outline-color: var(--token-focus-ring-color);
     outline-offset: var(--token-focus-ring-offset);
   }
+
+  :where(a) {
+    text-decoration: none;
+  }
+
+  :where(p),
+  :where(h1),
+  :where(h2),
+  :where(h3),
+  :where(h4),
+  :where(h5),
+  :where(h6) {
+    margin: unset;
+  }
 }
 
 html {

@@ -46,12 +46,10 @@ export type SortableAreaProps = DndContextProps &
 
       /**
        * The content to be rendered inside the component.
-       * This can be a standard React node or a function that receives
-       * `SortableAreaRenderProps` to create custom drag overlay.
+       * This has to be a function that receives `SortableAreaRenderProps` to
+       * create custom drag overlay.
        */
-      children?:
-        | React.ReactNode
-        | ((renderProps: SortableAreaRenderProps) => React.ReactNode);
+      children: (renderProps: SortableAreaRenderProps) => React.ReactNode;
     };
 
     /**
@@ -133,10 +131,7 @@ export const SortableArea: React.FC<SortableAreaProps> = props => {
     if (disabled) return null;
     if (!activeId) return null;
 
-    const children =
-      childrenProp instanceof Function
-        ? childrenProp({ activeId, activeIndex })
-        : childrenProp;
+    const children = childrenProp?.({ activeId, activeIndex }) ?? null;
 
     return (
       <Portal>

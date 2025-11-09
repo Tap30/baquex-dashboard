@@ -32,18 +32,16 @@ export type DndAreaProps = DndContextProps & {
 
     /**
      * The content to be rendered inside the component.
-     * This can be a standard React node or a function that receives
-     * `DndAreaRenderProps` to create custom drag overlay.
+     * This has to be a function that receives `DndAreaRenderProps` to create
+     * custom drag overlay.
      */
-    children:
-      | React.ReactNode
-      | ((renderProps: DndAreaRenderProps) => React.ReactNode);
+    children: (renderProps: DndAreaRenderProps) => React.ReactNode;
   };
 };
 
 export const DndArea: React.FC<DndAreaProps> = props => {
   const {
-    children,
+    children: childrenProp,
     dragOverlayProps,
     onDragStart,
     onDragEnd,
@@ -85,10 +83,7 @@ export const DndArea: React.FC<DndAreaProps> = props => {
     if (disabled) return null;
     if (!activeId) return null;
 
-    const children =
-      childrenProp instanceof Function
-        ? childrenProp({ activeId })
-        : childrenProp;
+    const children = childrenProp?.({ activeId }) ?? null;
 
     return (
       <Portal>
@@ -104,7 +99,7 @@ export const DndArea: React.FC<DndAreaProps> = props => {
       onDragEnd={handleDragEnd}
       onDragCancel={handleDragCancel}
     >
-      {children}
+      {childrenProp}
       {renderDragOverlay()}
     </DndContext>
   );

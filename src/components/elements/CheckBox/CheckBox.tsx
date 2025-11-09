@@ -14,6 +14,22 @@ export type CheckBoxProps = Omit<
     "button",
     {
       /**
+       * The classnames of the component.
+       */
+      classNames?: Partial<
+        Record<
+          | "root"
+          | "control"
+          | "input"
+          | "indicator"
+          | "icon"
+          | "label"
+          | "feedback",
+          string
+        >
+      >;
+
+      /**
        * The controlled checked state of the checkbox.
        * Must be used in conjunction with `onChange`.
        */
@@ -123,6 +139,7 @@ export type CheckBoxProps = Omit<
 export const CheckBox: React.FC<CheckBoxProps> = props => {
   const {
     className,
+    classNames,
     id: idProp,
     checked: checkedProp,
     defaultChecked,
@@ -199,7 +216,7 @@ export const CheckBox: React.FC<CheckBoxProps> = props => {
         id={labelId}
         htmlFor={inputId}
         variant={labelVariant}
-        className={classes["label"]}
+        className={cn(classes["label"], classNames?.label)}
       >
         {label}
       </Text>
@@ -239,7 +256,7 @@ export const CheckBox: React.FC<CheckBoxProps> = props => {
           role={role}
           variant={feedbackVariant}
           color={hasErrorText ? "negative" : "tertiary"}
-          className={classes["feedback"]}
+          className={cn(classes["feedback"], classNames?.feedback)}
         >
           {feedbackOrErrorText}
         </Text>
@@ -261,7 +278,7 @@ export const CheckBox: React.FC<CheckBoxProps> = props => {
     return (
       <div
         aria-hidden
-        className={classes["icon"]}
+        className={cn(classes["icon"], classNames?.icon)}
       >
         {icon}
       </div>
@@ -275,11 +292,21 @@ export const CheckBox: React.FC<CheckBoxProps> = props => {
   return (
     <div
       id={rootId}
-      className={cn(classes["root"], classes[size], className, {
-        [classes["has-error"]!]: hasError,
-        [classes["disabled"]!]: disabled,
-        [classes["readonly"]!]: readOnly,
-      })}
+      className={cn(
+        classes["root"],
+        classes[size],
+        className,
+        classNames?.root,
+        {
+          [classes["has-error"]!]: hasError,
+          [classes["disabled"]!]: disabled,
+          [classes["readonly"]!]: readOnly,
+        },
+      )}
+      data-error={hasError}
+      data-disabled={disabled}
+      data-readonly={readOnly}
+      data-size={size}
     >
       <div className={classes["control"]}>
         <CheckboxPrimitive.Root
@@ -293,9 +320,11 @@ export const CheckBox: React.FC<CheckBoxProps> = props => {
           aria-invalid={ariaInvalid}
           aria-label={ariaLabel}
           aria-describedby={ariaDescribedBy}
-          className={classes["input"]}
+          className={cn(classes["input"], classNames?.input)}
         >
-          <CheckboxPrimitive.Indicator className={classes["indicator"]}>
+          <CheckboxPrimitive.Indicator
+            className={cn(classes["indicator"], classNames?.indicator)}
+          >
             {renderIndicatorIcon()}
           </CheckboxPrimitive.Indicator>
         </CheckboxPrimitive.Root>

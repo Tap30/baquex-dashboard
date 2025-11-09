@@ -20,6 +20,13 @@ export type HeadCellProps<Data extends RowData, Value = unknown> = {
   className?: string;
 
   /**
+   * The classnames of the component.
+   */
+  classNames?: Partial<
+    Record<"root" | "content" | "button" | "text" | "icon", string>
+  >;
+
+  /**
    * The table header reference.
    */
   header: Header<Data, Value>;
@@ -33,7 +40,10 @@ export type HeadCellProps<Data extends RowData, Value = unknown> = {
 export const HeadCell = <Data extends RowData, Value = unknown>(
   props: HeadCellProps<Data, Value>,
 ) => {
-  const { className, header, table } = props;
+  const { className, classNames, header, table } = props;
+
+  const { meta } = header.column.columnDef;
+  const { center = false } = meta ?? {};
 
   const isSortable = header.column.getCanSort();
   const nextSortingOrder = header.column.getNextSortingOrder();
@@ -81,12 +91,14 @@ export const HeadCell = <Data extends RowData, Value = unknown>(
       <Flex
         gap="sm"
         alignItems="center"
-        className={classes["content"]}
+        justifyContent={center ? "center" : undefined}
+        className={cn(classes["content"], classNames?.content)}
         data-state={sortDir ? "sorted" : "unsorted"}
       >
         <Text
           variant="subheading2"
           weight={700}
+          className={classNames?.text}
         >
           {flexRender(header.column.columnDef.header, header.getContext())}
         </Text>
@@ -94,6 +106,7 @@ export const HeadCell = <Data extends RowData, Value = unknown>(
           <Icon
             data={iconData}
             size={18}
+            className={classNames?.icon}
           />
         )}
       </Flex>
@@ -102,7 +115,7 @@ export const HeadCell = <Data extends RowData, Value = unknown>(
     if (isSortable) {
       return (
         <ClickableArea
-          className={classes["button"]}
+          className={cn(classes["button"], classNames?.button)}
           title={getTitle()}
           onClick={handleClick}
         >
@@ -116,8 +129,13 @@ export const HeadCell = <Data extends RowData, Value = unknown>(
 
   return (
     <th
-      className={cn(classes["root"], className)}
+      className={cn(classes["root"], className, classNames?.root, {
+        [classes["center"]!]: center,
+      })}
       aria-sort={ariaSort}
+      data-sortable={isSortable}
+      data-sort-direction={sortDir || "none"}
+      data-center={center}
     >
       {renderContent()}
     </th>

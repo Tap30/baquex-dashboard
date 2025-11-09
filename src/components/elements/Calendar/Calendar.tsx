@@ -1,6 +1,6 @@
+import { ComboBox, type ComboBoxItem } from "@components/ComboBox";
 import { Icon } from "@components/Icon";
 import { IconButton } from "@components/IconButton";
-import { SelectInput, type SelectItem } from "@components/SelectInput";
 import { useDirection } from "@contexts/Direction";
 import { mdiChevronLeft, mdiChevronRight } from "@mdi/js";
 import { strings } from "@static-content";
@@ -25,7 +25,6 @@ export type CalendarProps<M extends Mode> = Overwrite<
   Omit<
     DayPickerProps,
     | "captionLayout"
-    | "disabled"
     | "required"
     | "modifiersStyles"
     | "animate"
@@ -138,6 +137,7 @@ export const Calendar = <M extends Mode>(props: CalendarProps<M>) => {
       outside: cn(defaultClassNames.outside, classes["outside"]),
       disabled: cn(defaultClassNames.disabled, classes["disabled"]),
       hidden: cn(classes["hidden"], defaultClassNames.hidden),
+      dropdowns: cn(defaultClassNames.dropdowns, classes["dropdowns"]),
     }),
     [otherProps.mode],
   );
@@ -162,7 +162,8 @@ export const Calendar = <M extends Mode>(props: CalendarProps<M>) => {
           label: option.label,
           value: option.value.toString(),
           disabled: option.disabled,
-        })) as SelectItem[];
+          type: "option",
+        })) as ComboBoxItem[];
 
         const handleChange = (val: string) => {
           const syntheticEvent = {
@@ -180,13 +181,16 @@ export const Calendar = <M extends Mode>(props: CalendarProps<M>) => {
               : "";
 
         return (
-          <SelectInput
+          <ComboBox
             label={label}
             name={name}
+            selectMode="single"
             items={items}
             value={value?.toString() ?? ""}
             onChange={handleChange}
             hideLabel
+            clearable={false}
+            searchable={false}
           />
         );
       },
@@ -197,7 +201,9 @@ export const Calendar = <M extends Mode>(props: CalendarProps<M>) => {
             variant="ghost"
             color="neutral"
             title={strings.components.calendar.previousMonth}
-            icon={<Icon data={mdiChevronLeft} />}
+            icon={
+              <Icon data={dir === "rtl" ? mdiChevronLeft : mdiChevronRight} />
+            }
           />
         );
       },
@@ -208,12 +214,14 @@ export const Calendar = <M extends Mode>(props: CalendarProps<M>) => {
             variant="ghost"
             color="neutral"
             title={strings.components.calendar.previousMonth}
-            icon={<Icon data={mdiChevronRight} />}
+            icon={
+              <Icon data={dir === "rtl" ? mdiChevronRight : mdiChevronLeft} />
+            }
           />
         );
       },
     }),
-    [fullWidth],
+    [dir, fullWidth],
   );
 
   return (

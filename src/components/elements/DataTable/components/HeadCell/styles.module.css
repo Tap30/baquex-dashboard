@@ -3,6 +3,10 @@
   text-align: start;
 }
 
+.root.center {
+  text-align: center;
+}
+
 .button:focus-visible .content[data-state="unsorted"] > svg {
   visibility: visible;
   opacity: 0.5;

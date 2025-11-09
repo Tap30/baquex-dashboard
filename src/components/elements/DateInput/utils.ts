@@ -1,9 +1,11 @@
 import { strings } from "@static-content";
+import { formatDateTime } from "@utils/date";
 import type { DateRange } from "react-day-picker";
 
 export const getValueDisplay = (
   value: Date | Date[] | DateRange | null,
-  dateFormatter: (date: Date) => string = date => date.toLocaleDateString(),
+  dateFormatter: (date: Date) => string = date =>
+    formatDateTime(date, { dateStyle: "medium" }),
 ) => {
   let display = "";
 

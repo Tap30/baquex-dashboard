@@ -25,6 +25,23 @@ export type TimeInputProps = Omit<
       hideLabel?: boolean;
 
       /**
+       * The classnames of the component.
+       */
+      classNames?: Partial<
+        Record<
+          | "root"
+          | "label"
+          | "description"
+          | "control"
+          | "input"
+          | "startSlot"
+          | "endSlot"
+          | "feedback",
+          string
+        >
+      >;
+
+      /**
        * The text to display as a description.
        */
       description?: string;
@@ -110,6 +127,7 @@ export const TimeInput: React.FC<TimeInputProps> = props => {
   const {
     ref,
     className,
+    classNames,
     id: idProp,
     startSlot,
     endSlot = <Icon data={mdiClock} />,
@@ -176,7 +194,7 @@ export const TimeInput: React.FC<TimeInputProps> = props => {
         id={labelId}
         htmlFor={inputId}
         variant={labelVariant}
-        className={classes["label"]}
+        className={cn(classes["label"], classNames?.label)}
       >
         {label}
       </Text>
@@ -198,7 +216,7 @@ export const TimeInput: React.FC<TimeInputProps> = props => {
         as="p"
         variant={descVariant}
         color="secondary"
-        className={classes["description"]}
+        className={cn(classes["description"], classNames?.description)}
       >
         {description}
       </Text>
@@ -229,7 +247,7 @@ export const TimeInput: React.FC<TimeInputProps> = props => {
         role={role}
         variant={feedbackVariant}
         color={hasErrorText ? "negative" : "tertiary"}
-        className={classes["feedback"]}
+        className={cn(classes["feedback"], classNames?.feedback)}
       >
         {feedbackOrErrorText}
       </Text>
@@ -239,13 +257,21 @@ export const TimeInput: React.FC<TimeInputProps> = props => {
   const renderStartSlot = () => {
     if (!startSlot) return null;
 
-    return <div className={classes["start-slot"]}>{startSlot}</div>;
+    return (
+      <div className={cn(classes["start-slot"], classNames?.startSlot)}>
+        {startSlot}
+      </div>
+    );
   };
 
   const renderEndSlot = () => {
     if (!endSlot) return null;
 
-    return <div className={classes["end-slot"]}>{endSlot}</div>;
+    return (
+      <div className={cn(classes["end-slot"], classNames?.endSlot)}>
+        {endSlot}
+      </div>
+    );
   };
 
   const ariaLabel = hideLabel ? label : undefined;
@@ -255,15 +281,25 @@ export const TimeInput: React.FC<TimeInputProps> = props => {
   return (
     <div
       id={rootId}
-      className={cn(classes["root"], classes[size], className, {
-        [classes["has-error"]!]: hasError,
-        [classes["disabled"]!]: disabled,
-        [classes["readonly"]!]: readOnly,
-      })}
+      className={cn(
+        classes["root"],
+        classes[size],
+        className,
+        classNames?.root,
+        {
+          [classes["has-error"]!]: hasError,
+          [classes["disabled"]!]: disabled,
+          [classes["readonly"]!]: readOnly,
+        },
+      )}
+      data-size={size}
+      data-error={hasError}
+      data-disabled={disabled}
+      data-readonly={readOnly}
     >
       {renderLabel()}
       {renderDescription()}
-      <div className={classes["control"]}>
+      <div className={cn(classes["control"], classNames?.control)}>
         {renderStartSlot()}
         <input
           {...otherProps}
@@ -279,7 +315,7 @@ export const TimeInput: React.FC<TimeInputProps> = props => {
           aria-invalid={ariaInvalid}
           aria-label={ariaLabel}
           aria-describedby={ariaDescribedBy}
-          className={classes["input"]}
+          className={cn(classes["input"], classNames?.input)}
         />
         {renderEndSlot()}
       </div>

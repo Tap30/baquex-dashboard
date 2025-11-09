@@ -1,0 +1,38 @@
+.root {
+  --dot-background: transparent;
+
+  display: inline-flex;
+  align-items: center;
+  vertical-align: middle;
+
+  background-color: var(--dot-background);
+  box-shadow: 0 0 4px 0 var(--dot-background);
+  border-radius: var(--radius-full);
+
+  height: 0.5rem;
+  width: 0.5rem;
+}
+
+.root.neutral {
+  --dot-background: var(--color-neutral);
+}
+
+.root.brand {
+  --dot-background: var(--color-brand);
+}
+
+.root.positive {
+  --dot-background: var(--color-positive);
+}
+
+.root.negative {
+  --dot-background: var(--color-negative);
+}
+
+.root.info {
+  --dot-background: var(--color-info);
+}
+
+.root.warn {
+  --dot-background: var(--color-warn);
+}

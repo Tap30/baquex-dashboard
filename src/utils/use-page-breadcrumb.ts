@@ -1,19 +1,23 @@
 import { useBreadcrumb, type BreadcrumbItem } from "@components/Breadcrumb";
+import { useGetLatest } from "@utils/use-get-latest";
 import { useEffect } from "react";
-import { useGetLatest } from "./use-get-latest.ts";
 
-export const usePageBreadcrumb = (crumb: BreadcrumbItem) => {
+export const usePageBreadcrumb = (crumbs: BreadcrumbItem[]) => {
   const { addCrumb, removeCrumb } = useBreadcrumb();
 
-  const getCrumb = useGetLatest(crumb);
+  const getCrumbs = useGetLatest(crumbs);
 
   useEffect(() => {
-    const crumb = getCrumb();
+    const crumbs = getCrumbs();
 
-    addCrumb(crumb);
+    crumbs.forEach(crumb => {
+      addCrumb(crumb);
+    });
 
     return () => {
-      removeCrumb(crumb);
+      crumbs.forEach(crumb => {
+        removeCrumb(crumb);
+      });
     };
-  }, [addCrumb, getCrumb, removeCrumb]);
+  }, [addCrumb, getCrumbs, removeCrumb]);
 };

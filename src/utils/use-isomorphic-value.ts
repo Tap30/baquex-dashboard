@@ -1,4 +1,4 @@
-import { useIsServerHandoffCompleted } from "./use-is-server-handoff-completed.ts";
+import { useIsServerHandoffCompleted } from "@utils/use-is-server-handoff-completed";
 
 const getValue = <T>(valueOrFn: T | (() => T)) => {
   if (valueOrFn instanceof Function) return valueOrFn();

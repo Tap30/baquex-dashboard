@@ -2,7 +2,7 @@ import type { MergeElementProps } from "@types";
 import { cn } from "@utils/cn";
 import { useUniqueId } from "@utils/use-unique-id";
 import * as RechartsPrimitive from "recharts";
-import { ChartProvider } from "../../context/index.ts";
+import { ChartProvider } from "../../context/index.internal.ts";
 import type { ChartConfig } from "../../types.ts";
 import classes from "./styles.module.css";
 
