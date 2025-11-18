@@ -22,6 +22,7 @@ const config = defineConfig(({ mode }) => {
       mkcert({ savePath: ".certs", hosts: [host.hostname] }),
     ],
     server: {
+      host: true,
       port: 443,
       open: host.origin,
     },
