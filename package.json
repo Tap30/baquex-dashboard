@@ -4,13 +4,13 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "packageManager": "pnpm@10.14.0+sha512.ad27a79641b49c3e481a16a805baa71817a04bbe06a38d17e60e2eaee83f6a146c6a688125f5792e48dd5ba30e7da52a5cda4c3992b9ccf333f9ce223af84748",
+  "packageManager": "pnpm@10.22.0",
   "engines": {
-    "node": ">=23.11.1"
+    "node": ">=24"
   },
   "volta": {
-    "node": "23.11.1",
-    "pnpm": "9.15.9"
+    "node": "24.10.0",
+    "pnpm": "10.22.0"
   },
   "scripts": {
     "test": "vitest run --passWithNoTests",
@@ -60,7 +60,6 @@
     "dompurify": "^3.3.0",
     "normalize.css": "^8.0.1",
     "nuqs": "^2.7.3",
-    "oidc-client-ts": "^3.3.0",
     "react": "^19.2.0",
     "react-containerized-state": "^3.2.1",
     "react-day-picker": "^9.11.1",
