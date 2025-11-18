@@ -12,6 +12,10 @@
     "node": "24.10.0",
     "pnpm": "10.22.0"
   },
+  "repository": {
+    "url": "git+https://github.com/Tap30/baquex-dashboard.git",
+    "type": "git"
+  },
   "scripts": {
     "test": "vitest run --passWithNoTests",
     "test:dev": "vitest",
