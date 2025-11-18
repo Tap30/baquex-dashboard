@@ -8,9 +8,9 @@ import { Icon } from "@components/Icon";
 import { IconButton } from "@components/IconButton";
 import { Text } from "@components/Text";
 import { LOGOUT_PATH } from "@constants/routes";
+import { Dashboard } from "@entities/dashboard";
 import { mdiLogout } from "@mdi/js";
 import { strings } from "@static-content";
-import type { AuthenticatedUser } from "@types";
 import { cn } from "@utils/cn";
 import { useNavigate } from "react-router";
 import classes from "./styles.module.css";
@@ -24,13 +24,7 @@ export const Footer: React.FC<Props> = props => {
 
   const navigate = useNavigate();
 
-  const user: AuthenticatedUser = {
-    id: "",
-    email: "",
-    name: "",
-  };
-
-  const { name, email } = user;
+  const { email, name } = Dashboard.hooks.useUserProfile();
 
   const username = name ?? strings.unknownUser;
 
