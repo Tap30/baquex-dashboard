@@ -1,4 +1,4 @@
-import { useAuth } from "@services/auth";
+import type { AuthenticatedUser } from "@types";
 import { useCallback, useMemo, type ReactNode } from "react";
 import { PERMISSIONS } from "./constants.ts";
 import { AccessControlContext } from "./Context.ts";
@@ -13,10 +13,18 @@ export const AccessControlProvider: React.FC<
 > = props => {
   const { children } = props;
 
-  const { user: authUser, isAuthenticated } = useAuth();
+  // TODO: fix this
+  const authUser: AuthenticatedUser = useMemo(
+    () => ({
+      id: "",
+      email: "",
+      name: "",
+    }),
+    [],
+  );
 
   const accessControlUser = useMemo(() => {
-    if (!isAuthenticated || !authUser) return null;
+    if (!authUser) return null;
 
     return {
       id: authUser.id,
@@ -24,7 +32,7 @@ export const AccessControlProvider: React.FC<
       name: authUser.name,
       permissions: PERMISSIONS,
     } satisfies AccessControlUser;
-  }, [authUser, isAuthenticated]);
+  }, [authUser]);
 
   const hasPermission: AccessControlContextValue["hasPermission"] = useCallback(
     (permission): boolean => {

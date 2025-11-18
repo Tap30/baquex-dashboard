@@ -292,3 +292,9 @@ export type InferTanstackReactFormApi<
         TSubmitMeta
       >
     : never;
+
+export type AuthenticatedUser = {
+  id: string;
+  name: string;
+  email: string;
+};

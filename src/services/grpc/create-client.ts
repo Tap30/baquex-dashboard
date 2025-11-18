@@ -13,7 +13,7 @@ export const createConnectClient = <S extends DescService>(
 ): Client<S> => {
   const transport = createConnectTransport(transportConfig);
 
-  return createClient(service, transport);
+  return Object.freeze(createClient(service, transport));
 };
 
 export const createGrpcWebClient = <S extends DescService>(
@@ -22,5 +22,5 @@ export const createGrpcWebClient = <S extends DescService>(
 ): Client<S> => {
   const transport = createGrpcWebTransport(transportConfig);
 
-  return createClient(service, transport);
+  return Object.freeze(createClient(service, transport));
 };

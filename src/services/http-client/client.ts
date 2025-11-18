@@ -1,5 +1,3 @@
-import { UnauthenticatedError } from "@services/auth";
-import { authClient } from "@services/auth-service-client";
 import type {
   ApiResult,
   DownloadOptions,
@@ -408,54 +406,4 @@ class HttpClient {
   }
 }
 
-class RestrictedHttpClient extends HttpClient {
-  private async _getAuthenticatedConfig<
-    T extends RequestOptions | DownloadOptions,
-  >(options: T = {} as T): Promise<T> {
-    const { headers: headersOpt, ...rest } = options;
-
-    const user = await authClient.getAuthenticatedUser();
-
-    if (!user) throw new UnauthenticatedError();
-
-    const { token, tokenType } = user;
-
-    const headers: HeadersInit = {
-      ...headersOpt,
-      Authorization: `${tokenType} ${token}`,
-      "x-authorization": token,
-    };
-
-    return { ...rest, headers } as T;
-  }
-
-  protected override async request<T>(
-    url: string,
-    options: RequestOptions = {},
-  ): Promise<ApiResult<T>> {
-    const authenticatedOptions = await this._getAuthenticatedConfig(options);
-
-    return super.request(url, authenticatedOptions);
-  }
-
-  public override async download(
-    url: string,
-    options: DownloadOptions = {},
-  ): Promise<ApiResult<Blob>> {
-    const authenticatedOptions = await this._getAuthenticatedConfig(options);
-
-    return super.download(url, authenticatedOptions);
-  }
-}
-
-const restricted = new RestrictedHttpClient();
-const unrestricted = new HttpClient();
-
-export const httpClient = Object.freeze(
-  Object.defineProperty(unrestricted, "restricted", {
-    configurable: false,
-    writable: false,
-    enumerable: true,
-    value: restricted,
-  }),
-) as HttpClient & { restricted: RestrictedHttpClient };
+export const client = Object.freeze(new HttpClient());

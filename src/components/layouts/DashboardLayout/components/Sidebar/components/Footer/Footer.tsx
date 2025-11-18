@@ -7,11 +7,12 @@ import { Flex, FlexItem } from "@components/Flex";
 import { Icon } from "@components/Icon";
 import { IconButton } from "@components/IconButton";
 import { Text } from "@components/Text";
+import { LOGOUT_PATH } from "@constants/routes";
 import { mdiLogout } from "@mdi/js";
-import { useAuth } from "@services/auth";
 import { strings } from "@static-content";
+import type { AuthenticatedUser } from "@types";
 import { cn } from "@utils/cn";
-import { resolveThrowable } from "@utils/resolve-throwable";
+import { useNavigate } from "react-router";
 import classes from "./styles.module.css";
 
 type Props = {
@@ -21,9 +22,15 @@ type Props = {
 export const Footer: React.FC<Props> = props => {
   const { className } = props;
 
-  const { signout, user } = useAuth();
+  const navigate = useNavigate();
 
-  const { name, email } = user!;
+  const user: AuthenticatedUser = {
+    id: "",
+    email: "",
+    name: "",
+  };
+
+  const { name, email } = user;
 
   const username = name ?? strings.unknownUser;
 
@@ -33,14 +40,14 @@ export const Footer: React.FC<Props> = props => {
     .map(s => s[0]?.toUpperCase() ?? "")
     .join("");
 
-  const handleSignout = () => {
+  const handleLogout = () => {
     void requestConfirm({
       title: strings.logoutButton,
       description: strings.areYouSure,
       okText: strings.logoutButton,
       onOk: () => {
         void (async () => {
-          await resolveThrowable(() => signout());
+          await navigate(LOGOUT_PATH);
           await dismissConfirm();
         })();
       },
@@ -81,7 +88,7 @@ export const Footer: React.FC<Props> = props => {
             icon={<Icon data={mdiLogout} />}
             color="neutral"
             variant="ghost"
-            onClick={handleSignout}
+            onClick={handleLogout}
           />
         </FlexItem>
       </Flex>

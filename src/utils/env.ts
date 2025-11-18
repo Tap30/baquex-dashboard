@@ -3,9 +3,6 @@ import z from "zod";
 const envSchema = z.object({
   VITE_APP_HOSTNAME: z.string().optional(),
   VITE_APP_GRPC_GATEWAY: z.string().optional(),
-  VITE_OIDC_AUTHORITY: z.string().optional(),
-  VITE_OIDC_CLIENT_ID: z.string().optional(),
-  VITE_OIDC_SCOPE: z.string().optional(),
 });
 
 // Validate env against the schema at runtime
