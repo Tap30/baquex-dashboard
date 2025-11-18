@@ -1,0 +1,20 @@
+.root {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: var(--spacing-sm);
+}
+
+.root.disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.page.page {
+  min-width: 2rem;
+}
+
+.dot {
+  min-width: 2rem;
+}

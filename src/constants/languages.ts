@@ -1,4 +1,4 @@
 export const Languages = {
-  FA: "FA",
-  EN: "EN",
+  FA: "fa-IR",
+  EN: "en-US",
 } as const;

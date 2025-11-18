@@ -1,5 +1,5 @@
-import type { MergeElementProps, WithBaseProps } from "@/types";
-import { cn } from "@/utils";
+import type { MergeElementProps, WithBaseProps } from "@types";
+import { cn } from "@utils/cn";
 import type { WithColorProps } from "../../types.ts";
 import classes from "./styles.module.css";
 
@@ -7,6 +7,11 @@ export type BaseSvgProps = MergeElementProps<
   "svg",
   WithBaseProps<
     WithColorProps<{
+      /**
+       * The classnames of the component.
+       */
+      classNames?: Partial<Record<"root", string>>;
+
       /**
        * The viewBox of the SVG.
        *
@@ -38,6 +43,7 @@ export const BaseSvg: React.FC<BaseSvgProps> = props => {
     ref,
     children,
     className,
+    classNames,
     title,
     style: otherStyles,
     color = "currentcolor",
@@ -84,7 +90,15 @@ export const BaseSvg: React.FC<BaseSvgProps> = props => {
       role={title ? "img" : undefined}
       focusable="false"
       style={{ ...otherStyles, ...sizeStyles }}
-      className={cn(classes["root"], classes[color], className)}
+      className={cn(
+        classes["root"],
+        classes[color],
+        className,
+        classNames?.root,
+      )}
+      data-color={color}
+      data-size={size}
+      data-has-title={!!title}
       ref={ref}
     >
       {title && <title>{title}</title>}

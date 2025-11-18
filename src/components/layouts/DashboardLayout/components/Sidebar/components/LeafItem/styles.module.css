@@ -1,0 +1,29 @@
+.root {
+  height: 2rem;
+  padding: var(--spacing-sm);
+  border-radius: var(--radius-lg);
+
+  background-color: var(--sidebar-item-background);
+  color: var(--sidebar-item-color);
+
+  cursor: pointer;
+}
+
+@media (hover: hover) {
+  .root:not(.active):hover {
+    background-color: var(--sidebar-item-background-hover);
+  }
+
+  .root.active:hover {
+    background-color: var(--sidebar-active-item-background-hover);
+  }
+}
+
+.root:not(.active) {
+  color: var(--sidebar-item-color);
+}
+
+.root.active {
+  color: var(--sidebar-active-item-color);
+  background-color: var(--sidebar-active-item-background);
+}

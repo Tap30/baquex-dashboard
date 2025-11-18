@@ -1,0 +1,13 @@
+.root {
+  position: absolute;
+  inset: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-md);
+
+  z-index: 1;
+  backdrop-filter: blur(8px) saturate(0);
+  border-radius: var(--radius-lg);
+}

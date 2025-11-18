@@ -1,5 +1,5 @@
-import type { PolymorphicProps, WithBaseProps } from "@/types";
-import { cn } from "@/utils";
+import type { PolymorphicProps, WithBaseProps } from "@types";
+import { cn } from "@utils/cn";
 import type { WithColorProps } from "../../types.ts";
 import classes from "./Text.module.css";
 
@@ -93,6 +93,12 @@ export const Text = <E extends React.ElementType = "span">(
           [classes[display!]!]: !!display,
         },
       )}
+      data-variant={variant}
+      data-color={color}
+      data-no-wrap={noWrap}
+      data-align={align}
+      data-weight={weight}
+      data-display={display}
     >
       {children}
     </Root>

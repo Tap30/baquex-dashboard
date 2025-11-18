@@ -1,0 +1,48 @@
+.root {
+  padding-top: var(--spacing-md);
+  margin-top: var(--spacing-md);
+
+  flex-shrink: 0;
+
+  box-shadow: 0 -1px 0 0 var(--color-border-tertiary);
+}
+
+.settings {
+  height: 2rem;
+  padding: var(--spacing-sm);
+  border-radius: var(--radius-lg);
+
+  background-color: var(--sidebar-item-background);
+  color: var(--sidebar-item-color);
+
+  cursor: pointer;
+
+  margin-bottom: var(--spacing-xl);
+}
+
+@media (hover: hover) {
+  .settings:not(.active):hover {
+    background-color: var(--sidebar-item-background-hover);
+  }
+
+  .settings.active:hover {
+    background-color: var(--sidebar-active-item-background-hover);
+  }
+}
+
+.settings:not(.active) {
+  color: var(--sidebar-item-color);
+}
+
+.settings.active {
+  color: var(--sidebar-active-item-color);
+  background-color: var(--sidebar-active-item-background);
+}
+
+.avatar {
+  flex-shrink: 0;
+}
+
+.content {
+  overflow: hidden;
+}

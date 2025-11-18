@@ -1,4 +1,4 @@
-import { BaseSvg, type BaseSvgProps } from "../internals/index.ts";
+import { BaseSvg, type BaseSvgProps } from "../internals/index.internal.ts";
 
 export type IconProps = Omit<BaseSvgProps, "children"> & {
   /**

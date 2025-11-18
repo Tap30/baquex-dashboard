@@ -3,11 +3,11 @@
   --button-background: transparent;
   --button-border-color: transparent;
   --button-height: 2rem;
-  --button-horizontal-padding: var(--spacing-sm);
   --button-font-size: var(--text-body2);
   --button-font-weight: 500;
   --button-leading: var(--leading-body2);
   --button-icon-size: 0.875rem;
+  --button-horizontal-padding: 0;
 
   position: relative;
 
@@ -15,6 +15,8 @@
   align-items: center;
 
   border-radius: var(--radius-sm);
+
+  flex-shrink: 0;
 }
 
 .focus-anchor {
@@ -31,12 +33,10 @@
   display: inline-flex;
   align-items: center;
 
-  width: 100%;
-  height: var(--button-height);
   box-shadow: 0 0 0 0.0625rem var(--button-border-color);
   background-color: var(--button-background);
-
   padding-inline: var(--button-horizontal-padding);
+
   border-radius: inherit;
 
   cursor: pointer;
@@ -44,7 +44,7 @@
   color: var(--button-color);
 }
 
-:is(.root, .focus-anchor):focus-visible {
+:is(button.root, a.root, .focus-anchor):focus-visible {
   outline-style: solid;
   outline-width: var(--token-focus-ring-stroke);
   outline-color: var(--token-focus-ring-color);
@@ -55,9 +55,12 @@
   pointer-events: none;
 }
 
+.root.fluid {
+  justify-content: center;
+}
+
 .root.lg {
   --button-height: 2.5rem;
-  --button-horizontal-padding: var(--spacing-sm);
   --button-font-size: var(--text-body1);
   --button-leading: var(--leading-body1);
   --button-icon-size: 1.25rem;
@@ -65,7 +68,6 @@
 
 .root.md {
   --button-height: 2rem;
-  --button-horizontal-padding: var(--spacing-sm);
   --button-font-size: var(--text-body2);
   --button-leading: var(--leading-body2);
   --button-icon-size: 1rem;
@@ -73,7 +75,6 @@
 
 .root.sm {
   --button-height: 1.5rem;
-  --button-horizontal-padding: var(--spacing-sm);
   --button-font-size: var(--text-body2);
   --button-leading: var(--leading-body2);
   --button-icon-size: 0.875rem;

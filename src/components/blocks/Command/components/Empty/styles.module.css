@@ -1,0 +1,8 @@
+.root {
+  font-size: var(--text-body2);
+  line-height: var(--leading-body2);
+  font-weight: 400;
+
+  color: var(--color-neutral-text-tertiary);
+  text-align: center;
+}

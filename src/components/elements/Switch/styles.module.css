@@ -1,0 +1,123 @@
+.root {
+  --switch-color: transparent;
+  --switch-background: transparent;
+  --switch-thumb-color: transparent;
+  --switch-border-color: transparent;
+  --switch-size: 0;
+  --switch-thumb-dx: 0;
+
+  position: relative;
+  vertical-align: middle;
+  display: inline-flex;
+  flex-direction: column;
+}
+
+.root:not(.disabled) .input[data-state="unchecked"] {
+  --switch-border-color: var(--color-border-primary);
+  --switch-thumb-color: var(--color-neutral);
+}
+
+.root:not(.disabled) .input[data-state="checked"] {
+  --switch-color: var(--color-on-neutral);
+  --switch-border-color: transparent;
+  --switch-background: var(--color-neutral);
+  --switch-thumb-color: var(--color-on-neutral);
+}
+
+.root .input[data-state="checked"] {
+  --switch-thumb-dx: 100%;
+}
+
+.root:not(.disabled).has-error .input[data-state="unchecked"] {
+  --switch-border-color: var(--color-negative-text);
+  --switch-thumb-color: var(--color-negative-text);
+}
+
+.root:not(.disabled).has-error .input[data-state="checked"] {
+  --switch-color: var(--color-on-negative);
+  --switch-background: var(--color-negative);
+}
+
+.root.disabled .input[data-state="unchecked"] {
+  --switch-thumb-color: var(--color-on-neutral);
+}
+
+.root.disabled .input[data-state="checked"] {
+  --switch-thumb-color: var(--color-neutral);
+}
+
+.root.disabled .input {
+  --switch-color: var(--color-neutral-text-tertiary);
+  --switch-border-color: var(--color-border-secondary);
+  --switch-background: var(--color-surface-secondary);
+
+  opacity: 0.5;
+}
+
+.root.lg {
+  --switch-size: 2rem;
+}
+
+.root.md {
+  --switch-size: 1.5rem;
+}
+
+.root.sm {
+  --switch-size: 1rem;
+}
+
+.feedback.feedback {
+  margin-top: var(--spacing-sm);
+}
+
+button.input:focus-visible {
+  outline-style: solid;
+  outline-width: var(--token-focus-ring-stroke);
+  outline-color: var(--token-focus-ring-color);
+  outline-offset: var(--token-focus-ring-offset);
+}
+
+.control {
+  vertical-align: middle;
+  display: inline-flex;
+  align-items: center;
+
+  gap: var(--spacing-md);
+}
+
+.input {
+  border-radius: var(--radius-full);
+  box-shadow: 0 0 0 0.0625rem var(--switch-border-color);
+  background-color: var(--switch-background);
+  color: var(--switch-color);
+
+  width: calc(var(--switch-size) * 2);
+  height: var(--switch-size);
+  padding: var(--spacing-xxs);
+
+  cursor: pointer;
+
+  display: inline-flex;
+  align-items: center;
+
+  transition: background-color 160ms ease;
+}
+
+.thumb {
+  --switch-thumb-size: calc(var(--switch-size) - var(--spacing-xxs));
+
+  display: inline-block;
+  border-radius: var(--radius-full);
+  margin-inline-start: auto;
+
+  width: var(--switch-thumb-size);
+  height: var(--switch-thumb-size);
+
+  background-color: var(--switch-thumb-color);
+
+  transform: translateX(var(--switch-thumb-dx));
+
+  transition:
+    transform 160ms ease,
+    background-color 160ms ease;
+}

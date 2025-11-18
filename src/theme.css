@@ -74,9 +74,10 @@
   --token-color-on-warn: var(--token-color-neutral-900);
   --token-color-on-info: var(--token-color-neutral-900);
 
-  --token-color-surface-base: var(--token-color-neutral-900);
-  --token-color-surface-secondary: var(--token-color-neutral-800);
-  --token-color-surface-tertiary: var(--token-color-neutral-700);
+  --token-color-surface-base: #0a0a0a;
+  --token-color-surface-secondary: #171717;
+  --token-color-surface-tertiary: #262626;
+  --token-color-backdrop-overlay: rgba(0, 0, 0, 0.45);
   /* END: COLORS */
   /* START: TYPOGRAPHY */
   --token-typography-typeface-rtl: "Vazirmatn";
@@ -110,7 +111,7 @@
   --token-typography-h6-weight: 500;
 
   --token-typography-subheading1-size: 1rem;
-  --token-typography-subheading1-leading: 1.625;
+  --token-typography-subheading1-leading: 1.75;
   --token-typography-subheading1-weight: 400;
 
   --token-typography-subheading2-size: 0.875rem;
@@ -122,10 +123,10 @@
   --token-typography-body1-weight: 400;
 
   --token-typography-body2-size: 0.875rem;
-  --token-typography-body2-leading: 1.25;
+  --token-typography-body2-leading: 1.4285714286;
   --token-typography-body2-weight: 400;
 
-  --token-typography-caption-size: 0.6rem;
+  --token-typography-caption-size: 0.75rem;
   --token-typography-caption-leading: 1.6666666667;
   --token-typography-caption-weight: 400;
   /* END: TYPOGRAPHY */
@@ -208,8 +209,9 @@
   --color-foreground: var(--token-color-neutral-50);
   --color-background: var(--token-color-neutral-900);
 
-  --color-border-primary: var(--token-color-neutral-700);
-  --color-border-secondary: var(--token-color-neutral-800);
+  --color-border-primary: var(--token-color-neutral-600);
+  --color-border-secondary: var(--token-color-neutral-700);
+  --color-border-tertiary: var(--token-color-neutral-800);
 
   --color-neutral-text: var(--token-color-neutral-50);
   --color-neutral-text-secondary: var(--token-color-neutral-300);
@@ -281,11 +283,11 @@
   --color-surface-base: var(--token-color-surface-base);
   --color-surface-secondary: var(--token-color-surface-secondary);
   --color-surface-tertiary: var(--token-color-surface-tertiary);
+  --color-backdrop-overlay: var(--token-color-backdrop-overlay);
   /* END: COLORS */
   /* START: TYPOGRAPHY */
   --font-rtl: var(--token-typography-typeface-rtl);
   --font-ltr: var(--token-typography-typeface-ltr);
-  --font-mono: var(--token-typography-typeface-mono);
 
   --text-h1: var(--token-typography-h1-size);
   --font-weight-h1: var(--token-typography-h1-weight);
@@ -347,7 +349,13 @@
   --spacing-xl: calc(var(--spacing) * 6);
   --spacing-xxl: calc(var(--spacing) * 8);
   /* END:SPACING */
-  /* START:RADIUS */
+  /* START:MISC */
   --radius-full: 9999px;
+  --z-0: 1000;
+  --z-1: 1010;
+  --z-2: 1020;
+  --z-3: 1030;
+  --z-4: 1040;
+  --z-5: 1050;
   /* END:RADIUS */
 }

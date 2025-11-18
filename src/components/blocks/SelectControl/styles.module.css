@@ -1,0 +1,24 @@
+.root {
+  position: relative;
+  vertical-align: middle;
+  display: flex;
+  flex-direction: column;
+}
+
+.feedback.feedback {
+  margin-top: var(--spacing-sm);
+}
+
+.label + * {
+  margin-top: var(--spacing-md);
+}
+
+.description + * {
+  margin-top: var(--spacing-sm);
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}

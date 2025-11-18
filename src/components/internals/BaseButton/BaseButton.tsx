@@ -1,11 +1,31 @@
-import type { MergeElementProps, WithBaseProps } from "@/types";
-import { cn, useForkedRefs, useIsomorphicLayoutEffect } from "@/utils";
+import { strings } from "@static-content";
+import type { PolymorphicPropsWithOmitted, WithBaseProps } from "@types";
+import { cn } from "@utils/cn";
+import { useForkedRefs } from "@utils/use-forked-refs";
+import { useIsomorphicLayoutEffect } from "@utils/use-isomorphic-layout-effect";
 import { useRef } from "react";
 import classes from "./styles.module.css";
 
-export type BaseButtonProps = MergeElementProps<
-  "button",
+export type BaseButtonProps<
+  E extends React.ElementType = "button",
+  OmittedKeys extends keyof React.ComponentPropsWithRef<E> = never,
+> = PolymorphicPropsWithOmitted<
+  E,
+  OmittedKeys,
   WithBaseProps<{
+    /**
+     * The classnames of the component.
+     */
+    classNames?: Partial<Record<"wrapper" | "root" | "focusAnchor", string>>;
+
+    /**
+     * The props attached to the wrapper element.
+     */
+    wrapperProps?: Omit<
+      React.ComponentPropsWithRef<"div">,
+      "className" | "children"
+    >;
+
     /**
      * The visual style variant of the button.
      *
@@ -42,42 +62,29 @@ export type BaseButtonProps = MergeElementProps<
     pending?: boolean;
 
     /**
-     * The URL to navigate to when the button is clicked.
-     * If provided, the button will behave like a link.
+     * Whether to make the button fluid.
+     *
+     * @default false;
      */
-    href?: string;
-
-    /**
-     * The filename to use when downloading the linked resource.
-     * If not specified, the browser will determine a filename.
-     * This is only applicable when the button is used as a link (`href` is set).
-     */
-    download?: string;
-
-    /**
-     * Where to display the linked `href` URL for a link button. Common options include
-     * `_blank` to open in a new tab. When the `target` is set to `_blank`, the `rel` attribute
-     * of the anchor tag will automatically be set to `"noopener noreferrer"` to enhance
-     * security and prevent potential tab exploitation.
-     */
-    target?: "_blank" | "_parent" | "_self" | "_top";
+    fluid?: boolean;
   }>
 >;
 
-export const BaseButton: React.FC<BaseButtonProps> = (
-  props,
+export const BaseButton = <E extends React.ElementType = "button">(
+  props: BaseButtonProps<E>,
 ): React.ReactNode => {
   const {
+    as: Root = "button",
     ref,
-    href,
-    download,
-    target,
     children,
     className,
+    classNames,
     style,
-    color = "brand",
+    wrapperProps,
+    color = "neutral",
     disabled = false,
     pending = false,
+    fluid = false,
     size = "md",
     variant = "filled",
     tabIndex: tabIndexProp,
@@ -107,43 +114,42 @@ export const BaseButton: React.FC<BaseButtonProps> = (
     }
   }, [pending]);
 
-  const isLink = typeof href === "string";
-  const ElementTag = (isLink ? "a" : "button") as "button";
-  const rel = isLink && target === "_blank" ? "noopener noreferrer" : undefined;
-
   const isButtonDisabled = disabled || pending;
-
-  const anchorProps = {
-    "aria-disabled": isButtonDisabled,
-    href,
-    download,
-    target,
-    rel,
-  };
-
-  const buttonProps = {
-    disabled: isButtonDisabled,
-  };
 
   const buttonTabIndex = disabled ? -1 : pending ? -1 : (tabIndexProp ?? 0);
   const focusAnchorTabIndex = pending ? 0 : -1;
 
+  const role = Root === "button" || Root === "a" ? undefined : "button";
+
+  const disabledProps =
+    role === "button"
+      ? { disabled: isButtonDisabled }
+      : { "aria-disabled": isButtonDisabled };
+
   return (
     <div
+      {...wrapperProps}
       style={style}
-      className={cn(classes["wrapper"], className)}
+      className={cn(classes["wrapper"], className, classNames?.wrapper)}
+      data-size={size}
+      data-variant={variant}
+      data-color={color}
+      data-disabled={isButtonDisabled}
+      data-pending={pending}
+      data-fluid={fluid}
     >
       <div
         ref={focusAnchorRef}
         role="button"
-        aria-label="Pending"
+        aria-label={strings.components.button.pending}
         aria-disabled="true"
         tabIndex={focusAnchorTabIndex}
-        className={classes["focus-anchor"]}
+        className={cn(classes["focus-anchor"], classNames?.focusAnchor)}
       ></div>
-      <ElementTag
+      <Root
         {...otherProps}
-        {...(isLink ? anchorProps : buttonProps)}
+        {...disabledProps}
+        role={role}
         inert={isButtonDisabled}
         tabIndex={buttonTabIndex}
         ref={handleRootRef}
@@ -152,13 +158,15 @@ export const BaseButton: React.FC<BaseButtonProps> = (
           classes[color],
           classes[variant],
           classes[size],
+          classNames?.root,
           {
             [classes["disabled"]!]: isButtonDisabled,
+            [classes["fluid"]!]: fluid,
           },
         )}
       >
         {children}
-      </ElementTag>
+      </Root>
     </div>
   );
 };

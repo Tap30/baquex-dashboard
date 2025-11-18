@@ -1,0 +1,53 @@
+.root {
+  --command-item-background: transparent;
+  --command-item-color: var(--color-neutral-text);
+
+  font-size: var(--text-body2);
+  line-height: var(--leading-body2);
+  font-weight: 400;
+
+  border-radius: var(--radius-md);
+  background-color: var(--command-item-background);
+  color: var(--command-item-color);
+
+  padding: 0 var(--spacing-sm);
+  gap: var(--spacing-sm);
+
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+
+  height: 1.5rem;
+}
+
+.root[data-disabled="true"] {
+  --command-item-color: var(--color-neutral-600);
+
+  cursor: default;
+}
+
+.root[data-highlighted="true"] {
+  --command-item-background: var(--color-brand);
+}
+
+.root:focus-visible {
+  outline: none;
+}
+
+.root + * {
+  margin-top: var(--spacing-xs);
+}
+
+.root > svg {
+  width: 1rem;
+  height: 1rem;
+  max-width: 1rem;
+  max-height: 1rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+}

@@ -1,0 +1,17 @@
+.root {
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  display: block;
+
+  font-size: var(--text-caption);
+  line-height: var(--leading-caption);
+  font-weight: 400;
+
+  padding: 0 var(--spacing-sm);
+
+  color: var(--color-neutral-text-tertiary);
+  margin-bottom: var(--spacing-xs);
+}

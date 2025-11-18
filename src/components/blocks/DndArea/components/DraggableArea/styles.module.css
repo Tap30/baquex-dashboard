@@ -1,0 +1,4 @@
+.root.dragged {
+  opacity: 0;
+  visibility: hidden;
+}

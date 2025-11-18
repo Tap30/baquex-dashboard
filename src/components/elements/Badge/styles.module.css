@@ -1,0 +1,95 @@
+.root {
+  --badge-background: transparent;
+  --badge-border-color: transparent;
+  --badge-color: transparent;
+
+  display: inline-flex;
+  align-items: center;
+  vertical-align: middle;
+
+  color: var(--badge-color);
+  background-color: var(--badge-background);
+  box-shadow: 0 0 0 1px var(--badge-border-color);
+  border-radius: var(--radius-full);
+  padding: var(--spacing-xs) var(--spacing-sm);
+
+  gap: var(--spacing-sm);
+  height: 1.5rem;
+}
+
+.root.neutral {
+  --badge-background: var(--color-surface-tertiary);
+  --badge-border-color: var(--color-border-secondary);
+  --badge-color: var(--color-neutral-text);
+}
+
+.root.brand {
+  --badge-background: color-mix(
+    in oklab,
+    var(--color-brand) 12.5%,
+    transparent
+  );
+  --badge-border-color: var(--color-brand);
+  --badge-color: var(--color-brand-text);
+}
+
+.root.positive {
+  --badge-background: color-mix(
+    in oklab,
+    var(--color-positive) 12.5%,
+    transparent
+  );
+  --badge-border-color: var(--color-positive);
+  --badge-color: var(--color-positive-text);
+}
+
+.root.negative {
+  --badge-background: color-mix(
+    in oklab,
+    var(--color-negative) 12.5%,
+    transparent
+  );
+  --badge-border-color: var(--color-negative);
+  --badge-color: var(--color-negative-text);
+}
+
+.root.info {
+  --badge-background: color-mix(in oklab, var(--color-info) 12.5%, transparent);
+  --badge-border-color: var(--color-info);
+  --badge-color: var(--color-info-text);
+}
+
+.root.warn {
+  --badge-background: color-mix(in oklab, var(--color-warn) 12.5%, transparent);
+  --badge-border-color: var(--color-warn);
+  --badge-color: var(--color-warn-text);
+}
+
+.text {
+  font-size: var(--text-caption);
+  line-height: var(--leading-caption);
+  font-weight: 400;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 1.125rem;
+  height: 1.125rem;
+  max-width: 1.125rem;
+  max-height: 1.125rem;
+
+  flex-shrink: 0;
+}
+
+.action {
+  margin-inline-start: auto;
+  margin-inline-end: calc(-1 * var(--spacing-sm));
+
+  flex-shrink: 0;
+}

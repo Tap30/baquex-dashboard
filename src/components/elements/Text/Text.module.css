@@ -2,20 +2,6 @@
   overflow: hidden;
 }
 
-a:where(.root) {
-  text-decoration: none;
-}
-
-p:where(.root),
-h1:where(.root),
-h2:where(.root),
-h3:where(.root),
-h4:where(.root),
-h5:where(.root),
-h6:where(.root) {
-  margin: unset;
-}
-
 .root.clip {
   text-overflow: clip;
 }
@@ -54,39 +40,39 @@ h6:where(.root) {
 }
 
 .root.weight-100 {
-  font-weight: 100;
+  font-weight: 100 !important;
 }
 
 .root.weight-200 {
-  font-weight: 200;
+  font-weight: 200 !important;
 }
 
 .root.weight-300 {
-  font-weight: 300;
+  font-weight: 300 !important;
 }
 
 .root.weight-400 {
-  font-weight: 400;
+  font-weight: 400 !important;
 }
 
 .root.weight-500 {
-  font-weight: 500;
+  font-weight: 500 !important;
 }
 
 .root.weight-600 {
-  font-weight: 600;
+  font-weight: 600 !important;
 }
 
 .root.weight-700 {
-  font-weight: 700;
+  font-weight: 700 !important;
 }
 
 .root.weight-800 {
-  font-weight: 800;
+  font-weight: 800 !important;
 }
 
 .root.weight-900 {
-  font-weight: 900;
+  font-weight: 900 !important;
 }
 
 .root.inline {

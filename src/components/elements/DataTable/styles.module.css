@@ -1,0 +1,42 @@
+.root {
+  width: 100%;
+  overflow: auto;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.root.disabled {
+  opacity: 0.5;
+}
+
+.table {
+  flex-grow: 1;
+  flex-shrink: 0;
+
+  caption-side: bottom;
+  word-break: normal;
+  border-collapse: collapse;
+}
+
+.row {
+  vertical-align: top;
+  box-shadow: 0 1px 0 0 var(--color-border-tertiary);
+}
+
+.heading .row {
+  box-shadow: 0 1px 0 0 var(--color-border-primary);
+}
+
+.caption {
+  padding: var(--spacing-md);
+}
+
+.empty-statement.empty-statement {
+  margin-top: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+}
+
+.paginator {
+  margin: var(--spacing-md);
+}

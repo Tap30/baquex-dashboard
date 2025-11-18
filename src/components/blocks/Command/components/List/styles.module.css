@@ -1,0 +1,10 @@
+.root {
+  width: 100%;
+  max-height: 11rem;
+  overflow: auto;
+
+  background-color: var(--color-surface-base);
+  box-shadow: 0 0 0 1px var(--color-border-secondary);
+  border-radius: var(--radius-sm);
+  padding: var(--spacing-xs);
+}

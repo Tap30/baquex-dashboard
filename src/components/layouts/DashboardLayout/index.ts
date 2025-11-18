@@ -1,1 +1,1 @@
-export { DashboardLayout } from "./Component.tsx";
+export { DashboardLayout } from "./DashboardLayout.tsx";

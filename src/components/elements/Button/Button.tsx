@@ -1,10 +1,18 @@
-import { cn } from "@/utils";
-import { BaseButton, type BaseButtonProps } from "../../internals/index.ts";
-import { Spinner } from "../Spinner/index.ts";
+import { Spinner } from "@components/Spinner";
+import { cn } from "@utils/cn";
+import {
+  BaseButton,
+  type BaseButtonProps,
+} from "../../internals/index.internal.ts";
 import classes from "./styles.module.css";
 
-export type ButtonProps = Omit<
-  BaseButtonProps & {
+export type ButtonProps<E extends React.ElementType = "button"> =
+  BaseButtonProps<E, "children"> & {
+    /**
+     * The classnames of the component.
+     */
+    classNames?: Record<"root" | "text" | "startIcon" | "endIcon", string>;
+
     /**
      * The content of the button.
      */
@@ -19,19 +27,22 @@ export type ButtonProps = Omit<
      * The icon element placed after the text.
      */
     endIcon?: React.ReactNode;
-  },
-  "children"
->;
+  };
 
-export const Button: React.FC<ButtonProps> = props => {
+export const Button = <E extends React.ElementType = "button">(
+  props: ButtonProps<E>,
+) => {
   const {
+    as = "button",
     className,
+    classNames,
     text,
     startIcon,
     endIcon,
     pending = false,
+    fluid = false,
     ...otherProps
-  } = props;
+  } = props as ButtonProps<"button">;
 
   const renderStartIcon = () => {
     if (!pending && !startIcon) return null;
@@ -41,7 +52,11 @@ export const Button: React.FC<ButtonProps> = props => {
     return (
       <div
         aria-hidden
-        className={cn(classes["icon"], classes["start-icon"])}
+        className={cn(
+          classes["icon"],
+          classes["start-icon"],
+          classNames?.startIcon,
+        )}
       >
         {icon}
       </div>
@@ -54,7 +69,11 @@ export const Button: React.FC<ButtonProps> = props => {
     return (
       <div
         aria-hidden
-        className={cn(classes["icon"], classes["end-icon"])}
+        className={cn(
+          classes["icon"],
+          classes["end-icon"],
+          classNames?.endIcon,
+        )}
       >
         {endIcon}
       </div>
@@ -64,11 +83,17 @@ export const Button: React.FC<ButtonProps> = props => {
   return (
     <BaseButton
       {...otherProps}
+      as={as}
       pending={pending}
-      className={cn(classes["root"], className)}
+      fluid={fluid}
+      className={cn(classes["root"], className, classNames?.root, {
+        [classes["fluid"]!]: fluid,
+      })}
+      data-pending={pending}
+      data-fluid={fluid}
     >
       {renderStartIcon()}
-      <span className={classes["text"]}>{text}</span>
+      <span className={cn(classes["text"], classNames?.text)}>{text}</span>
       {renderEndIcon()}
     </BaseButton>
   );

@@ -1,9 +1,9 @@
-import type { IStorage } from "./types.ts";
+import type { DataStorage } from "./types.ts";
 
 /**
  * Represents a wrapper for the Web Storage API (localStorage or sessionStorage).
  */
-export class WebStorage implements IStorage {
+export class WebStorage implements DataStorage {
   private _storage: Storage;
 
   public static PersistenceLevels = {
@@ -56,7 +56,7 @@ export class WebStorage implements IStorage {
     this._storage.clear();
   }
 
-  public length(): number {
+  public get length(): number {
     return this._storage.length;
   }
 
