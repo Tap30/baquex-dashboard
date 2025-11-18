@@ -1,3 +1,3 @@
-import { DashboardPage } from "../dashboard/index.ts";
+import { DashboardPage } from "../Dashboard.page.tsx";
 
 export default DashboardPage;
