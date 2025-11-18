@@ -6,6 +6,7 @@ import { Toaster } from "@components/Toaster";
 import { PORTAL_DESTINATION_ID } from "@constants/config";
 import { ACCESS_DENIED_PATH, DASHBOARD_PATH } from "@constants/routes";
 import { DirectionProvider } from "@contexts/Direction";
+import { Dashboard } from "@entities/dashboard";
 import {
   AccessControlProvider,
   PermissionGuard,
@@ -65,19 +66,21 @@ export const App: React.FC = () => {
         <PortalConfigProvider
           config={{ resolveContainer: defaultContainerResolver }}
         >
-          <AccessControlProvider>
-            <NuqsAdapter>
-              <RouterProvider router={router} />
-              <AlertDialogController />
-              <div
-                id={PORTAL_DESTINATION_ID}
-                data-portal-destination=""
-                tabIndex={-1}
-              >
-                <Toaster />
-              </div>
-            </NuqsAdapter>
-          </AccessControlProvider>
+          <Dashboard.components.Initializer>
+            <AccessControlProvider>
+              <NuqsAdapter>
+                <RouterProvider router={router} />
+                <AlertDialogController />
+                <div
+                  id={PORTAL_DESTINATION_ID}
+                  data-portal-destination=""
+                  tabIndex={-1}
+                >
+                  <Toaster />
+                </div>
+              </NuqsAdapter>
+            </AccessControlProvider>
+          </Dashboard.components.Initializer>
         </PortalConfigProvider>
       </DirectionProvider>
     </QueryClientProvider>

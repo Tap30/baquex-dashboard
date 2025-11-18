@@ -19,6 +19,9 @@ import type {
 } from "@tanstack/react-query";
 import type z from "zod";
 
+export type UnknownRecord = Record<PropertyKey, unknown>;
+export type AnyRecord = Record<PropertyKey, any>;
+
 export type UnionToIntersection<U> = (
   U extends any ? (k: U) => void : never
 ) extends (k: infer I) => void
@@ -102,7 +105,7 @@ export type UrlParams<Url extends string> =
       : object;
 
 export type NarrowDiscriminatedUnionDown<
-  Union extends Record<PropertyKey, any>,
+  Union extends AnyRecord,
   Key extends keyof Union,
   Value extends Union[Key],
 > = Extract<Union, Record<Key, Value>>;

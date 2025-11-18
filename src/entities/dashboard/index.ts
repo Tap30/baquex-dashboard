@@ -1,2 +1,7 @@
 export * from "./Dashboard.ts";
-export type { DashboardData } from "./types.ts";
+export type {
+  DashboardData,
+  DashboardUserPermission,
+  DashboardUserPermissionAction,
+  DashboardUserProfile,
+} from "./types.ts";

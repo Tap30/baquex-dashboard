@@ -1,14 +1,13 @@
-# Experiment Platform (e8t) Dashboard
+# Baquex Dashboard Boilerplate
 
-A modern React dashboard for A/B testing and experimentation platform built with
-TypeScript, Vite, and Tailwind CSS.
+A modern boilerplate for dashboard web-apps.
 
 ## 🚀 Quick Start
 
 ### Prerequisites
 
-- **Node.js**: >= 23.11.1
-- **pnpm**: >= 9.15.9
+- **Node.js**: 24.10.0
+- **pnpm**: 10.22.0
 - **sudo access**: Required for development setup (HTTPS certificates and host
   aliases)
 
@@ -18,7 +17,7 @@ TypeScript, Vite, and Tailwind CSS.
 
    ```bash
    git clone <repository-url>
-   cd e8t-dashboard
+   cd baquex-dashboard
    pnpm install
    ```
 
@@ -44,12 +43,12 @@ TypeScript, Vite, and Tailwind CSS.
    ```
 
    > **Why sudo?** The development setup uses HTTPS with custom certificates and
-   > modifies `/etc/hosts` for local domain aliases (e.g., `e8t.tapsi.tech` →
+   > modifies `/etc/hosts` for local domain aliases (e.g., `admin.baquex.com` →
    > `127.0.0.1`).
 
 4. **Access the application:**
    - Open your browser to the configured hostname (default:
-     `https://e8t.tapsi.tech`)
+     `https://admin.baquex.com`)
    - The app runs on port 443 with HTTPS enabled
 
 ## 📁 Project Structure
@@ -64,9 +63,7 @@ src/
 │   ├── layouts/        # Page layout components
 │   └── internals/      # Internal component utilities
 ├── entities/           # Business logic and data models
-│   ├── dashboard/      # Dashboard-related entities
-│   ├── experiment/     # Experiment-related entities
-│   └── staff/          # Staff management entities
+│   └── dashboard/      # Dashboard-related logics
 ├── pages/              # Route components
 ├── services/           # External service integrations
 ├── stores/             # State management
@@ -75,10 +72,7 @@ src/
 
 ### Services Architecture
 
-- **`auth/`** - Authentication service with OIDC integration and strategies
-- **`grpc/`** - gRPC client setup and interceptors (logger, auth, message)
-- **`grpc-service-clients/`** - Generated gRPC service clients (dashboard)
-- **`auth-service-client/`** - Authentication service client
+- **`grpc/`** - gRPC client setup and interceptors
 - **`query-client/`** - React Query configuration and provider
 - **`http-client/`** - HTTP client with interceptors and utilities
 - **`storage/`** - Storage abstractions (Cookie, Web, Memory)
@@ -86,24 +80,18 @@ src/
 
 ### Entities
 
-- **`experiment/`** - Core experiment business logic
-  - Types, constants, and utilities
-  - Query and mutation hooks
-  - Components
-  - Stores for experiment state
 - **`dashboard/`** - Dashboard entity management
-  - Types, constants, and queries
-  - Dashboard-specific stores
-- **`staff/`** - Staff management entity
-  - Types, constants, and utilities
-  - Query and mutation hooks for staff operations
+  - `Dashboard.ts` - Main entity class with unified API
+  - `components/Initializer` - App-level initialization component
+  - `types.ts` - TypeScript definitions for dashboard data structures
+  - `constants.ts` - Query keys and default state values
+  - `stores.ts` - State containers for permissions and user profile
+  - `queries.ts` - React Query hooks for dashboard initialization
+  - See [Dashboard Entity README](src/entities/dashboard/README.md) for details
 
-### Stores (State Management)
+### Generic Stores
 
 - **`page-loader.ts`** - Global loading states
-- **Entity-specific stores:**
-  - `entities/dashboard/stores.ts` - Dashboard state management
-  - `entities/experiment/stores.ts` - Experiment-specific state
 
 ## 🛠 Available Scripts
 
@@ -156,7 +144,6 @@ pnpm check:cycles    # Check for circular dependencies
 
 - **gRPC-Web** - API communication
 - **Protocol Buffers** - Data serialization
-- **OIDC Client** - Authentication
 
 ### Development Tools
 
@@ -199,7 +186,6 @@ Key environment variables (see sample files):
 
 - `VITE_APP_HOSTNAME` - Application hostname
 - `VITE_APP_GRPC_GATEWAY` - gRPC gateway URL
-- `VITE_OIDC_*` - OIDC authentication configuration
 
 ### HTTPS Development
 
@@ -252,7 +238,7 @@ The project enforces code quality through:
 
    ```bash
    # Check /etc/hosts entry
-   cat /etc/hosts | grep e8t.tapsi.tech
+   cat /etc/hosts | grep admin.baquex.com
 
    # Re-run host toggle
    sudo pnpm toggle-host

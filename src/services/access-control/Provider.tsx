@@ -1,8 +1,7 @@
-import type { AuthenticatedUser } from "@types";
+import { Dashboard } from "@entities/dashboard";
 import { useCallback, useMemo, type ReactNode } from "react";
-import { PERMISSIONS } from "./constants.ts";
 import { AccessControlContext } from "./Context.ts";
-import type { AccessControlContextValue, AccessControlUser } from "./types.ts";
+import type { AccessControlContextValue } from "./types.ts";
 
 export type AccessControlProviderProps = {
   children: ReactNode;
@@ -13,34 +12,13 @@ export const AccessControlProvider: React.FC<
 > = props => {
   const { children } = props;
 
-  // TODO: fix this
-  const authUser: AuthenticatedUser = useMemo(
-    () => ({
-      id: "",
-      email: "",
-      name: "",
-    }),
-    [],
-  );
-
-  const accessControlUser = useMemo(() => {
-    if (!authUser) return null;
-
-    return {
-      id: authUser.id,
-      email: authUser.email,
-      name: authUser.name,
-      permissions: PERMISSIONS,
-    } satisfies AccessControlUser;
-  }, [authUser]);
+  const permissions = Dashboard.hooks.usePermissions();
 
   const hasPermission: AccessControlContextValue["hasPermission"] = useCallback(
     (permission): boolean => {
-      return (
-        accessControlUser?.permissions?.some(p => p === permission) ?? false
-      );
+      return permissions?.some(p => p === permission) ?? false;
     },
-    [accessControlUser],
+    [permissions],
   );
 
   const hasAnyPermission: AccessControlContextValue["hasAnyPermission"] =
@@ -54,11 +32,11 @@ export const AccessControlProvider: React.FC<
   const context: AccessControlContextValue = useMemo(
     () =>
       ({
-        user: accessControlUser,
+        permissions,
         hasPermission,
         hasAnyPermission,
       }) satisfies AccessControlContextValue,
-    [accessControlUser, hasPermission, hasAnyPermission],
+    [permissions, hasPermission, hasAnyPermission],
   );
 
   return (

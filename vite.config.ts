@@ -8,7 +8,7 @@ import type { AppEnv } from "./src/utils/env.ts";
 const config = defineConfig(({ mode }) => {
   const env = loadEnv(mode, import.meta.dirname) as unknown as AppEnv;
 
-  const domain = env["VITE_APP_HOSTNAME"] || "https://e8t.tapsi.tech";
+  const domain = env["VITE_APP_HOSTNAME"] || "https://admin.baquex.com";
   const host = new URL(domain);
 
   const baseConfig = {
