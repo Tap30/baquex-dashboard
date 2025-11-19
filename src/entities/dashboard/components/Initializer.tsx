@@ -3,13 +3,10 @@ import { useQueryClient, type QueryKey } from "@tanstack/react-query";
 import { useAnnounceErrors } from "@utils/use-announce-errors";
 import { useIsInitialFetch } from "@utils/use-is-initial-fetch";
 import { useEffect } from "react";
-import { dashboardQueryKeys } from "../../constants.ts";
-import { useDashboardQuery } from "../../queries.ts";
-import {
-  dashboardPermissionsStore,
-  dashboardProfileStore,
-} from "../../stores.ts";
-import type { DashboardData } from "../../types.ts";
+import { dashboardQueryKeys } from "../constants.ts";
+import { useDashboardQuery } from "../queries.ts";
+import { dashboardPermissionsStore, dashboardProfileStore } from "../stores.ts";
+import type { DashboardData } from "../types.ts";
 
 export const Initializer: React.FC<React.PropsWithChildren> = props => {
   const { children } = props;
