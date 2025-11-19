@@ -195,6 +195,8 @@ export const Radio: React.FC<RadioProps> = props => {
   };
 
   const renderIndicatorIcon = () => {
+    if (!checked) return null;
+
     return (
       <div
         aria-hidden
@@ -308,7 +310,7 @@ export const Radio: React.FC<RadioProps> = props => {
           className={cn(classes["input"], classNames?.input)}
         >
           <div className={cn(classes["indicator"], classNames?.indicator)}>
-            {checked && renderIndicatorIcon()}
+            {renderIndicatorIcon()}
           </div>
         </button>
         {renderLabel()}
